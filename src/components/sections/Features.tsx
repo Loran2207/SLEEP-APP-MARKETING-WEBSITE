@@ -22,7 +22,9 @@ const AUTO_ADVANCE_SECONDS = AUTO_ADVANCE_MS / 1000;
 
 type FeatureTab = (typeof features.tabs)[number];
 
-const hueTokens: Record<FeatureTab["hue"], string> = {
+// Keyed on the whole palette rather than on the hues that happen to be in the data
+// right now, so re-colouring a tab never breaks the build.
+const hueTokens: Record<"blue" | "coral" | "mint" | "violet", string> = {
   blue: "var(--color-blue)",
   coral: "var(--color-coral)",
   mint: "var(--color-mint)",
