@@ -136,14 +136,31 @@ export default function Nav() {
 
   return (
     <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 px-4">
+      <span
+        aria-hidden="true"
+        className={cn(
+          "pointer-events-none absolute top-[58%] left-1/2 -z-20 h-20 w-[72%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,color-mix(in srgb, var(--color-blue) 12%, transparent)_0%,color-mix(in srgb, var(--color-blue) 5%, transparent)_38%,transparent_76%)] blur-[18px] [mask-image:radial-gradient(ellipse_at_center,black_0%,rgba(0,0,0,0.88)_38%,transparent_78%)] transition-opacity duration-300 ease-[var(--ease-out-expo)] motion-reduce:transition-none",
+          isScrolled ? "opacity-100" : "opacity-0",
+        )}
+      />
+
       <nav
         ref={primaryNavRef}
         aria-label="Primary navigation"
         className={cn(
-          "relative mx-auto mt-4 flex h-14 max-w-[1060px] items-center justify-between rounded-full px-5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-[250ms]",
-          isScrolled && "glass rim border border-hair",
+          "relative isolate mx-auto mt-4 flex h-14 max-w-[1060px] items-center justify-between rounded-full border border-transparent px-5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-[var(--ease-out-expo)] motion-reduce:transition-none",
+          isScrolled &&
+            "border-[rgba(255,255,255,0.10)] bg-[rgba(245,245,247,0.03)] shadow-[inset_0_1px_0_rgba(255,255,255,0.10),inset_0_-1px_0_rgba(255,255,255,0.025),inset_0_0_24px_rgba(255,255,255,0.02)] backdrop-blur-[18px] backdrop-saturate-[1.15]",
         )}
       >
+        <span
+          aria-hidden="true"
+          className={cn(
+            "pointer-events-none absolute top-0 left-[12%] -z-10 h-px w-[76%] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.22)_50%,transparent)] transition-opacity duration-300 ease-[var(--ease-out-expo)] motion-reduce:transition-none",
+            isScrolled ? "opacity-100" : "opacity-0",
+          )}
+        />
+
         <Brand />
 
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 lg:flex">
@@ -227,13 +244,11 @@ export default function Nav() {
               </nav>
 
               <div className="shrink-0 border-t border-hair px-9 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-                <Link
-                  href="#get"
-                  onClick={closeMenu}
-                  className="inline-flex h-11 w-full items-center justify-center whitespace-nowrap rounded-full bg-ink px-6 text-[15px] font-medium text-void shadow-[0_0_18px_var(--color-hair-strong)] transition-[background-color,border-color,box-shadow,transform] duration-150 hover:-translate-y-px hover:shadow-[0_0_28px_var(--color-hair-strong)] active:translate-y-0"
-                >
-                  {nav.cta}
-                </Link>
+                <div onClickCapture={closeMenu}>
+                  <Button href="#get" size="md" className="w-full">
+                    {nav.cta}
+                  </Button>
+                </div>
               </div>
             </motion.div>
           ) : null}

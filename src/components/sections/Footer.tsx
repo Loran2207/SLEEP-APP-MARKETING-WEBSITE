@@ -9,6 +9,9 @@ import { Container } from "@/components/primitives/Container";
 import { footer } from "@/data/content";
 import { fadeUp, stagger, viewportEdge } from "@/lib/motion";
 
+const horizonGlow =
+  "radial-gradient(ellipse 68% 110% at 50% 126%, color-mix(in srgb, var(--color-blue) 20%, transparent) 0%, color-mix(in srgb, var(--color-blue) 11%, transparent) 34%, color-mix(in srgb, var(--color-blue) 3%, transparent) 54%, transparent 74%)";
+
 export default function Footer() {
   const [year, setYear] = useState<number | null>(null);
   const legalLinks = footer.columns
@@ -24,7 +27,12 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="border-t border-hair py-16">
+    <footer className="relative isolate border-t border-hair py-16">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-72 md:h-80"
+        style={{ backgroundImage: horizonGlow }}
+      />
       <Container>
         <motion.div
           variants={stagger()}

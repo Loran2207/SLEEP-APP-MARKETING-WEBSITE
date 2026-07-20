@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 
 export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <Section>
@@ -57,11 +58,30 @@ export function Faq() {
                   size={18}
                   strokeWidth={1.5}
                   className={cn(
-                    "shrink-0 text-muted transition-[color,transform] duration-200 group-hover:text-ink-2 group-focus-visible:text-blue",
-                    isOpen && "rotate-180 text-blue",
+                    "shrink-0 transition-[color,transform] duration-200 ease-[var(--ease-out-expo)] motion-reduce:transition-none",
+                    isOpen
+                      ? "rotate-180 text-blue group-hover:text-blue"
+                      : "text-muted group-hover:text-ink-2 group-focus-visible:text-blue",
                   )}
                 />
               </button>
+
+              <motion.div
+                aria-hidden="true"
+                initial={false}
+                animate={{
+                  opacity: isOpen ? 1 : 0,
+                }}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0 }
+                    : { duration: isOpen ? 0.42 : 0.2, ease: EASE }
+                }
+                className="pointer-events-none relative -mt-px h-px"
+              >
+                <span className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,color-mix(in srgb, var(--color-blue) 14%, transparent)_18%,color-mix(in srgb, var(--color-blue) 52%, transparent)_50%,color-mix(in srgb, var(--color-blue) 14%, transparent)_82%,transparent_100%)]" />
+                <span className="absolute inset-x-[12%] -inset-y-2 bg-[radial-gradient(ellipse_at_center,color-mix(in srgb, var(--color-blue) 16%, transparent)_0%,color-mix(in srgb, var(--color-blue) 6%, transparent)_38%,transparent_74%)] blur-[5px]" />
+              </motion.div>
 
               <motion.div
                 id={panelId}
@@ -72,22 +92,38 @@ export function Faq() {
                 initial={false}
                 animate={{
                   gridTemplateRows: isOpen ? "1fr" : "0fr",
-                  opacity: isOpen ? 1 : 0,
                 }}
-                transition={{
-                  gridTemplateRows: { duration: 0.3, ease: EASE },
-                  opacity: {
-                    duration: 0.18,
-                    delay: isOpen ? 0.05 : 0,
-                    ease: EASE,
-                  },
-                }}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0 }
+                    : {
+                        gridTemplateRows: {
+                          duration: isOpen ? 0.46 : 0.34,
+                          ease: EASE,
+                        },
+                      }
+                }
                 className="grid"
               >
                 <div className="overflow-hidden">
-                  <p className="max-w-[64ch] pr-10 pb-6 text-[15px] leading-[1.65] text-ink-2 md:pr-12 md:pb-7">
+                  <motion.p
+                    initial={false}
+                    animate={{
+                      opacity: isOpen ? 1 : 0,
+                    }}
+                    transition={
+                      prefersReducedMotion
+                        ? { duration: 0 }
+                        : {
+                            duration: isOpen ? 0.3 : 0.16,
+                            delay: isOpen ? 0.09 : 0,
+                            ease: EASE,
+                          }
+                    }
+                    className="max-w-[64ch] pr-10 pb-6 text-[15px] leading-[1.65] text-ink-2 md:pr-12 md:pb-7"
+                  >
                     {item.a}
-                  </p>
+                  </motion.p>
                 </div>
               </motion.div>
             </motion.div>

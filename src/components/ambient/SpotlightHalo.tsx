@@ -19,8 +19,13 @@ const hueTokens: Record<SpotlightHue, { accent: string; cast: string }> = {
 
 export function SpotlightHalo({ hue = "white", className }: SpotlightHaloProps) {
   const { accent, cast } = hueTokens[hue];
-  const mask =
-    "radial-gradient(ellipse 72% 96% at 50% 0%, black 0%, rgb(0 0 0 / 0.88) 38%, transparent 84%)";
+  // Two masks intersected. The radial one shapes the halo; the linear one forces
+  // it to zero at the very top edge, so the clip on Section can never expose a seam.
+  const maskRadial =
+    "radial-gradient(ellipse 78% 104% at 50% 4%, black 0%, rgb(0 0 0 / 0.88) 40%, transparent 86%)";
+  const maskTopFade =
+    "linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 0.35) 7%, rgb(0 0 0 / 0.8) 16%, black 30%)";
+  const mask = `${maskRadial}, ${maskTopFade}`;
   const conicStyle: CSSProperties = {
     backgroundImage: `conic-gradient(from 150deg at 50% -10%, transparent 0deg, color-mix(in srgb, ${cast} 7%, transparent) 12deg, color-mix(in srgb, ${accent} 17%, transparent) 30deg, color-mix(in srgb, ${cast} 7%, transparent) 48deg, transparent 60deg)`,
   };
@@ -35,11 +40,16 @@ export function SpotlightHalo({ hue = "white", className }: SpotlightHaloProps) 
         "pointer-events-none absolute top-0 left-1/2 h-[440px] w-[min(1200px,120vw)] -translate-x-1/2 overflow-hidden",
         className,
       )}
-      style={{ maskImage: mask, WebkitMaskImage: mask }}
+      style={{
+        maskImage: mask,
+        WebkitMaskImage: mask,
+        maskComposite: "intersect",
+        WebkitMaskComposite: "source-in",
+      }}
     >
       <div className="absolute inset-0 blur-[48px]" style={conicStyle} />
       <div
-        className="absolute -top-20 left-1/2 h-[320px] w-[70%] -translate-x-1/2 blur-[64px]"
+        className="absolute -top-8 left-1/2 h-[320px] w-[70%] -translate-x-1/2 blur-[64px]"
         style={glowStyle}
       />
     </div>
