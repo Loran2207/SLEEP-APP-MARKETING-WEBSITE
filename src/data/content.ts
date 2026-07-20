@@ -244,7 +244,7 @@ export const how = {
       title: "Put the phone down",
       body: "Start tracking, place the phone face down and let the sounds do their work.",
       shot: "/app/tracking-active.webp",
-      objectPosition: "50% 19%",
+      objectPosition: "50% 40%",
     },
     {
       n: "03",
