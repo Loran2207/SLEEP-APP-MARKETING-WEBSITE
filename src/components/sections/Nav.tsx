@@ -171,7 +171,7 @@ export default function Nav() {
           aria-expanded={isOpen}
           aria-controls={MOBILE_NAV_ID}
           onClick={() => setIsOpen(true)}
-          className="grid size-10 place-items-center rounded-full text-ink transition-colors duration-150 hover:bg-ink/[0.06] lg:hidden"
+          className="grid size-11 place-items-center rounded-full text-ink transition-colors duration-150 hover:bg-ink/[0.06] lg:hidden"
         >
           <Menu aria-hidden="true" size={20} strokeWidth={1.75} />
         </button>
@@ -191,7 +191,7 @@ export default function Nav() {
               exit="hidden"
               className="fixed inset-x-0 top-0 bottom-0 z-50 flex flex-col bg-void/95 backdrop-blur-xl lg:hidden"
             >
-              <div className="flex h-[88px] shrink-0 items-center justify-between px-5">
+              <div className="flex h-[88px] shrink-0 items-center justify-between px-9">
                 <Brand onClick={closeMenu} />
                 <button
                   ref={closeButtonRef}
@@ -204,7 +204,7 @@ export default function Nav() {
                 </button>
               </div>
 
-              <nav aria-label="Mobile navigation" className="min-h-0 flex-1 overflow-y-auto px-5">
+              <nav aria-label="Mobile navigation" className="min-h-0 flex-1 overflow-y-auto px-9">
                 <motion.ul
                   variants={stagger(0.08, 0.1)}
                   initial="hidden"
@@ -226,7 +226,7 @@ export default function Nav() {
                 </motion.ul>
               </nav>
 
-              <div className="shrink-0 border-t border-hair px-5 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+              <div className="shrink-0 border-t border-hair px-9 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
                 <Link
                   href="#get"
                   onClick={closeMenu}

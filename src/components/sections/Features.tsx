@@ -123,7 +123,7 @@ export function Features() {
       >
         <div className="mx-auto max-w-[720px]">
           <Eyebrow>{featuresEyebrow}</Eyebrow>
-          <div className="mt-7">
+          <div className="mt-7 [&_p]:text-balance">
             <SectionHeading {...features.heading} sub={features.sub} />
           </div>
         </div>
@@ -134,7 +134,7 @@ export function Features() {
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="min-h-[420px] min-w-0 w-full"
+            className="min-h-[400px] min-w-0 w-full md:min-h-[420px]"
           >
             <div>
               {features.tabs.map((tab, index) => {
@@ -210,7 +210,7 @@ export function Features() {
             viewport={viewportOnce}
             className="relative flex w-full justify-center lg:w-auto"
           >
-            <div className="pointer-events-none absolute -inset-x-32 -inset-y-20 -z-10 overflow-hidden">
+            <div className="pointer-events-none absolute -inset-x-32 -inset-y-20 -z-10 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,black_58%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_at_center,black_58%,transparent_100%)]">
               <AnimatePresence initial={false}>
                 <motion.div
                   key={`aurora-${activeTab.id}`}
@@ -226,7 +226,7 @@ export function Features() {
             </div>
 
             <div className="relative aspect-[280/584] w-[280px] shrink-0 lg:w-[320px]">
-              <AnimatePresence mode="wait" initial={false}>
+              <AnimatePresence initial={false}>
                 <motion.div
                   key={activeTab.id}
                   initial={{ opacity: 0, scale: 0.985 }}

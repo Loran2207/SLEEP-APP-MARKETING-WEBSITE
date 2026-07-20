@@ -47,7 +47,7 @@ export function Faq() {
                 onClick={() =>
                   setOpenIndex((current) => (current === index ? null : index))
                 }
-                className="flex w-full items-center justify-between gap-6 py-6 text-left md:py-7"
+                className="group flex w-full items-center justify-between gap-6 py-6 text-left md:py-7"
               >
                 <span className="min-w-0 text-[17px] font-medium text-ink">
                   {item.q}
@@ -57,8 +57,8 @@ export function Faq() {
                   size={18}
                   strokeWidth={1.5}
                   className={cn(
-                    "shrink-0 text-muted transition-transform duration-200",
-                    isOpen && "rotate-180",
+                    "shrink-0 text-muted transition-[color,transform] duration-200 group-hover:text-ink-2 group-focus-visible:text-blue",
+                    isOpen && "rotate-180 text-blue",
                   )}
                 />
               </button>
@@ -74,11 +74,18 @@ export function Faq() {
                   gridTemplateRows: isOpen ? "1fr" : "0fr",
                   opacity: isOpen ? 1 : 0,
                 }}
-                transition={{ duration: 0.2, ease: EASE }}
+                transition={{
+                  gridTemplateRows: { duration: 0.3, ease: EASE },
+                  opacity: {
+                    duration: 0.18,
+                    delay: isOpen ? 0.05 : 0,
+                    ease: EASE,
+                  },
+                }}
                 className="grid"
               >
                 <div className="overflow-hidden">
-                  <p className="pr-10 pb-6 text-[15px] leading-[1.65] text-ink-2 md:pr-12 md:pb-7">
+                  <p className="max-w-[64ch] pr-10 pb-6 text-[15px] leading-[1.65] text-ink-2 md:pr-12 md:pb-7">
                     {item.a}
                   </p>
                 </div>

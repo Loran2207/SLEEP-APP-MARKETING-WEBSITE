@@ -35,14 +35,18 @@ export function Trio() {
             <motion.li
               key={item.title}
               variants={fadeUp}
-              className="list-none transition-[translate,border-color,background-color] duration-150 hover:-translate-y-[2px]"
+              className="list-none transition-transform duration-150 ease-[var(--ease-out-expo)] motion-safe:hover:-translate-y-px"
             >
               <GlassCard hue={item.hue} className="h-full">
                 <Medallion hue={item.hue}>
                   <Icon aria-hidden="true" className="size-5" strokeWidth={1.5} />
                 </Medallion>
-                <h3 className="mt-6 text-[19px] font-medium text-ink">{item.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{item.body}</p>
+                <h3 className="mt-6 text-[19px] leading-snug font-medium tracking-[-0.02em] text-ink">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-pretty text-[16px] leading-relaxed text-ink-2">
+                  {item.body}
+                </p>
               </GlassCard>
             </motion.li>
           );

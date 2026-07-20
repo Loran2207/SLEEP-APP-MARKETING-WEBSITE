@@ -94,7 +94,7 @@ export default function Footer() {
           <motion.div variants={fadeUp} className="mt-12">
             <div aria-hidden="true" className="hair-fade h-px w-full" />
             <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-[13px]">
-              <p className="text-faint">
+              <p className="text-muted">
                 © {year ? `${year} ` : ""}{footer.brand}. All rights reserved.
               </p>
               <div className="flex flex-wrap gap-x-6 gap-y-2">
@@ -102,7 +102,7 @@ export default function Footer() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-faint transition-colors duration-150 hover:text-muted"
+                    className="text-muted transition-colors duration-150 hover:text-ink-2"
                   >
                     {link.label}
                   </Link>

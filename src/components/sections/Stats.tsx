@@ -31,7 +31,7 @@ export default function Stats() {
             <dd className="accent-serif mt-1 text-[20px] leading-tight text-blue md:text-[24px]">
               {item.label}
             </dd>
-            <dd className="mx-auto mt-3 max-w-[280px] text-[15px] leading-relaxed text-ink-2">
+            <dd className="mx-auto mt-3 max-w-[300px] text-pretty text-[15px] leading-relaxed text-ink-2">
               {item.body}
             </dd>
           </motion.div>

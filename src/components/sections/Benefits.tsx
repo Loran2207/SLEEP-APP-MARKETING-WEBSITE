@@ -68,7 +68,7 @@ export default function Benefits() {
               <motion.li
                 key={item.title}
                 variants={fadeUp}
-                className="flex items-start gap-5 py-6"
+                className="flex items-start gap-5 py-6 first:pt-0"
               >
                 <Medallion hue={item.hue} size={44}>
                   <Icon aria-hidden="true" size={20} strokeWidth={1.6} />
@@ -77,7 +77,7 @@ export default function Benefits() {
                   <h3 className="text-[17px] font-medium text-ink">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-ink-2">
+                  <p className="mt-2 text-pretty text-[16px] leading-relaxed text-ink-2">
                     {item.body}
                   </p>
                 </div>

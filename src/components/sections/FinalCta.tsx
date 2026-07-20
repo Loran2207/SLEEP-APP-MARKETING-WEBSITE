@@ -93,7 +93,7 @@ export function FinalCta() {
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
         <Aurora hues={["blue", "violet"]} />
-        <SpotlightHalo hue="blue" />
+        <SpotlightHalo hue="blue" className="md:h-[560px]" />
         <StarField count={90} />
       </div>
 
@@ -123,7 +123,7 @@ export function FinalCta() {
 
         <div
           aria-hidden="true"
-          className="hair-fade mx-auto mt-24 h-px w-full max-w-[720px] md:mt-32"
+          className="hair-fade mx-auto mt-24 h-px w-full max-w-[720px]"
         />
 
         <motion.div
@@ -131,54 +131,55 @@ export function FinalCta() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="mx-auto mt-16 max-w-[520px] md:mt-20"
+          className="mx-auto mt-16 max-w-[520px]"
         >
           <h3 className="text-[19px] font-medium text-ink">{finalCta.newsletterTitle}</h3>
           <p className="mt-3 text-[15px] text-ink-2">{finalCta.newsletterBody}</p>
 
-          {status !== "done" ? (
-            <form
-              className="mt-7"
-              onSubmit={handleSubmit}
-              noValidate
-              aria-busy={status === "loading"}
-            >
-              <div className="rim flex w-full items-center gap-2 rounded-full border border-hair bg-surface p-1.5 pl-5 transition-colors duration-150 focus-within:border-hair-strong focus-within:ring-1 focus-within:ring-ink/25">
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  autoComplete="email"
-                  inputMode="email"
-                  aria-label="Email address"
-                  aria-invalid={status === "error"}
-                  aria-describedby={status === "error" ? "subscribe-status" : undefined}
-                  placeholder={finalCta.newsletterPlaceholder}
-                  className="min-w-0 flex-1 appearance-none border-0 bg-transparent py-2 text-[15px] text-ink placeholder:text-faint"
-                />
-                <Button type="submit" size="md" className="shrink-0">
-                  {finalCta.newsletterCta}
-                </Button>
-              </div>
-            </form>
-          ) : null}
+          <div className="mt-7 grid grid-rows-[3.625rem_1.25rem] gap-4">
+            {status !== "done" ? (
+              <form
+                className="row-start-1"
+                onSubmit={handleSubmit}
+                noValidate
+                aria-busy={status === "loading"}
+              >
+                <div className="rim flex w-full items-center gap-2 rounded-full border border-hair bg-surface p-1.5 pl-5 transition-colors duration-150 focus-within:border-hair-strong focus-within:ring-1 focus-within:ring-ink/25">
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    autoComplete="email"
+                    inputMode="email"
+                    aria-label="Email address"
+                    aria-invalid={status === "error"}
+                    aria-describedby={status === "error" ? "subscribe-status" : undefined}
+                    placeholder={finalCta.newsletterPlaceholder}
+                    className="h-11 min-w-0 flex-1 appearance-none border-0 bg-transparent text-[15px] text-ink placeholder:text-faint"
+                  />
+                  <Button type="submit" size="md" className="shrink-0">
+                    {finalCta.newsletterCta}
+                  </Button>
+                </div>
+              </form>
+            ) : null}
 
-          <p
-            id="subscribe-status"
-            aria-live="polite"
-            aria-atomic="true"
-            className={cn(
-              "min-h-5 text-[14px]",
-              status !== "idle" && status !== "done" && "mt-4",
-              status === "done"
-                ? "mt-7 text-mint"
-                : status === "error"
-                  ? "text-coral"
-                  : "text-ink-2",
-            )}
-          >
-            {statusMessage}
-          </p>
+            <p
+              id="subscribe-status"
+              aria-live="polite"
+              aria-atomic="true"
+              className={cn(
+                "min-h-5 text-[14px]",
+                status === "done"
+                  ? "row-start-1 self-center text-mint"
+                  : status === "error"
+                    ? "row-start-2 text-coral"
+                    : "row-start-2 text-ink-2",
+              )}
+            >
+              {statusMessage}
+            </p>
+          </div>
         </motion.div>
       </div>
     </Section>

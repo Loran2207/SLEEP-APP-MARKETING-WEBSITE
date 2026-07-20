@@ -72,10 +72,10 @@ export default function HowItWorks() {
               <p className="accent-serif mt-8 text-[20px] text-muted">
                 {step.n}
               </p>
-              <h3 className="mt-2 text-[19px] font-medium text-ink">
+              <h3 className="mt-2 text-[20px] leading-[1.3] font-medium tracking-[-0.02em] text-ink">
                 {step.title}
               </h3>
-              <p className="mx-auto mt-3 max-w-[300px] text-[15px] leading-relaxed text-ink-2">
+              <p className="mx-auto mt-3 max-w-[320px] text-pretty text-[16px] leading-[1.6] tracking-[-0.01em] text-ink-2">
                 {step.body}
               </p>
             </motion.li>

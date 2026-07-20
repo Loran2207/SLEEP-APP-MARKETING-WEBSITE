@@ -83,7 +83,7 @@ export default function Hero() {
 
           <motion.p
             variants={fadeUp}
-            className="mx-auto mt-6 max-w-[600px] text-pretty text-[17px] text-ink-2 md:text-[19px]"
+            className="mx-auto mt-6 max-w-[660px] text-pretty text-[17px] text-ink-2 md:text-[19px]"
           >
             {hero.sub}
           </motion.p>
@@ -134,7 +134,7 @@ export default function Hero() {
               initial="hidden"
               whileInView="show"
               viewport={viewportOnce}
-              className="absolute top-[15%] right-[calc(50%_+_178px)] z-[30] w-[236px]"
+              className="absolute top-[15%] right-[calc(50%_+_178px)] z-[30] w-[252px]"
             >
               <div className="-rotate-[3deg]">
                 <FloatingCard item={floatingCards[0]} />
@@ -146,7 +146,7 @@ export default function Hero() {
               initial="hidden"
               whileInView="show"
               viewport={viewportOnce}
-              className="absolute top-[56%] left-[calc(50%_+_178px)] z-[30] w-[236px]"
+              className="absolute top-[56%] left-[calc(50%_+_178px)] z-[30] w-[252px]"
             >
               <div className="rotate-[3deg]">
                 <FloatingCard item={floatingCards[1]} />

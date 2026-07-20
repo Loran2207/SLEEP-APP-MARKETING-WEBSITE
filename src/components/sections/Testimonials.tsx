@@ -28,7 +28,7 @@ export default function Testimonials() {
         initial="hidden"
         whileInView="show"
         viewport={viewportOnce}
-        className="mt-14 grid auto-rows-fr grid-cols-1 gap-5 md:mt-16 md:grid-cols-2 lg:grid-cols-3"
+        className="mt-14 grid grid-cols-1 gap-5 md:mt-16 md:auto-rows-fr md:grid-cols-2 lg:grid-cols-3"
       >
         {testimonials.items.map((testimonial) => (
           <motion.div
@@ -44,7 +44,7 @@ export default function Testimonials() {
                   strokeWidth={1.5}
                   className="text-faint"
                 />
-                <blockquote className="flex-1 text-[16px] leading-[1.6] text-ink-2">
+                <blockquote className="flex-1 text-pretty text-[16px] leading-[1.6] text-ink-2">
                   {testimonial.quote}
                 </blockquote>
                 <div
@@ -52,7 +52,7 @@ export default function Testimonials() {
                   className="my-6 w-full border-t border-hair"
                 />
                 <figcaption>
-                  <span className="block text-[14px] text-ink">
+                  <span className="block text-[14px] font-medium text-ink">
                     {testimonial.name}
                   </span>
                   <span className="mt-1 block text-[13px] text-muted">
