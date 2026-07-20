@@ -1,18 +1,17 @@
 "use client";
 
-import { AudioLines, Wind } from "lucide-react";
+import { AlarmClock, AudioLines, BookOpenText, Wind } from "lucide-react";
 import { motion } from "motion/react";
 
-import { Aurora } from "@/components/ambient/Aurora";
 import { Medallion } from "@/components/ambient/Medallion";
-import { SpotlightHalo } from "@/components/ambient/SpotlightHalo";
+import { Moonrise } from "@/components/ambient/Moonrise";
 import { StarField } from "@/components/ambient/StarField";
 import { Button } from "@/components/primitives/Button";
 import { Container } from "@/components/primitives/Container";
 import { DisplayHeading } from "@/components/primitives/DisplayHeading";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { GlassCard } from "@/components/primitives/GlassCard";
-import { PhoneFrame } from "@/components/primitives/PhoneFrame";
+import { ScreenFrame } from "@/components/primitives/ScreenFrame";
 import { hero } from "@/data/content";
 import {
   fadeLeft,
@@ -22,6 +21,7 @@ import {
   stagger,
   viewportOnce,
 } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 const floatingCards = [
   {
@@ -29,12 +29,32 @@ const floatingCards = [
     icon: Wind,
     reveal: fadeRight,
     driftDelay: "-1.4s",
+    position: "top-[12%] right-[calc(50%_+_182px)]",
+    rotation: "-rotate-[3deg]",
   },
   {
     content: hero.floatingCards[1],
     icon: AudioLines,
     reveal: fadeLeft,
     driftDelay: "-4.8s",
+    position: "top-[28%] left-[calc(50%_+_182px)]",
+    rotation: "rotate-[3deg]",
+  },
+  {
+    content: hero.floatingCards[2],
+    icon: AlarmClock,
+    reveal: fadeRight,
+    driftDelay: "-3.2s",
+    position: "top-[55%] right-[calc(50%_+_182px)]",
+    rotation: "rotate-[2deg]",
+  },
+  {
+    content: hero.floatingCards[3],
+    icon: BookOpenText,
+    reveal: fadeLeft,
+    driftDelay: "-6.1s",
+    position: "top-[71%] left-[calc(50%_+_182px)]",
+    rotation: "-rotate-[2deg]",
   },
 ] as const;
 
@@ -62,8 +82,6 @@ export default function Hero() {
   return (
     <section className="relative isolate overflow-hidden pt-[132px] pb-[72px] md:pt-[168px] md:pb-[96px]">
       <StarField count={120} className="z-0" />
-      <SpotlightHalo hue="white" className="z-0" />
-      <Aurora hues={["blue", "violet"]} intensity="soft" className="z-0" />
 
       <Container className="relative">
         <motion.div
@@ -102,17 +120,42 @@ export default function Hero() {
         </motion.div>
 
         <div className="relative mt-16 md:mt-20">
+          {/* The moon crests just above the screen's top edge. It must never sit
+              behind the paragraph, where its brightness eats the text contrast. */}
+          <Moonrise
+            size={460}
+            intensity="soft"
+            className="absolute top-[-168px] left-1/2 z-10 origin-[50%_58%] -translate-x-1/2 scale-[0.52] sm:scale-[0.74] lg:scale-95"
+          />
+
           <motion.div
             variants={stagger(0, 0.4)}
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="relative z-10"
+            className="relative z-20"
           >
             <motion.div variants={scaleIn} className="mx-auto w-[264px] md:w-[300px]">
-              <PhoneFrame src={hero.shot} alt={hero.shotAlt} priority className="w-full" />
+              <ScreenFrame
+                src={hero.shot}
+                alt={hero.shotAlt}
+                hue="blue"
+                priority
+                className="w-full"
+              />
             </motion.div>
           </motion.div>
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-[-18px] left-1/2 z-[25] h-20 w-[min(440px,92vw)] -translate-x-1/2 opacity-40 blur-[22px]"
+            style={{
+              backgroundImage:
+                "radial-gradient(ellipse at center, color-mix(in srgb, var(--color-blue-soft) 30%, transparent) 0%, color-mix(in srgb, var(--color-blue) 18%, transparent) 38%, transparent 74%)",
+              maskImage: "radial-gradient(ellipse at center, black 0%, transparent 76%)",
+              WebkitMaskImage: "radial-gradient(ellipse at center, black 0%, transparent 76%)",
+            }}
+          />
 
           <div className="relative z-[30] mt-10 grid grid-cols-2 gap-3 lg:hidden">
             {floatingCards.map((item) => (
@@ -129,29 +172,20 @@ export default function Hero() {
           </div>
 
           <div className="hidden lg:block">
-            <motion.article
-              variants={floatingCards[0].reveal}
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportOnce}
-              className="absolute top-[15%] right-[calc(50%_+_178px)] z-[30] w-[252px]"
-            >
-              <div className="-rotate-[3deg]">
-                <FloatingCard item={floatingCards[0]} />
-              </div>
-            </motion.article>
-
-            <motion.article
-              variants={floatingCards[1].reveal}
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportOnce}
-              className="absolute top-[56%] left-[calc(50%_+_178px)] z-[30] w-[252px]"
-            >
-              <div className="rotate-[3deg]">
-                <FloatingCard item={floatingCards[1]} />
-              </div>
-            </motion.article>
+            {floatingCards.map((item) => (
+              <motion.article
+                key={item.content.title}
+                variants={item.reveal}
+                initial="hidden"
+                whileInView="show"
+                viewport={viewportOnce}
+                className={cn("absolute z-[30] w-[228px] xl:w-[252px]", item.position)}
+              >
+                <div className={item.rotation}>
+                  <FloatingCard item={item} />
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
       </Container>

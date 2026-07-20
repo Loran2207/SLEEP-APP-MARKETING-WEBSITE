@@ -14,9 +14,9 @@ type ButtonProps = {
 
 const variantClasses = {
   primary:
-    "bg-ink text-void shadow-[0_0_18px_var(--color-hair-strong)] hover:-translate-y-px hover:shadow-[0_0_28px_var(--color-hair-strong)] active:translate-y-0",
+    "bg-[linear-gradient(180deg,white_0%,var(--color-ink)_100%)] text-void shadow-[inset_0_1px_0_rgba(255,255,255,0.42),inset_0_-1px_0_rgba(0,0,0,0.18),0_0_16px_rgba(255,255,255,0.12),0_0_30px_rgba(255,255,255,0.06)] hover:-translate-y-px hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.48),inset_0_-1px_0_rgba(0,0,0,0.16),0_0_22px_rgba(255,255,255,0.18),0_0_42px_rgba(255,255,255,0.10)] active:translate-y-px active:shadow-[inset_0_1px_0_rgba(255,255,255,0.34),inset_0_-1px_0_rgba(0,0,0,0.22),0_0_10px_rgba(255,255,255,0.10),0_0_20px_rgba(255,255,255,0.05)]",
   secondary:
-    "border border-hair-strong bg-transparent text-ink hover:border-ink/35 hover:bg-ink/[0.04]",
+    "border border-[rgba(255,255,255,0.10)] bg-[rgba(255,255,255,0.04)] text-ink hover:border-[rgba(255,255,255,0.18)] hover:bg-[rgba(255,255,255,0.07)] active:bg-[rgba(255,255,255,0.05)]",
 } as const;
 
 const sizeClasses = {
@@ -33,16 +33,25 @@ export function Button({
   type,
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium transition-[background-color,border-color,box-shadow,transform] duration-150",
+    "group relative isolate inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-full font-medium transition-[background-color,border-color,box-shadow,transform] duration-150 motion-reduce:transform-none",
     variantClasses[variant],
     sizeClasses[size],
     className,
+  );
+  const content = (
+    <>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-[-35%] left-0 w-[40%] -translate-x-[180%] -skew-x-[18deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.72),transparent)] blur-[5px] transition-transform duration-0 ease-[var(--ease-out-expo)] group-hover:translate-x-[420%] group-hover:duration-[600ms] motion-reduce:hidden"
+      />
+      <span className="relative z-10 inline-flex items-center justify-center">{children}</span>
+    </>
   );
 
   if (href?.startsWith("/") || href?.startsWith("#")) {
     return (
       <Link href={href} className={classes}>
-        {children}
+        {content}
       </Link>
     );
   }
@@ -50,14 +59,14 @@ export function Button({
   if (href?.startsWith("http://") || href?.startsWith("https://")) {
     return (
       <a href={href} className={classes} target="_blank" rel="noreferrer">
-        {children}
+        {content}
       </a>
     );
   }
 
   return (
     <button type={type ?? "button"} className={classes}>
-      {children}
+      {content}
     </button>
   );
 }

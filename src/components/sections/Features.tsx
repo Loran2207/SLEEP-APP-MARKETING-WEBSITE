@@ -10,7 +10,7 @@ import {
 
 import { Aurora } from "@/components/ambient/Aurora";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
-import { PhoneFrame } from "@/components/primitives/PhoneFrame";
+import { ScreenFrame } from "@/components/primitives/ScreenFrame";
 import { Section } from "@/components/primitives/Section";
 import { SectionHeading } from "@/components/primitives/SectionHeading";
 import { features, nav } from "@/data/content";
@@ -225,7 +225,7 @@ export function Features() {
               </AnimatePresence>
             </div>
 
-            <div className="relative aspect-[280/584] w-[280px] shrink-0 lg:w-[320px]">
+            <div className="relative aspect-[201/437] w-[280px] shrink-0 lg:w-[320px]">
               <AnimatePresence initial={false}>
                 <motion.div
                   key={activeTab.id}
@@ -235,9 +235,10 @@ export function Features() {
                   transition={{ duration: 0.4, ease: EASE }}
                   className="absolute inset-x-0 top-0"
                 >
-                  <PhoneFrame
+                  <ScreenFrame
                     src={activeTab.shot}
                     alt={activeTab.shotAlt}
+                    hue={activeTab.hue}
                     className="w-[280px] lg:w-[320px]"
                   />
                 </motion.div>

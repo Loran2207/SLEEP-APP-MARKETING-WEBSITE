@@ -64,7 +64,8 @@ export default function HowItWorks() {
                     alt=""
                     fill
                     sizes="220px"
-                    className="object-cover object-top"
+                    className="object-cover"
+                    style={{ objectPosition: step.objectPosition }}
                   />
                 </div>
               </div>

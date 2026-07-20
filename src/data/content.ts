@@ -31,6 +31,8 @@ export const hero = {
   floatingCards: [
     { title: "Breathing", value: "2 sessions today", hue: "blue" },
     { title: "Sounds", value: "Rain, fire, flute", hue: "coral" },
+    { title: "Tonight", value: "Alarm 06:30", hue: "violet" },
+    { title: "Diary", value: "9 questions", hue: "mint" },
   ],
 } as const;
 
@@ -79,8 +81,8 @@ export const features = {
       title: "Start tracking in one tap",
       body: "Nap or full night. Put the phone face down beside you and the app takes it from there.",
       hue: "blue",
-      shot: "/app/track-mode.webp",
-      shotAlt: "Sleep tracking mode screen",
+      shot: "/app/track-night.webp",
+      shotAlt: "Night tracking setup screen",
     },
     {
       id: "winddown",
@@ -97,8 +99,8 @@ export const features = {
       title: "Mix your own quiet",
       body: "Layer rain, fire and flute at your own levels, set a stop timer, then run a guided 4-7-8 breathing session.",
       hue: "coral",
-      shot: "/app/sounds-player.webp",
-      shotAlt: "Sound mixer and breathing screen",
+      shot: "/app/schedule-mix.webp",
+      shotAlt: "Sound library with quick mixes and sound icon grid",
     },
     {
       id: "diary",
@@ -235,18 +237,21 @@ export const how = {
       title: "Set tonight in two taps",
       body: "Choose alarm, breathing and sounds once. Tonight is ready.",
       shot: "/app/wind-down.webp",
+      objectPosition: "50% 8%",
     },
     {
       n: "02",
       title: "Put the phone down",
       body: "Start tracking, place the phone face down and let the sounds do their work.",
-      shot: "/app/tracking-active.webp",
+      shot: "/app/place-device.webp",
+      objectPosition: "50% 27%",
     },
     {
       n: "03",
       title: "Answer three questions",
       body: "Log mood and a note in the morning. The diary builds the rest.",
       shot: "/app/wakeup-survey.webp",
+      objectPosition: "50% 9%",
     },
   ],
   cta: "Get the app",

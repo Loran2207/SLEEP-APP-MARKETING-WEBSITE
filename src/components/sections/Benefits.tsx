@@ -2,18 +2,29 @@
 
 import { MoonStar, ShieldBan, Timer } from "lucide-react";
 import { motion } from "motion/react";
+import type { CSSProperties } from "react";
 
-import { Aurora } from "@/components/ambient/Aurora";
 import { Medallion } from "@/components/ambient/Medallion";
 import { StarField } from "@/components/ambient/StarField";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
-import { PhoneFrame } from "@/components/primitives/PhoneFrame";
+import { ScreenFrame } from "@/components/primitives/ScreenFrame";
 import { Section } from "@/components/primitives/Section";
 import { SectionHeading } from "@/components/primitives/SectionHeading";
 import { benefits } from "@/data/content";
 import { fadeUp, scaleIn, stagger, viewportOnce } from "@/lib/motion";
 
 const benefitIcons = [ShieldBan, MoonStar, Timer] as const;
+const ambientMask =
+  "radial-gradient(ellipse 54% 65% at 50% 50%, black 0%, black 46%, rgb(0 0 0 / 0.92) 54%, rgb(0 0 0 / 0.55) 63%, rgb(0 0 0 / 0.12) 70%, transparent 76%)";
+const ambientStyle: CSSProperties = {
+  backgroundImage: [
+    "radial-gradient(ellipse 48% 42% at 34% 32%, color-mix(in srgb, var(--color-violet) 10%, transparent) 0%, color-mix(in srgb, var(--color-violet) 5%, transparent) 42%, transparent 72%)",
+    "radial-gradient(ellipse 46% 40% at 70% 48%, color-mix(in srgb, var(--color-mint) 12%, transparent) 0%, color-mix(in srgb, var(--color-mint) 6%, transparent) 42%, transparent 72%)",
+    "radial-gradient(ellipse 42% 34% at 48% 74%, color-mix(in srgb, var(--color-violet) 10%, transparent) 0%, color-mix(in srgb, var(--color-violet) 5%, transparent) 42%, transparent 72%)",
+  ].join(", "),
+  maskImage: ambientMask,
+  WebkitMaskImage: ambientMask,
+};
 
 export default function Benefits() {
   return (
@@ -37,8 +48,12 @@ export default function Benefits() {
           </div>
         </div>
 
-        <div className="relative isolate order-2 w-full overflow-hidden py-8 lg:order-1 lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:self-center">
-          <Aurora hues={["violet", "mint"]} intensity="soft" />
+        <div className="relative isolate order-2 w-full py-8 lg:order-1 lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:self-center">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/2 left-1/2 h-[82%] w-[min(520px,92%)] -translate-x-1/2 -translate-y-1/2 blur-[72px]"
+            style={ambientStyle}
+          />
           <StarField count={40} />
           <motion.div
             variants={scaleIn}
@@ -46,9 +61,10 @@ export default function Benefits() {
             whileInView="show"
             viewport={viewportOnce}
           >
-            <PhoneFrame
+            <ScreenFrame
               src={benefits.shot}
               alt="Sleep app home screen showing tonight's sleep tools"
+              hue="violet"
               className="animate-drift relative mx-auto w-[268px]"
             />
           </motion.div>
