@@ -144,8 +144,13 @@ export const stats = {
 export type StatItem = (typeof stats.items)[number];
 
 /**
- * These testimonial quotes are PLACEHOLDER content and must be replaced with
- * real reviews before launch.
+ * SAMPLE CONTENT. These six people do not exist and none of these quotes was
+ * written by a real user. They are here so the design reads like the finished
+ * page instead of a wireframe.
+ *
+ * REPLACE EVERY ONE OF THEM WITH A REAL, ATTRIBUTABLE REVIEW BEFORE THIS SITE
+ * IS PUBLIC. Shipping invented testimonials under invented names would mislead
+ * the people reading them, and in most markets it is also illegal.
  */
 export const testimonials = {
   id: "reviews",
@@ -157,37 +162,39 @@ export const testimonials = {
   items: [
     {
       quote:
-        "The wind-down screen is the only part of my evening I actually keep to.",
-      name: "Placeholder name",
-      role: "Placeholder role",
+        "The wind-down screen is the only part of my evening I actually keep to. Everything else I tried lasted about four days.",
+      name: "Dana Whitfield",
+      role: "Pediatric nurse, Portland",
     },
     {
       quote:
-        "I stopped reaching for my phone in bed because the sound mixer gave me something else to do.",
-      name: "Placeholder name",
-      role: "Placeholder role",
+        "I stopped reaching for my phone in bed because the sound mixer gave my hands something else to do.",
+      name: "Marcus Reyes",
+      role: "Software engineer, Austin",
     },
     {
       quote:
-        "Answering the morning questions takes a minute and I finally see a pattern.",
-      name: "Placeholder name",
-      role: "Placeholder role",
+        "Three questions in the morning take about a minute. Two weeks in, the diary showed me a pattern I would never have spotted on my own.",
+      name: "Alison Park",
+      role: "Graduate student, Ann Arbor",
     },
     {
       quote:
-        "The breathing session is short enough that I do not talk myself out of it.",
-      name: "Placeholder name",
-      role: "Placeholder role",
+        "The breathing session is short enough that I do not talk myself out of it at midnight.",
+      name: "Terrence Boyd",
+      role: "High school teacher, Atlanta",
     },
     {
-      quote: "It is the first sleep app that does not glow at me.",
-      name: "Placeholder name",
-      role: "Placeholder role",
+      quote:
+        "It is the first sleep app that does not glow at me. Black screen, no badges, nothing asking for attention.",
+      name: "Nina Kowalczyk",
+      role: "Freelance illustrator, Chicago",
     },
     {
-      quote: "The course reads like someone explaining, not selling.",
-      name: "Placeholder name",
-      role: "Placeholder role",
+      quote:
+        "The course reads like someone explaining, not selling. I actually finished it.",
+      name: "Greg Sandoval",
+      role: "Long-haul driver, Phoenix",
     },
   ],
 } as const;
