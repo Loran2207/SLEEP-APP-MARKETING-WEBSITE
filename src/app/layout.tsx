@@ -61,7 +61,18 @@ export const metadata: Metadata = {
   },
 };
 
+// DESKTOP LOCK - temporary, remove the `width` line to restore the adaptive site.
+// Pinning the virtual viewport to 1280 means phones and tablets scale the desktop
+// layout down instead of crossing the sm/md/lg breakpoints, so the responsive
+// layouts are hidden rather than deleted. Nothing else in the codebase changes.
+// TO UNLOCK: delete the `width: DESKTOP_LOCK_WIDTH` line below, rebuild, deploy.
+const DESKTOP_LOCK_WIDTH = 1280;
+
 export const viewport: Viewport = {
+  width: DESKTOP_LOCK_WIDTH,
+  // no initialScale: with one, a phone would show the leftmost 1280px slice
+  // instead of scaling the whole layout down to fit the screen
+  initialScale: undefined,
   themeColor: "#000000",
   colorScheme: "dark",
 };
