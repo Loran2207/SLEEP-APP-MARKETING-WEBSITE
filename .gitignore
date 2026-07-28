@@ -43,3 +43,4 @@ next-env.d.ts
 # local scratch
 .impeccable/
 PRODUCT.md
+.tmp/
