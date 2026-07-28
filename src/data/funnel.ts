@@ -536,6 +536,7 @@ export const funnelCopy = {
     ],
     primary: "Save my plan",
     saving: "Saving...",
+    continueAnyway: "Continue anyway",
     skip: "Skip for now",
   },
   paywall: {

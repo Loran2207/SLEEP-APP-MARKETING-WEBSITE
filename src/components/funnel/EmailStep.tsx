@@ -51,6 +51,12 @@ export function EmailStep({
       return;
     }
 
+    // Our own failure must not trap anyone: the second press moves on.
+    if (status === "unavailable") {
+      onContinue();
+      return;
+    }
+
     const normalizedEmail = email.trim();
     const valid =
       normalizedEmail.length <= 254 && EMAIL_PATTERN.test(normalizedEmail);
@@ -206,7 +212,11 @@ export function EmailStep({
 
         <div className="mt-auto pt-10">
           <PrimaryAction type="submit" disabled={status === "loading"}>
-            {status === "loading" ? copy.saving : copy.primary}
+            {status === "loading"
+              ? copy.saving
+              : status === "unavailable"
+                ? copy.continueAnyway
+                : copy.primary}
           </PrimaryAction>
           <button
             type="button"
