@@ -57,7 +57,9 @@ export function PreviewStep({ cards, onContinue }: PreviewStepProps) {
         className="mx-auto mt-6 max-w-[380px] text-center"
       />
 
-      <AppScreenStack screens={screens} className="mt-2" />
+      <div className="mt-auto pt-2">
+        <AppScreenStack screens={screens} />
+      </div>
 
       <div className="mt-1 flex flex-col gap-4">
         {cards.map((card) => {

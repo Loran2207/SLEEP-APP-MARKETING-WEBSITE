@@ -41,7 +41,9 @@ export function WelcomeStep({ onStart }: WelcomeStepProps) {
         alt=""
         fill
         priority
-        sizes="430px"
+        // The column is narrow but tall, so object-cover blows a 16:9 photo up to
+        // about 1800px wide. Asking for 430px served a quarter of that and it showed.
+        sizes="1800px"
         aria-hidden="true"
         className="pointer-events-none -z-10 object-cover opacity-[0.58]"
         style={{
