@@ -130,13 +130,13 @@ export function Features() {
           </div>
         </div>
 
-        <div className="mt-12 grid min-w-0 items-center gap-12 md:mt-16 lg:grid-cols-[1fr_auto] xl:gap-20">
+        <div className="mt-12 grid min-w-0 items-start gap-12 md:mt-16 lg:grid-cols-[1fr_auto] xl:gap-20">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="min-h-[400px] min-w-0 w-full md:min-h-[420px]"
+            className="min-h-[400px] min-w-0 w-full md:min-h-[420px] lg:pt-6"
           >
             <div>
               {features.tabs.map((tab, index) => {

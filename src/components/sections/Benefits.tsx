@@ -1,6 +1,6 @@
 "use client";
 
-import { MoonStar, ShieldBan, Timer } from "lucide-react";
+import { AudioLines, GraduationCap, ListChecks } from "lucide-react";
 import { motion } from "motion/react";
 import type { CSSProperties } from "react";
 
@@ -13,7 +13,7 @@ import { SectionHeading } from "@/components/primitives/SectionHeading";
 import { benefits } from "@/data/content";
 import { fadeUp, scaleIn, stagger, viewportOnce } from "@/lib/motion";
 
-const benefitIcons = [ShieldBan, MoonStar, Timer] as const;
+const benefitIcons = [AudioLines, ListChecks, GraduationCap] as const;
 const ambientMask =
   "radial-gradient(ellipse 54% 65% at 50% 50%, black 0%, black 46%, rgb(0 0 0 / 0.92) 54%, rgb(0 0 0 / 0.55) 63%, rgb(0 0 0 / 0.12) 70%, transparent 76%)";
 const ambientStyle: CSSProperties = {

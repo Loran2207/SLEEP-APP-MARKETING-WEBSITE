@@ -1,5 +1,8 @@
 import Link from "next/link";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type {
+  ButtonHTMLAttributes,
+  ReactNode,
+} from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -10,6 +13,8 @@ type ButtonProps = {
   children: ReactNode;
   className?: string;
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+  disabled?: boolean;
+  onClick?: () => void;
 };
 
 const variantClasses = {
@@ -31,11 +36,14 @@ export function Button({
   children,
   className,
   type,
+  disabled = false,
+  onClick,
 }: ButtonProps) {
   const classes = cn(
     "group relative isolate inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-full font-medium transition-[background-color,border-color,box-shadow,transform] duration-150 motion-reduce:transform-none",
     variantClasses[variant],
     sizeClasses[size],
+    disabled && "pointer-events-none opacity-40",
     className,
   );
   const content = (
@@ -50,7 +58,12 @@ export function Button({
 
   if (href?.startsWith("/") || href?.startsWith("#")) {
     return (
-      <Link href={href} className={classes}>
+      <Link
+        href={href}
+        className={classes}
+        aria-disabled={disabled || undefined}
+        onClick={onClick}
+      >
         {content}
       </Link>
     );
@@ -58,14 +71,26 @@ export function Button({
 
   if (href?.startsWith("http://") || href?.startsWith("https://")) {
     return (
-      <a href={href} className={classes} target="_blank" rel="noreferrer">
+      <a
+        href={href}
+        className={classes}
+        target="_blank"
+        rel="noreferrer"
+        aria-disabled={disabled || undefined}
+        onClick={onClick}
+      >
         {content}
       </a>
     );
   }
 
   return (
-    <button type={type ?? "button"} className={classes}>
+    <button
+      type={type ?? "button"}
+      className={classes}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {content}
     </button>
   );

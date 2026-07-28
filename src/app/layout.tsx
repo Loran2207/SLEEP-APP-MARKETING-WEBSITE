@@ -1,20 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
+import localFont from "next/font/local";
 
 import { MotionProvider } from "@/components/MotionProvider";
 
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "./fonts/inter-latin.woff2",
+  weight: "100 900",
+  style: "normal",
   variable: "--font-inter",
   display: "swap",
 });
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
+const instrumentSerif = localFont({
+  src: "./fonts/instrument-serif-latin-italic.woff2",
   weight: "400",
-  style: ["italic"],
+  style: "italic",
   variable: "--font-instrument",
   display: "swap",
 });
