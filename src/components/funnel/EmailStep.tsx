@@ -2,7 +2,7 @@
 
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy } from "@/data/funnel";
@@ -53,8 +53,7 @@ export function EmailStep({
 
     const normalizedEmail = email.trim();
     const valid =
-      normalizedEmail.length <= 254 &&
-      EMAIL_PATTERN.test(normalizedEmail);
+      normalizedEmail.length <= 254 && EMAIL_PATTERN.test(normalizedEmail);
 
     if (!valid) {
       setInvalid(true);
@@ -96,12 +95,12 @@ export function EmailStep({
     onSkip();
   }
 
+  const looksValid = EMAIL_PATTERN.test(email.trim());
   const statusMessage = invalid
     ? copy.invalid
     : status === "unavailable"
       ? copy.unavailable
       : "";
-  const describedBy = statusMessage ? "email-status" : undefined;
 
   return (
     <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(18px,env(safe-area-inset-top))] pb-[max(24px,env(safe-area-inset-bottom))]">
@@ -120,7 +119,12 @@ export function EmailStep({
         <span aria-hidden="true" className="size-11 shrink-0" />
       </header>
 
-      <div className="flex flex-1 flex-col justify-center py-12">
+      <form
+        className="flex flex-1 flex-col pt-12"
+        noValidate
+        aria-busy={status === "loading"}
+        onSubmit={handleSubmit}
+      >
         <AccentHeading
           before={copy.headingBefore}
           accent={copy.headingAccent}
@@ -131,67 +135,88 @@ export function EmailStep({
           {copy.body}
         </p>
 
-        <form
-          className="mt-9"
-          noValidate
-          aria-busy={status === "loading"}
-          onSubmit={handleSubmit}
+        <label
+          htmlFor="plan-email"
+          className="mt-9 text-[14px] font-medium text-ink"
         >
-          <label
-            htmlFor="plan-email"
-            className="text-[14px] font-medium text-ink"
-          >
-            {copy.label}
-          </label>
+          {copy.label}
+        </label>
+        <div className="relative mt-3">
           <input
             id="plan-email"
             name="email"
             type="email"
             inputMode="email"
             autoComplete="email"
+            placeholder={copy.placeholder}
             required
             value={email}
             aria-invalid={invalid}
-            aria-describedby={describedBy}
+            aria-describedby="email-status"
             onChange={(event) => handleChange(event.currentTarget.value)}
             className={cn(
-              "rim mt-3 h-15 w-full rounded-card border bg-surface/86 px-5 text-[16px] text-ink transition-[background-color,border-color,box-shadow] duration-150 motion-reduce:transition-none",
+              "rim h-15 w-full rounded-card border bg-surface/86 pl-5 pr-12 text-[16px] text-ink transition-[background-color,border-color,box-shadow] duration-150 placeholder:text-muted motion-reduce:transition-none",
               invalid
                 ? "border-coral ring-1 ring-coral/45"
-                : "border-hair hover:border-hair-strong focus:border-blue",
+                : "border-hair hover:border-hair-strong focus:border-blue focus:ring-1 focus:ring-blue/35",
             )}
           />
+          {looksValid && !invalid ? (
+            <Check
+              aria-hidden="true"
+              size={19}
+              strokeWidth={2}
+              className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-mint"
+            />
+          ) : null}
+        </div>
 
-          <p
-            id="email-status"
-            aria-live="polite"
-            aria-atomic="true"
-            className={cn(
-              "mt-3 min-h-11 text-pretty text-[14px] leading-[1.5]",
-              statusMessage ? "text-coral" : "text-ink-2",
-            )}
-          >
-            {statusMessage}
+        <p
+          id="email-status"
+          aria-live="polite"
+          aria-atomic="true"
+          className={cn(
+            "mt-3 min-h-6 text-pretty text-[14px] leading-[1.5]",
+            statusMessage ? "text-coral" : "text-ink-2",
+          )}
+        >
+          {statusMessage}
+        </p>
+
+        <div className="mt-8 rounded-card border border-hair bg-surface/45 px-5 py-4">
+          <p className="text-[13px] font-medium text-ink-2">
+            {copy.savesLabel}
           </p>
+          <ul className="mt-3 flex flex-col gap-2.5">
+            {copy.saves.map((item) => (
+              <li key={item} className="flex items-start gap-2.5">
+                <Check
+                  aria-hidden="true"
+                  size={16}
+                  strokeWidth={2}
+                  className="mt-0.5 shrink-0 text-mint"
+                />
+                <span className="text-[14px] leading-[1.45] text-ink">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          <div className="mt-4">
-            <PrimaryAction
-              type="submit"
-              disabled={status === "loading"}
-            >
-              {status === "loading" ? copy.saving : copy.primary}
-            </PrimaryAction>
-          </div>
-        </form>
-      </div>
-
-      <button
-        type="button"
-        onClick={handleSkip}
-        className="mx-auto min-h-11 px-4 text-[14px] text-ink-2 transition-colors duration-150 hover:text-ink motion-reduce:transition-none"
-      >
-        {copy.skip}
-      </button>
+        <div className="mt-auto pt-10">
+          <PrimaryAction type="submit" disabled={status === "loading"}>
+            {status === "loading" ? copy.saving : copy.primary}
+          </PrimaryAction>
+          <button
+            type="button"
+            onClick={handleSkip}
+            className="mx-auto mt-4 block min-h-11 px-4 text-[14px] text-ink-2 transition-colors duration-150 hover:text-ink motion-reduce:transition-none"
+          >
+            {copy.skip}
+          </button>
+        </div>
+      </form>
     </section>
   );
 }

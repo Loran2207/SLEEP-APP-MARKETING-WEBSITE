@@ -13,6 +13,7 @@ import {
   buildPreview,
   buildProfile,
   buildRhythmInsight,
+  buildScore,
 } from "./plan.ts";
 import {
   getNextStep,
@@ -104,8 +105,8 @@ test("keeps every goal explanation from the app", () => {
 });
 
 test("keeps all deep links unique and progress limited to 17 questions", () => {
-  assert.equal(funnelStepIds.length, 28);
-  assert.equal(new Set(funnelStepIds).size, 28);
+  assert.equal(funnelStepIds.length, 29);
+  assert.equal(new Set(funnelStepIds).size, 29);
   assert.deepEqual(getQuestionProgress("night-wakes"), {
     current: 7,
     total: 17,
@@ -168,20 +169,37 @@ test("ties the three preview screens to the completed answers", () => {
   assert.match(preview[2].caption, /07:30/i);
 });
 
+test("scores the night the way the app scores its own onboarding", () => {
+  // Ten scored questions, option index 0-3, unanswered counts 1.5.
+  const complete = buildScore(completeAnswers);
+  assert.equal(complete.score, 37);
+  assert.equal(complete.band.tag, "Needs work");
+  assert.equal(complete.band.hue, "coral");
+
+  const untouched = buildScore({ want: [] });
+  assert.equal(untouched.score, 50);
+  assert.equal(untouched.band.tag, "Fair");
+});
+
+test("puts the score between the wait and the profile", () => {
+  assert.equal(getNextStep("analyzing"), "score");
+  assert.equal(getNextStep("score"), "profile");
+  assert.equal(getPreviousStep("profile"), "score");
+});
+
 test("keeps the email failure and download ending honest", () => {
   assert.equal(
     funnelCopy.email.unavailable,
     "We could not save it just now, you can still continue",
   );
   assert.equal(funnelCopy.done.headingAccent, "ready");
-  assert.deepEqual(
-    funnelCopy.done.stores.map((store) => store.name),
-    ["App Store", "Google Play"],
-  );
+  assert.match(funnelCopy.done.download, /iPhone/);
   assert.equal(
     funnelCopy.done.storeNote,
-    "Links open the store once the app is published.",
+    "The badge opens the App Store once the app is published.",
   );
+  // The app ships on the App Store only.
+  assert.doesNotMatch(JSON.stringify(funnelCopy), /google play/i);
   assert.equal(
     funnelCopy.done.answersUnavailable,
     "Your answers could not be attached to your email yet, so SLEEP may ask them again",

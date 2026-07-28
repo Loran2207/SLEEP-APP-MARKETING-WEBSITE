@@ -27,6 +27,7 @@ export type FunnelStepId =
   | "insight-night"
   | "insight-rhythm"
   | "analyzing"
+  | "score"
   | "profile"
   | "preview"
   | "email"
@@ -74,6 +75,7 @@ export const funnelStepIds: readonly FunnelStepId[] = [
   "wake-time",
   "bedtime-nudge",
   "analyzing",
+  "score",
   "profile",
   "preview",
   "email",
@@ -375,8 +377,7 @@ export const funnelCopy = {
       sounds: "The sound player with a coral audio control in Sleep",
     },
     primary: "Start",
-    timing: "Takes about two minutes",
-    trust: "Private by default. No account needed to start.",
+    timing: "About two minutes. No account needed.",
   },
   promise: {
     eyebrow: "Before we begin",
@@ -473,6 +474,12 @@ export const funnelCopy = {
     ],
     announcement: "Your sleep plan is ready.",
   },
+  score: {
+    eyebrow: "Your sleep score",
+    lead: "Based on your answers, your sleep quality is",
+    outOf: "out of 100",
+    primary: "See my plan",
+  },
   profile: {
     eyebrow: "Your rhythm",
     headingBefore: "Your plan for ",
@@ -518,8 +525,15 @@ export const funnelCopy = {
     headingAfter: "",
     body: "Enter the email you will use in the app. Your answers are saved to it, so SLEEP opens already set up and you never answer these questions again.",
     label: "Email address",
+    placeholder: "you@email.com",
     invalid: "Enter a valid email address.",
     unavailable: "We could not save it just now, you can still continue",
+    savesLabel: "Saved to this email",
+    saves: [
+      "Every answer you just gave",
+      "Your wind-down and wake schedule",
+      "Your sleep score",
+    ],
     primary: "Save my plan",
     saving: "Saving...",
     skip: "Skip for now",
@@ -539,22 +553,25 @@ export const funnelCopy = {
   },
   checkout: {
     eyebrow: "Sleep+",
-    headingBefore: "Confirm your ",
-    headingAccent: "trial",
+    headingBefore: "Complete your ",
+    headingAccent: "checkout",
     headingAfter: "",
-    body: "Seven days free. We will remind you before it ends.",
     summaryLabel: "Order summary",
     changePlan: "Change plan",
-    paymentLabel: "Payment method",
+    trialItem: "7-day free trial",
+    freeValue: "Free",
+    totalLabel: "Total today",
+    totalValue: "$0.00",
+    cardDivider: "or pay with card",
+    secure: "Guaranteed safe and secure checkout",
     methods: {
       applePay: "Apple Pay",
       card: "Card",
       paypal: "PayPal",
     },
     providerLines: {
-      applePay:
-        "In a real checkout, confirmation would continue in Apple Pay.",
-      paypal: "In a real checkout, confirmation would continue in PayPal.",
+      applePay: "Apple Pay opens here once payments are live.",
+      paypal: "PayPal opens here once payments are live.",
     },
     fields: {
       number: {
@@ -575,6 +592,15 @@ export const funnelCopy = {
       },
     },
     primary: "Start free trial",
+    legalBefore: "By starting the trial you agree to our ",
+    legalTerms: "Terms",
+    legalJoin: " and ",
+    legalPrivacy: "Privacy policy",
+    legalAfter: ".",
+    finePrintBefore:
+      "Nothing is charged today. Your seven days start now and Sleep+ continues at ",
+    finePrintAfter:
+      " unless you cancel at least 24 hours before the trial ends. You can cancel anytime in your account settings.",
     preview:
       "Design preview. No payment is taken and no card details are stored.",
   },
@@ -583,11 +609,7 @@ export const funnelCopy = {
     headingBefore: "Your plan is ",
     headingAccent: "ready",
     headingAfter: "",
-    download: "Download SLEEP",
-    stores: [
-      { name: "App Store", label: "Download on" },
-      { name: "Google Play", label: "Get it on" },
-    ],
+    download: "Download SLEEP on iPhone",
     signInPrefix: "Sign in with ",
     signInFallback: "Sign in with the email you used here",
     answers:
@@ -596,13 +618,51 @@ export const funnelCopy = {
       "Your answers could not be attached to your email yet, so SLEEP may ask them again",
     answersSkipped:
       "Your answers were not attached to an email, so SLEEP may ask them again",
-    storeNote: "Links open the store once the app is published.",
+    storeNote: "The badge opens the App Store once the app is published.",
   },
   actions: {
     back: "Go back",
     continue: "Continue",
   },
 } as const;
+
+/** Mirrors the four bands the app shows after its own onboarding. */
+export const scoreBands = [
+  {
+    min: 80,
+    tag: "Excellent",
+    title: "Your sleep is in great shape",
+    body: "You have built strong habits. Sleep helps you protect them and fine-tune the details.",
+    hue: "mint",
+  },
+  {
+    min: 60,
+    tag: "Good",
+    title: "Your sleep is on the right track",
+    body: "A few small changes could take you from good to genuinely restorative.",
+    hue: "blue",
+  },
+  {
+    min: 40,
+    tag: "Fair",
+    title: "There is real room to grow",
+    body: "Some nights are working against you, and the right changes add up fast.",
+    hue: "violet",
+  },
+  {
+    min: 0,
+    tag: "Needs work",
+    title: "Your sleep needs some care",
+    body: "You are losing more rest than you should. The good news: this is very fixable.",
+    hue: "coral",
+  },
+] as const satisfies readonly {
+  min: number;
+  tag: string;
+  title: string;
+  body: string;
+  hue: FunnelHue;
+}[];
 
 export const profileReadings = {
   chronotypes: {
@@ -654,14 +714,14 @@ export const profileReadings = {
         "A short 4-7-8 practice marks the shift from the day into bed.",
     },
     sound: {
-      name: "A sound mix that fades",
+      name: "A fading sound mix",
       waking:
         "A low sound mix keeps the room consistent when you wake at night, then fades.",
       fallback:
         "A sound mix that fades gives the room one quiet cue without playing all night.",
     },
     alarm: {
-      name: "A wake alarm with the evening routine",
+      name: "A wake alarm",
       routine:
         "One schedule keeps tonight's wind-down and tomorrow's wake alarm together.",
       wakePrefix: "The evening routine leads into your ",
@@ -682,6 +742,7 @@ export const plans: Record<
     trial: string;
     summaryName: string;
     summaryBilling: string;
+    renewal: string;
     finePrint: string;
   }
 > = {
@@ -693,6 +754,7 @@ export const plans: Record<
     trial: "7 days free first",
     summaryName: "Sleep+ Yearly",
     summaryBilling: "then $47.88 a year",
+    renewal: "$47.88 a year",
     finePrint: "Then $47.88 a year. Cancel anytime, in one tap.",
   },
   monthly: {
@@ -702,6 +764,7 @@ export const plans: Record<
     trial: "7 days free first",
     summaryName: "Sleep+ Monthly",
     summaryBilling: "then $9.99 a month",
+    renewal: "$9.99 a month",
     finePrint: "Then $9.99 a month. Cancel anytime, in one tap.",
   },
 };

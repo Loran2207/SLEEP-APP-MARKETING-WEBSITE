@@ -31,6 +31,7 @@ import {
   buildPreview,
   buildProfile,
   buildRhythmInsight,
+  buildScore,
 } from "./plan";
 import { PreviewStep } from "./PreviewStep";
 import { ProfileStep } from "./ProfileStep";
@@ -41,6 +42,7 @@ import {
   isQuestionStep,
   normalizeStep,
 } from "./registry";
+import { ScoreStep } from "./ScoreStep";
 import { SingleSelectStep } from "./SingleSelectStep";
 import { SleepGoalStep } from "./SleepGoalStep";
 import type { FunnelAnswers } from "./types";
@@ -70,6 +72,7 @@ const stepHues: Record<FunnelStepId, FunnelHue> = {
   "wake-time": "mint",
   "bedtime-nudge": "mint",
   analyzing: "blue",
+  score: "blue",
   profile: "mint",
   preview: "violet",
   email: "blue",
@@ -184,6 +187,7 @@ export function Funnel() {
         <WakeTimeStep
           question={question}
           value={answers[questionId] as string | undefined}
+          sleepGoalHours={Number(answers["sleep-goal"]) || undefined}
           onChange={(value) =>
             setAnswers((current) => ({
               ...current,
@@ -233,7 +237,14 @@ export function Funnel() {
           />
         );
       case "analyzing":
-        return <AnalyzingStep onComplete={() => goTo("profile", true)} />;
+        return <AnalyzingStep onComplete={() => goTo("score", true)} />;
+      case "score":
+        return (
+          <ScoreStep
+            result={buildScore(answers)}
+            onContinue={() => goTo("profile")}
+          />
+        );
       case "profile":
         return (
           <ProfileStep

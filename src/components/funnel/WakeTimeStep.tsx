@@ -1,13 +1,27 @@
+"use client";
+
 import { funnelCopy, type QuestionDefinition } from "@/data/funnel";
+import { cn } from "@/lib/utils";
 
 import { getQuestionProgress } from "./registry";
 import { PrimaryAction } from "./PrimaryAction";
 import { QuestionChrome } from "./QuestionChrome";
 import { QuestionTitle } from "./QuestionTitle";
+import {
+  DEFAULT_SLEEP_GOAL_HOURS,
+  DEFAULT_WAKE_TIME,
+  formatTime,
+  lightsOutFor,
+  splitTime,
+} from "./time";
+import { TimeWheel } from "./TimeWheel";
+
+const QUICK_TIMES = ["06:00", "06:30", "07:00", "07:30", "08:00"] as const;
 
 type WakeTimeStepProps = {
   question: QuestionDefinition;
   value?: string;
+  sleepGoalHours?: number;
   onChange: (value: string) => void;
   onContinue: () => void;
   onBack: () => void;
@@ -16,11 +30,16 @@ type WakeTimeStepProps = {
 export function WakeTimeStep({
   question,
   value,
+  sleepGoalHours,
   onChange,
   onContinue,
   onBack,
 }: WakeTimeStepProps) {
   const progress = getQuestionProgress(question.id);
+  const wakeTime = value ?? DEFAULT_WAKE_TIME;
+  const { hours, minutes } = splitTime(wakeTime);
+  const goalHours = sleepGoalHours ?? DEFAULT_SLEEP_GOAL_HOURS;
+  const lightsOut = lightsOutFor(wakeTime, goalHours);
 
   return (
     <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
@@ -39,27 +58,58 @@ export function WakeTimeStep({
           </p>
         ) : null}
 
-        <div className="mt-10">
-          <label
-            htmlFor="wake-time"
-            className="text-[14px] font-medium text-ink"
-          >
-            {question.inputLabel}
-          </label>
-          <input
-            id="wake-time"
-            name="wake-time"
-            type="time"
-            required
-            value={value ?? ""}
-            onChange={(event) => onChange(event.currentTarget.value)}
-            className="rim mt-3 h-18 w-full appearance-none rounded-card border border-hair bg-surface/86 px-5 text-center text-[28px] font-medium tracking-[-0.02em] text-ink tabular-nums transition-[background-color,border-color] duration-150 hover:border-hair-strong focus:border-mint motion-reduce:transition-none"
+        <div className="rim mt-8 rounded-card border border-hair bg-surface/72 px-4 pt-3 pb-5">
+          <TimeWheel
+            hours={hours}
+            minutes={minutes}
+            hue={question.hue}
+            onChange={(nextHours, nextMinutes) =>
+              onChange(formatTime(nextHours * 60 + nextMinutes))
+            }
           />
+
+          {lightsOut ? (
+            <p className="mt-3 text-center text-[13px] leading-[1.5] text-ink-2">
+              Lights out around{" "}
+              <span className="font-medium text-ink tabular-nums">
+                {lightsOut}
+              </span>{" "}
+              for {goalHours}h of sleep
+            </p>
+          ) : null}
+        </div>
+
+        <div className="mt-5 flex flex-wrap gap-2">
+          {QUICK_TIMES.map((time) => {
+            const active = wakeTime === time;
+
+            return (
+              <button
+                key={time}
+                type="button"
+                onClick={() => onChange(time)}
+                aria-pressed={active}
+                className={cn(
+                  "min-h-11 flex-1 rounded-full border px-3 text-[14px] font-medium tabular-nums transition-[background-color,border-color,color] duration-150 motion-reduce:transition-none",
+                  active
+                    ? "border-mint bg-mint text-void"
+                    : "border-hair bg-surface/72 text-ink-2 hover:border-hair-strong hover:text-ink",
+                )}
+              >
+                {time}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <div className="mt-10">
-        <PrimaryAction disabled={!value} onClick={onContinue}>
+        <PrimaryAction
+          onClick={() => {
+            onChange(wakeTime);
+            onContinue();
+          }}
+        >
           {funnelCopy.actions.continue}
         </PrimaryAction>
       </div>

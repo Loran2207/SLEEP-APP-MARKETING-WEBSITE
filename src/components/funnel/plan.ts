@@ -1,11 +1,18 @@
-import { funnelCopy, profileReadings } from "../../data/funnel.ts";
+import {
+  funnelCopy,
+  profileReadings,
+  questionById,
+  scoreBands,
+} from "../../data/funnel.ts";
 
+import { formatTime, parseTime } from "./time.ts";
 import type {
   FunnelAnswers,
   InsightResult,
   PreviewCard,
   ProfileResult,
   ProfileTool,
+  ScoreResult,
 } from "./types.ts";
 
 type Reading = {
@@ -27,30 +34,6 @@ function getChronotype(value?: string): Reading {
 
   const readings = profileReadings.chronotypes as Record<string, Reading>;
   return readings[value] ?? profileReadings.neutralChronotype;
-}
-
-function parseTime(value?: string) {
-  if (!value || !/^\d{2}:\d{2}$/.test(value)) {
-    return undefined;
-  }
-
-  const [hours, minutes] = value.split(":").map(Number);
-
-  if (hours > 23 || minutes > 59) {
-    return undefined;
-  }
-
-  return hours * 60 + minutes;
-}
-
-function formatTime(totalMinutes: number) {
-  const minutesInDay = 24 * 60;
-  const normalized =
-    ((totalMinutes % minutesInDay) + minutesInDay) % minutesInDay;
-  const hours = Math.floor(normalized / 60);
-  const minutes = normalized % 60;
-
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
 }
 
 function getSchedule(answers: FunnelAnswers): Schedule {
@@ -146,6 +129,47 @@ export function buildRhythmInsight(answers: FunnelAnswers): InsightResult {
   };
 }
 
+/**
+ * The ten sleep questions the app scores, in the app's own order. Every option
+ * list is ordered best to worst, so the option index is the app's 0-3 score.
+ */
+const SCORED_QUESTIONS = [
+  "rating",
+  "latency",
+  "night-wakes",
+  "early-wake",
+  "racing-mind",
+  "screens",
+  "caffeine",
+  "consistency",
+  "ritual",
+  "daytime",
+] as const;
+
+const UNANSWERED_SCORE = 1.5;
+const WORST_SCORE = 3;
+
+export function buildScore(answers: FunnelAnswers): ScoreResult {
+  const penalty = SCORED_QUESTIONS.reduce((total, id) => {
+    const answer = answers[id];
+    const index = answer
+      ? questionById[id].options.findIndex(
+          (option) => option.label === answer,
+        )
+      : -1;
+
+    return total + (index < 0 ? UNANSWERED_SCORE : index);
+  }, 0);
+
+  const worst = SCORED_QUESTIONS.length * WORST_SCORE;
+  const score = Math.round(100 * (1 - penalty / worst));
+  const band =
+    scoreBands.find((candidate) => score >= candidate.min) ??
+    scoreBands[scoreBands.length - 1];
+
+  return { score, band };
+}
+
 export function buildProfile(answers: FunnelAnswers): ProfileResult {
   const schedule = getSchedule(answers);
   const tools: readonly ProfileTool[] = [
@@ -231,7 +255,7 @@ export function buildPreview(answers: FunnelAnswers): readonly PreviewCard[] {
     },
     {
       id: "sounds",
-      src: "/app/sounds.webp",
+      src: "/app/sounds-player.webp",
       alt: funnelCopy.preview.sounds.alt,
       hue: "coral",
     },

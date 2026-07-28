@@ -1,21 +1,22 @@
 // This screen is a design preview. Wire it to a real payment provider or remove it before the site goes public.
 "use client";
 
-import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, Lock } from "lucide-react";
+import Link from "next/link";
 
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import {
-  funnelCopy,
-  plans,
-  type BillingPeriod,
-} from "@/data/funnel";
+  AmexMark,
+  ApplePayMonoMark,
+  MastercardMark,
+  PayPalMonoMark,
+  VisaMark,
+} from "@/components/brand/marks";
+import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { funnelCopy, plans, type BillingPeriod } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
-import {
-  PaymentMethodSelector,
-  type PaymentMethod,
-} from "./PaymentMethodSelector";
+import { CardForm } from "./CardForm";
+import { ExpressPay } from "./ExpressPay";
 import { PrimaryAction } from "./PrimaryAction";
 
 type CheckoutStepProps = {
@@ -33,8 +34,6 @@ export function CheckoutStep({
   onChangePlan,
   onTrial,
 }: CheckoutStepProps) {
-  const [paymentMethod, setPaymentMethod] =
-    useState<PaymentMethod>("card");
   const copy = funnelCopy.checkout;
   const plan = plans[billing];
 
@@ -61,60 +60,101 @@ export function CheckoutStep({
         after={copy.headingAfter}
         className="mx-auto mt-8 max-w-[390px] text-center"
       />
-      <p className="mx-auto mt-4 max-w-[350px] text-pretty text-center text-[16px] leading-[1.6] text-ink-2">
-        {copy.body}
-      </p>
 
-      <form
-        autoComplete="off"
-        noValidate
-        onSubmit={(event) => event.preventDefault()}
-        className="mt-8"
-      >
-        <div className="rim rounded-card border border-hair bg-surface/65 p-5">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-[12px] font-medium text-muted">
-                {copy.summaryLabel}
-              </p>
-              <h2 className="mt-2 text-[16px] font-medium text-ink">
-                {plan.summaryName}
-              </h2>
-            </div>
-            <button
-              type="button"
-              onClick={onChangePlan}
-              className="min-h-11 shrink-0 px-1 text-[13px] font-medium text-blue transition-colors duration-150 hover:text-blue-soft motion-reduce:transition-none"
-            >
-              {copy.changePlan}
-            </button>
-          </div>
-          <div className="mt-5 border-t border-hair pt-5">
-            <p className="text-[25px] leading-none font-medium tracking-[-0.03em] text-ink">
-              7 days free
-            </p>
-            <p className="mt-2.5 text-[13px] text-ink-2">
-              {plan.summaryBilling}
-            </p>
-          </div>
+      <div className="rim mt-8 rounded-card border border-hair bg-surface/65 p-5">
+        <div className="flex items-baseline justify-between gap-4">
+          <p className="text-[12px] font-medium text-muted">
+            {copy.summaryLabel}
+          </p>
+          <button
+            type="button"
+            onClick={onChangePlan}
+            className="shrink-0 text-[13px] font-medium text-blue transition-colors duration-150 hover:text-blue-soft motion-reduce:transition-none"
+          >
+            {copy.changePlan}
+          </button>
         </div>
 
-        <PaymentMethodSelector
-          value={paymentMethod}
-          onChange={setPaymentMethod}
-          previewNoteId={previewNoteId}
-        />
+        <dl className="mt-4 flex flex-col gap-3">
+          <div className="flex items-baseline justify-between gap-4">
+            <dt className="text-[15px] text-ink">{plan.summaryName}</dt>
+            <dd className="shrink-0 text-[15px] text-ink-2 tabular-nums">
+              {plan.renewal}
+            </dd>
+          </div>
+          <div className="flex items-baseline justify-between gap-4">
+            <dt className="text-[15px] text-ink">{copy.trialItem}</dt>
+            <dd className="shrink-0 text-[15px] font-medium text-mint">
+              {copy.freeValue}
+            </dd>
+          </div>
+        </dl>
 
-        <div className="mt-8 border-t border-hair pt-5">
-          <PrimaryAction onClick={onTrial}>{copy.primary}</PrimaryAction>
-          <p
-            id={previewNoteId}
-            className="mx-auto mt-3 max-w-[350px] text-pretty text-center text-[11px] leading-[1.5] text-muted"
-          >
-            {copy.preview}
+        <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-hair pt-4">
+          <p className="text-[16px] font-medium text-ink">{copy.totalLabel}</p>
+          <p className="shrink-0 text-[22px] leading-none font-medium tracking-[-0.02em] text-ink tabular-nums">
+            {copy.totalValue}
           </p>
         </div>
+      </div>
+
+      <div className="mt-6">
+        <ExpressPay />
+      </div>
+
+      <div className="my-6 flex items-center gap-3">
+        <span aria-hidden="true" className="h-px flex-1 bg-hair" />
+        <span className="text-[12px] text-muted">{copy.cardDivider}</span>
+        <span aria-hidden="true" className="h-px flex-1 bg-hair" />
+      </div>
+
+      <form autoComplete="off" noValidate onSubmit={(event) => event.preventDefault()}>
+        <CardForm previewNoteId={previewNoteId} />
+
+        <div className="mt-7">
+          <PrimaryAction onClick={onTrial}>{copy.primary}</PrimaryAction>
+        </div>
       </form>
+
+      <div className="mt-6 rounded-[16px] border border-hair bg-surface/45 px-4 py-3.5">
+        <p className="flex items-center justify-center gap-2 text-[12px] text-ink-2">
+          <Lock aria-hidden="true" size={13} strokeWidth={1.8} />
+          {copy.secure}
+        </p>
+        <div className="mt-3 flex items-center justify-center gap-3.5 text-ink-2">
+          <VisaMark className="h-[17px] w-auto" />
+          <MastercardMark className="h-[18px] w-auto" />
+          <AmexMark className="h-[18px] w-auto" />
+          <span aria-hidden="true" className="h-4 w-px bg-hair" />
+          <ApplePayMonoMark className="h-[15px] w-auto" />
+          <PayPalMonoMark className="h-[15px] w-auto" />
+        </div>
+      </div>
+
+      <p className="mt-5 text-center text-[12px] leading-[1.55] text-ink-2">
+        {copy.legalBefore}
+        <Link href="/terms" className="text-ink underline underline-offset-2">
+          {copy.legalTerms}
+        </Link>
+        {copy.legalJoin}
+        <Link href="/privacy" className="text-ink underline underline-offset-2">
+          {copy.legalPrivacy}
+        </Link>
+        {copy.legalAfter}
+      </p>
+
+      <p className="mt-3 text-pretty text-center text-[11px] leading-[1.55] text-muted">
+        {copy.finePrintBefore}
+        <span className="text-ink-2">{plan.renewal}</span>
+        {copy.finePrintAfter}
+      </p>
+
+      <p
+        id={previewNoteId}
+        className="mx-auto mt-4 max-w-[350px] text-pretty text-center text-[11px] leading-[1.5] text-muted"
+      >
+        {copy.preview}
+      </p>
     </section>
   );
 }

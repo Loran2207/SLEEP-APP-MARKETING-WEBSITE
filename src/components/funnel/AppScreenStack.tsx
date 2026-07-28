@@ -18,6 +18,8 @@ type AppScreenStackProps = {
   className?: string;
   priority?: boolean;
   size?: "compact" | "hero";
+  /** Fill the parent instead of using the fixed height for the size. */
+  fill?: boolean;
 };
 
 const placements = {
@@ -39,17 +41,17 @@ const placements = {
   hero: {
     left: {
       outer:
-        "absolute top-[calc(50%+20px)] left-[-6px] z-20 w-[188px] -translate-y-1/2 sm:left-[-4px]",
+        "absolute top-[calc(50%+18px)] left-[-14px] z-20 w-[202px] -translate-y-1/2 sm:left-[-10px]",
       inner: "-rotate-[5.5deg]",
     },
     center: {
       outer:
-        "absolute top-[calc(50%+20px)] left-1/2 z-30 w-[216px] -translate-x-1/2 -translate-y-1/2",
+        "absolute top-[calc(50%+18px)] left-1/2 z-30 w-[236px] -translate-x-1/2 -translate-y-1/2",
       inner: "",
     },
     right: {
       outer:
-        "absolute top-[calc(50%+20px)] right-[-4px] z-10 w-[186px] -translate-y-1/2 sm:right-[-2px]",
+        "absolute top-[calc(50%+18px)] right-[-12px] z-10 w-[200px] -translate-y-1/2 sm:right-[-8px]",
       inner: "rotate-[5.5deg]",
     },
   },
@@ -60,14 +62,20 @@ export function AppScreenStack({
   className,
   priority = false,
   size = "compact",
+  fill = false,
 }: AppScreenStackProps) {
   const reduceMotion = useReducedMotion();
 
   return (
     <div
       className={cn(
-        "relative mx-auto w-full max-w-[370px] overflow-hidden",
-        size === "hero" ? "h-[430px]" : "h-[318px]",
+        "mx-auto w-full max-w-[370px] overflow-hidden",
+        fill
+          ? "absolute inset-0"
+          : cn(
+              "relative",
+              size === "hero" ? "h-[476px]" : "h-[318px]",
+            ),
         className,
       )}
     >
@@ -128,7 +136,7 @@ export function AppScreenStack({
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-[30%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.72)_58%,var(--color-void)_92%)]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-[22%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.66)_62%,var(--color-void)_94%)]"
       />
     </div>
   );

@@ -35,7 +35,7 @@ export function WelcomeStep({ onStart }: WelcomeStepProps) {
   ] as const;
 
   return (
-    <section className="relative isolate grid min-h-[100dvh] grid-rows-[auto_auto_minmax(0,1fr)_auto] overflow-hidden px-5 pt-[max(26px,env(safe-area-inset-top))] pb-[max(18px,env(safe-area-inset-bottom))]">
+    <section className="relative isolate flex min-h-[100dvh] flex-col overflow-hidden px-5 pt-[max(26px,env(safe-area-inset-top))] pb-[max(20px,env(safe-area-inset-bottom))]">
       <Image
         src="/art/hero-night.webp"
         alt=""
@@ -68,18 +68,14 @@ export function WelcomeStep({ onStart }: WelcomeStepProps) {
         </p>
       </div>
 
-      <AppScreenStack
-        screens={screens}
-        priority
-        size="hero"
-        className="h-full min-h-[340px] max-h-[510px]"
-      />
+      <div className="relative min-h-[330px] flex-1">
+        <AppScreenStack screens={screens} priority size="hero" fill />
+      </div>
 
       <div className="text-center">
         <PrimaryAction onClick={onStart}>{copy.primary}</PrimaryAction>
-        <p className="mt-3 text-[13px] text-ink-2">{copy.timing}</p>
-        <p className="mt-2 text-[12px] leading-[1.45] text-muted">
-          {copy.trust}
+        <p className="mx-auto mt-3 max-w-[320px] text-[13px] leading-[1.45] text-ink-2">
+          {copy.timing}
         </p>
       </div>
     </section>

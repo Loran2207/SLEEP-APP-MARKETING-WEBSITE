@@ -1,5 +1,4 @@
-import { Apple, Play } from "lucide-react";
-
+import { AppStoreBadge } from "@/components/brand/marks";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy } from "@/data/funnel";
 
@@ -10,8 +9,6 @@ type DoneStepProps = {
   email?: string;
   emailSaveStatus: EmailSaveStatus;
 };
-
-const storeIcons = [Apple, Play] as const;
 
 export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
   const copy = funnelCopy.done;
@@ -47,36 +44,14 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
             <h2 className="text-[17px] font-medium text-ink">
               {copy.download}
             </h2>
-            <div className="mt-4 grid grid-cols-2 gap-2.5">
-              {copy.stores.map((store, index) => {
-                const Icon = storeIcons[index];
-
-                return (
-                  <button
-                    key={store.name}
-                    type="button"
-                    aria-disabled="true"
-                    aria-describedby="store-note"
-                    className="rim flex min-h-16 cursor-not-allowed items-center gap-2.5 rounded-[14px] border border-hair bg-surface/72 px-3.5 text-left opacity-65"
-                  >
-                    <Icon
-                      aria-hidden="true"
-                      size={20}
-                      strokeWidth={1.55}
-                      className="shrink-0 text-ink-2"
-                    />
-                    <span className="min-w-0">
-                      <span className="block text-[10px] leading-none text-muted">
-                        {store.label}
-                      </span>
-                      <span className="mt-1 block text-[14px] leading-none font-medium text-ink">
-                        {store.name}
-                      </span>
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+            <button
+              type="button"
+              aria-disabled="true"
+              aria-describedby="store-note"
+              className="mt-4 block cursor-not-allowed rounded-[10px] border border-white/25 bg-black p-px opacity-80"
+            >
+              <AppStoreBadge className="h-[52px] w-auto" />
+            </button>
           </div>
         </li>
 

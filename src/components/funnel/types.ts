@@ -41,6 +41,18 @@ export type ProfileResult = {
   tools: readonly ProfileTool[];
 };
 
+export type ScoreBand = {
+  tag: string;
+  title: string;
+  body: string;
+  hue: FunnelHue;
+};
+
+export type ScoreResult = {
+  score: number;
+  band: ScoreBand;
+};
+
 export type InsightResult = {
   reflection: readonly [string, string];
   action: string;
