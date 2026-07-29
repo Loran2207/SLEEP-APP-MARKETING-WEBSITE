@@ -8,7 +8,6 @@ import {
 import { formatTime, parseTime } from "./time.ts";
 import type {
   FunnelAnswers,
-  InsightResult,
   PreviewCard,
   ProfileResult,
   ProfileTool,
@@ -100,33 +99,6 @@ function alarmReason(answers: FunnelAnswers) {
   }
 
   return copy.fallback;
-}
-
-export function buildNightInsight(answers: FunnelAnswers): InsightResult {
-  const copy = funnelCopy.insightNight;
-  const latency = copy.latency as Record<string, readonly [string, string]>;
-  const wakes = copy.wakes as Record<string, readonly [string, string]>;
-  const nightWakes = answers["night-wakes"];
-  const reflection =
-    (answers.latency && latency[answers.latency]) ||
-    (nightWakes && wakes[nightWakes]) ||
-    copy.fallback;
-
-  return { reflection, action: copy.action };
-}
-
-export function buildRhythmInsight(answers: FunnelAnswers): InsightResult {
-  const copy = funnelCopy.insightRhythm;
-  const readings = copy.readings as Record<
-    string,
-    readonly [string, string]
-  >;
-
-  return {
-    reflection:
-      (answers.awake && readings[answers.awake]) || copy.fallback,
-    action: copy.action,
-  };
 }
 
 /**

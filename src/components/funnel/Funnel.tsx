@@ -23,16 +23,9 @@ import { CheckoutStep } from "./CheckoutStep";
 import { DoneStep } from "./DoneStep";
 import { EmailStep, type EmailSaveStatus } from "./EmailStep";
 import { FunnelShell } from "./FunnelShell";
-import { InsightStep } from "./InsightStep";
 import { MultiSelectStep } from "./MultiSelectStep";
 import { PaywallStep } from "./PaywallStep";
-import {
-  buildNightInsight,
-  buildPreview,
-  buildProfile,
-  buildRhythmInsight,
-  buildScore,
-} from "./plan";
+import { buildPreview, buildProfile, buildScore } from "./plan";
 import { PreviewStep } from "./PreviewStep";
 import { ProfileStep } from "./ProfileStep";
 import { PromiseStep } from "./PromiseStep";
@@ -56,7 +49,6 @@ const stepHues: Record<FunnelStepId, FunnelHue> = {
   identity: "coral",
   awake: "coral",
   want: "violet",
-  "insight-rhythm": "violet",
   rating: "blue",
   latency: "blue",
   "night-wakes": "blue",
@@ -67,7 +59,6 @@ const stepHues: Record<FunnelStepId, FunnelHue> = {
   consistency: "blue",
   ritual: "blue",
   daytime: "blue",
-  "insight-night": "blue",
   "sleep-goal": "mint",
   "wake-time": "mint",
   "bedtime-nudge": "mint",
@@ -220,22 +211,6 @@ export function Funnel() {
         return <WelcomeStep onStart={() => goTo("promise")} />;
       case "promise":
         return <PromiseStep onContinue={() => goTo("age")} />;
-      case "insight-night":
-        return (
-          <InsightStep
-            kind="night"
-            insight={buildNightInsight(answers)}
-            onContinue={() => goTo("sleep-goal")}
-          />
-        );
-      case "insight-rhythm":
-        return (
-          <InsightStep
-            kind="rhythm"
-            insight={buildRhythmInsight(answers)}
-            onContinue={() => goTo("rating")}
-          />
-        );
       case "analyzing":
         return <AnalyzingStep onComplete={() => goTo("score", true)} />;
       case "score":

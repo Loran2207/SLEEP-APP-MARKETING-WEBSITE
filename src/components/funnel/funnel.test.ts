@@ -5,14 +5,13 @@ import {
   funnelCopy,
   funnelStepIds,
   plans,
+  questionById,
   questionStepIds,
   questions,
 } from "../../data/funnel.ts";
 import {
-  buildNightInsight,
   buildPreview,
   buildProfile,
-  buildRhythmInsight,
   buildScore,
 } from "./plan.ts";
 import {
@@ -21,6 +20,7 @@ import {
   getQuestionProgress,
   normalizeStep,
 } from "./registry.ts";
+import type { QuestionStepId } from "../../data/funnel.ts";
 import type { FunnelAnswers } from "./types.ts";
 
 const completeAnswers = {
@@ -105,8 +105,8 @@ test("keeps every goal explanation from the app", () => {
 });
 
 test("keeps all deep links unique and progress limited to 17 questions", () => {
-  assert.equal(funnelStepIds.length, 29);
-  assert.equal(new Set(funnelStepIds).size, 29);
+  assert.equal(funnelStepIds.length, 27);
+  assert.equal(new Set(funnelStepIds).size, 27);
   assert.deepEqual(getQuestionProgress("night-wakes"), {
     current: 7,
     total: 17,
@@ -152,12 +152,31 @@ test("reflects waking and racing-mind answers in plan tools", () => {
   assert.match(profile.tools[1].reason, /wake at night/i);
 });
 
-test("reflects only the answers the visitor supplied", () => {
-  const night = buildNightInsight(completeAnswers);
-  const rhythm = buildRhythmInsight(completeAnswers);
+test("asks only what the app onboarding asks", () => {
+  // The funnel exists to pre-fill the app, so it must not add or drop a question.
+  assert.equal(questionStepIds.length, 17);
+  assert.equal(funnelStepIds.length, 27);
+  const asked: readonly string[] = questionStepIds;
+  const nonQuestions = funnelStepIds.filter((id) => !asked.includes(id));
+  assert.deepEqual(nonQuestions, [
+    "welcome",
+    "promise",
+    "analyzing",
+    "score",
+    "profile",
+    "preview",
+    "email",
+    "paywall",
+    "checkout",
+    "done",
+  ]);
+});
 
-  assert.match(night.reflection[0], /20 to 40 minutes/i);
-  assert.match(rhythm.reflection[0], /afternoon/i);
+test("keeps the emoji the app shows beside the same options", () => {
+  const emojiOf = (id: QuestionStepId) =>
+    questionById[id].options.map((option) => option.emoji ?? "");
+  assert.deepEqual(emojiOf("awake"), ["🌅", "☀️", "🌤️", "🌇", "🌙"]);
+  assert.deepEqual(emojiOf("want"), ["😴", "🔋", "🧠", "🌙", "🌿"]);
 });
 
 test("ties the three preview screens to the completed answers", () => {

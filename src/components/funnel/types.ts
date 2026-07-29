@@ -53,11 +53,6 @@ export type ScoreResult = {
   band: ScoreBand;
 };
 
-export type InsightResult = {
-  reflection: readonly [string, string];
-  action: string;
-};
-
 export type PreviewCard = {
   id: "breathing" | "sounds" | "schedule";
   src: string;

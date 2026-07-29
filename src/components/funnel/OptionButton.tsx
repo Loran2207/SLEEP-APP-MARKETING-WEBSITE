@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 type OptionButtonProps = {
   label: string;
+  emoji?: string;
   description?: string;
   expand?: string;
   selected: boolean;
@@ -25,6 +26,7 @@ const hueColors: Record<FunnelHue, string> = {
 
 export function OptionButton({
   label,
+  emoji,
   description,
   expand,
   selected,
@@ -57,25 +59,35 @@ export function OptionButton({
           : undefined
       }
     >
-      <span className="min-w-0">
-        <span className="block">{label}</span>
-        {description ? (
+      <span className="flex min-w-0 items-start gap-3">
+        {emoji ? (
           <span
-            className={cn(
-              "mt-1.5 block text-[13px] leading-[1.5]",
-              selected && selectionStyle === "solid"
-                ? "text-void/72"
-                : "text-ink-2",
-            )}
+            aria-hidden="true"
+            className="shrink-0 text-[20px] leading-[1.2]"
           >
-            {description}
+            {emoji}
           </span>
         ) : null}
-        {selected && expand ? (
-          <span className="mt-2.5 block text-pretty text-[13px] leading-[1.55] text-ink-2">
-            {expand}
-          </span>
-        ) : null}
+        <span className="min-w-0">
+          <span className="block">{label}</span>
+          {description ? (
+            <span
+              className={cn(
+                "mt-1.5 block text-[13px] leading-[1.5]",
+                selected && selectionStyle === "solid"
+                  ? "text-void/72"
+                  : "text-ink-2",
+              )}
+            >
+              {description}
+            </span>
+          ) : null}
+          {selected && expand ? (
+            <span className="mt-2.5 block text-pretty text-[13px] leading-[1.55] text-ink-2">
+              {expand}
+            </span>
+          ) : null}
+        </span>
       </span>
       <span
         aria-hidden="true"

@@ -50,6 +50,7 @@ export function MultiSelectStep({
             <OptionButton
               key={option.label}
               label={option.label}
+              emoji={option.emoji}
               expand={option.expand}
               selected={selected.includes(option.label)}
               hue={question.hue}

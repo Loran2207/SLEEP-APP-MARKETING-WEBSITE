@@ -46,6 +46,7 @@ export function SingleSelectStep({
             <OptionButton
               key={option.label}
               label={option.label}
+              emoji={option.emoji}
               description={option.description}
               selected={selected === option.label}
               hue={question.hue}

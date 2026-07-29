@@ -24,8 +24,6 @@ export type FunnelStepId =
   | "welcome"
   | "promise"
   | QuestionStepId
-  | "insight-night"
-  | "insight-rhythm"
   | "analyzing"
   | "score"
   | "profile"
@@ -37,6 +35,8 @@ export type FunnelStepId =
 
 export type QuestionOption = {
   label: string;
+  /** Mirrors the emoji the app shows beside the same option. */
+  emoji?: string;
   description?: string;
   expand?: string;
 };
@@ -59,7 +59,6 @@ export const funnelStepIds: readonly FunnelStepId[] = [
   "identity",
   "awake",
   "want",
-  "insight-rhythm",
   "rating",
   "latency",
   "night-wakes",
@@ -70,7 +69,6 @@ export const funnelStepIds: readonly FunnelStepId[] = [
   "consistency",
   "ritual",
   "daytime",
-  "insight-night",
   "sleep-goal",
   "wake-time",
   "bedtime-nudge",
@@ -140,11 +138,11 @@ export const questions: readonly QuestionDefinition[] = [
     accentWord: "awake",
     helper: "Your body clock shapes the best moment to wind down.",
     options: [
-      { label: "Early morning" },
-      { label: "Mid-morning" },
-      { label: "Afternoon" },
-      { label: "Evening" },
-      { label: "Late at night" },
+      { label: "Early morning", emoji: "🌅" },
+      { label: "Mid-morning", emoji: "☀️" },
+      { label: "Afternoon", emoji: "🌤️" },
+      { label: "Evening", emoji: "🌇" },
+      { label: "Late at night", emoji: "🌙" },
     ],
     hue: "coral",
     kind: "single",
@@ -156,27 +154,27 @@ export const questions: readonly QuestionDefinition[] = [
     helper: "Pick everything that matters - we'll tailor your tools to match.",
     options: [
       {
-        label: "Fall asleep faster",
+        label: "Fall asleep faster", emoji: "😴",
         expand:
           "We'll lead with wind-down breathing and soundscapes to quiet the body so sleep comes sooner.",
       },
       {
-        label: "Wake up with energy",
+        label: "Wake up with energy", emoji: "🔋",
         expand:
           "A steady schedule and a smart wake window leave you sharper in the morning.",
       },
       {
-        label: "Calm a busy mind",
+        label: "Calm a busy mind", emoji: "🧠",
         expand:
           "Breathing practices and a quick journal ease the racing thoughts that keep you up.",
       },
       {
-        label: "Sleep through the night",
+        label: "Sleep through the night", emoji: "🌙",
         expand:
           "Better sleep hygiene means fewer wake-ups and deeper, unbroken rest.",
       },
       {
-        label: "Build a routine that sticks",
+        label: "Build a routine that sticks", emoji: "🌿",
         expand:
           "Gentle habits and reminders turn a few good nights into a lasting rhythm.",
       },
@@ -390,78 +388,6 @@ export const funnelCopy = {
       { text: "You keep what works", icon: "keep", hue: "mint" },
     ],
     primary: "Continue",
-  },
-  insightNight: {
-    eyebrow: "Your night",
-    headingBefore: "A pattern worth ",
-    headingAccent: "noticing",
-    headingAfter: "",
-    primary: "Keep going",
-    latency: {
-      "20-40 minutes": [
-        "Falling asleep takes you 20 to 40 minutes.",
-        "That gap is exactly what a wind-down is for.",
-      ],
-      "Over 40 minutes": [
-        "Falling asleep takes you over 40 minutes.",
-        "Your wind-down needs to begin before your head reaches the pillow.",
-      ],
-    },
-    wakes: {
-      "A few times a week": [
-        "You wake during the night a few times a week.",
-        "A consistent sound and wake routine can make that moment feel less abrupt.",
-      ],
-      "Most nights": [
-        "You wake during most nights.",
-        "The room and routine should feel the same each time you wake.",
-      ],
-      "Every night": [
-        "You wake during the night every night.",
-        "Tonight's plan should keep every cue calm and consistent.",
-      ],
-    },
-    fallback: [
-      "Your answers give the night its shape.",
-      "That is enough to build a simple first routine.",
-    ],
-    action:
-      "Sleep keeps your wind-down, fading sounds and wake alarm in one evening plan.",
-  },
-  insightRhythm: {
-    eyebrow: "Your rhythm",
-    headingBefore: "Your timing has a ",
-    headingAccent: "shape",
-    headingAfter: "",
-    primary: "Continue",
-    readings: {
-      "Early morning": [
-        "You naturally feel most awake in the early morning.",
-        "Your plan can protect that early rhythm with a steady evening handoff.",
-      ],
-      "Mid-morning": [
-        "You naturally feel most awake in the mid-morning.",
-        "Your plan can ease down without pushing the evening too far forward.",
-      ],
-      Afternoon: [
-        "You naturally feel most awake in the afternoon.",
-        "Your rhythm sits near the middle, with room for a consistent wind-down.",
-      ],
-      Evening: [
-        "You naturally feel most awake in the evening.",
-        "Your plan should ease down later instead of forcing an early night.",
-      ],
-      "Late at night": [
-        "You naturally feel most awake late at night.",
-        "Your rhythm runs late, so the shift toward sleep needs a clear cue.",
-      ],
-    },
-    fallback: [
-      "When you feel most awake gives the plan its starting rhythm.",
-      "The first routine stays flexible until you choose one.",
-    ],
-    action:
-      "Sleep keeps the wind-down tied to the rhythm and wake time you choose.",
   },
   analyzing: {
     eyebrow: "Your evening",
