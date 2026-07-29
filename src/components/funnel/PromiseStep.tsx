@@ -1,25 +1,11 @@
-import {
-  Activity,
-  Check,
-  MoonStar,
-  type LucideIcon,
-} from "lucide-react";
-
-import { Medallion } from "@/components/ambient/Medallion";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
-import { funnelCopy, type FunnelHue } from "@/data/funnel";
+import { funnelCopy } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
 import { PrimaryAction } from "./PrimaryAction";
 
 type PromiseStepProps = {
   onContinue: () => void;
-};
-
-const icons: Record<string, LucideIcon> = {
-  rhythm: Activity,
-  wind: MoonStar,
-  keep: Check,
 };
 
 export function PromiseStep({ onContinue }: PromiseStepProps) {
@@ -31,30 +17,16 @@ export function PromiseStep({ onContinue }: PromiseStepProps) {
         <Eyebrow>{copy.eyebrow}</Eyebrow>
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center py-12 text-center">
+      <div className="flex flex-1 flex-col items-center justify-center text-center">
         <AccentHeading
           before={copy.headingBefore}
           accent={copy.headingAccent}
           after={copy.headingAfter}
           className="max-w-[390px]"
         />
-
-        <div className="mt-11 flex w-full max-w-[310px] flex-col gap-5 text-left">
-          {copy.lines.map((line) => {
-            const Icon = icons[line.icon];
-
-            return (
-              <div key={line.text} className="flex items-center gap-4">
-                <Medallion hue={line.hue as FunnelHue} size={30}>
-                  <Icon aria-hidden="true" size={13} strokeWidth={1.7} />
-                </Medallion>
-                <p className="text-[16px] leading-[1.45] text-ink">
-                  {line.text}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+        <p className="mt-5 max-w-[330px] text-pretty text-[15px] leading-[1.55] text-ink-2">
+          {copy.body}
+        </p>
       </div>
 
       <PrimaryAction onClick={onContinue}>{copy.primary}</PrimaryAction>

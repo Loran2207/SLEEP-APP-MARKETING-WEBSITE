@@ -105,8 +105,8 @@ test("keeps every goal explanation from the app", () => {
 });
 
 test("keeps all deep links unique and progress limited to 17 questions", () => {
-  assert.equal(funnelStepIds.length, 27);
-  assert.equal(new Set(funnelStepIds).size, 27);
+  assert.equal(funnelStepIds.length, 34);
+  assert.equal(new Set(funnelStepIds).size, 34);
   assert.deepEqual(getQuestionProgress("night-wakes"), {
     current: 7,
     total: 17,
@@ -155,14 +155,23 @@ test("reflects waking and racing-mind answers in plan tools", () => {
 test("asks only what the app onboarding asks", () => {
   // The funnel exists to pre-fill the app, so it must not add or drop a question.
   assert.equal(questionStepIds.length, 17);
-  assert.equal(funnelStepIds.length, 27);
+  assert.equal(funnelStepIds.length, 34);
   const asked: readonly string[] = questionStepIds;
   const nonQuestions = funnelStepIds.filter((id) => !asked.includes(id));
+  // Everything that is not a question either mirrors an app onboarding screen
+  // or is one of the four the web needs on its own.
   assert.deepEqual(nonQuestions, [
     "welcome",
+    "features",
+    "benefits",
+    "profile-intro",
     "promise",
+    "section-about",
+    "section-sleep",
     "analyzing",
     "score",
+    "analysis",
+    "section-targets",
     "profile",
     "preview",
     "email",
@@ -201,9 +210,13 @@ test("scores the night the way the app scores its own onboarding", () => {
 });
 
 test("puts the score between the wait and the profile", () => {
+  // The app runs calculating, score, analysis, then the targets block.
+  assert.equal(getNextStep("daytime"), "analyzing");
   assert.equal(getNextStep("analyzing"), "score");
-  assert.equal(getNextStep("score"), "profile");
-  assert.equal(getPreviousStep("profile"), "score");
+  assert.equal(getNextStep("score"), "analysis");
+  assert.equal(getNextStep("analysis"), "section-targets");
+  assert.equal(getNextStep("section-targets"), "sleep-goal");
+  assert.equal(getNextStep("bedtime-nudge"), "profile");
 });
 
 test("keeps the email failure and download ending honest", () => {

@@ -11,6 +11,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import {
+  funnelCopy,
+  funnelStepIds,
   questionById,
   type BillingPeriod,
   type FunnelHue,
@@ -18,8 +20,11 @@ import {
   type QuestionStepId,
 } from "@/data/funnel";
 
+import { AnalysisStep } from "./AnalysisStep";
 import { AnalyzingStep } from "./AnalyzingStep";
+import { BenefitsStep } from "./BenefitsStep";
 import { CheckoutStep } from "./CheckoutStep";
+import { FeaturesStep } from "./FeaturesStep";
 import { DoneStep } from "./DoneStep";
 import { EmailStep, type EmailSaveStatus } from "./EmailStep";
 import { FunnelShell } from "./FunnelShell";
@@ -27,6 +32,7 @@ import { MultiSelectStep } from "./MultiSelectStep";
 import { PaywallStep } from "./PaywallStep";
 import { buildPreview, buildProfile, buildScore } from "./plan";
 import { PreviewStep } from "./PreviewStep";
+import { ProfileIntroStep } from "./ProfileIntroStep";
 import { ProfileStep } from "./ProfileStep";
 import { PromiseStep } from "./PromiseStep";
 import {
@@ -36,6 +42,7 @@ import {
   normalizeStep,
 } from "./registry";
 import { ScoreStep } from "./ScoreStep";
+import { SectionStep } from "./SectionStep";
 import { SingleSelectStep } from "./SingleSelectStep";
 import { SleepGoalStep } from "./SleepGoalStep";
 import type { FunnelAnswers } from "./types";
@@ -44,7 +51,13 @@ import { WelcomeStep } from "./WelcomeStep";
 
 const stepHues: Record<FunnelStepId, FunnelHue> = {
   welcome: "blue",
-  promise: "violet",
+  features: "blue",
+  benefits: "violet",
+  "profile-intro": "coral",
+  promise: "blue",
+  "section-about": "coral",
+  "section-sleep": "blue",
+  "section-targets": "mint",
   age: "coral",
   identity: "coral",
   awake: "coral",
@@ -64,6 +77,7 @@ const stepHues: Record<FunnelStepId, FunnelHue> = {
   "bedtime-nudge": "mint",
   analyzing: "blue",
   score: "blue",
+  analysis: "mint",
   profile: "mint",
   preview: "violet",
   email: "blue",
@@ -208,16 +222,50 @@ export function Funnel() {
 
     switch (step) {
       case "welcome":
-        return <WelcomeStep onStart={() => goTo("promise")} />;
+        return <WelcomeStep onStart={() => goTo("features")} />;
+      case "features":
+        return <FeaturesStep onContinue={() => goTo("benefits")} />;
+      case "benefits":
+        return <BenefitsStep onContinue={() => goTo("profile-intro")} />;
+      case "profile-intro":
+        return <ProfileIntroStep onContinue={() => goTo("promise")} />;
       case "promise":
-        return <PromiseStep onContinue={() => goTo("age")} />;
+        return <PromiseStep onContinue={() => goTo("section-about")} />;
+      case "section-about":
+        return (
+          <SectionStep
+            section={funnelCopy.sections.about}
+            onContinue={() => goTo("age")}
+          />
+        );
+      case "section-sleep":
+        return (
+          <SectionStep
+            section={funnelCopy.sections.sleep}
+            onContinue={() => goTo("rating")}
+          />
+        );
+      case "section-targets":
+        return (
+          <SectionStep
+            section={funnelCopy.sections.targets}
+            onContinue={() => goTo("sleep-goal")}
+          />
+        );
       case "analyzing":
         return <AnalyzingStep onComplete={() => goTo("score", true)} />;
       case "score":
         return (
           <ScoreStep
             result={buildScore(answers)}
-            onContinue={() => goTo("profile")}
+            onContinue={() => goTo("analysis")}
+          />
+        );
+      case "analysis":
+        return (
+          <AnalysisStep
+            result={buildScore(answers)}
+            onContinue={() => goTo("section-targets")}
           />
         );
       case "profile":
@@ -274,8 +322,18 @@ export function Funnel() {
     }
   }
 
+  // The app carries the same faint dashed pill: a way to reach the result
+  // without answering. It is a build tool, not product UI, so it disappears
+  // once there is nothing left to skip.
+  const skipTarget: FunnelStepId = "profile";
+  const canSkip =
+    funnelStepIds.indexOf(step) < funnelStepIds.indexOf(skipTarget);
+
   return (
-    <FunnelShell hue={stepHues[step]}>
+    <FunnelShell
+      hue={stepHues[step]}
+      onSkip={canSkip ? () => goTo(skipTarget) : undefined}
+    >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={step}

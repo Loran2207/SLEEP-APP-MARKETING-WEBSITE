@@ -22,10 +22,17 @@ export type QuestionStepId =
 
 export type FunnelStepId =
   | "welcome"
+  | "features"
+  | "benefits"
+  | "profile-intro"
   | "promise"
+  | "section-about"
+  | "section-sleep"
+  | "section-targets"
   | QuestionStepId
   | "analyzing"
   | "score"
+  | "analysis"
   | "profile"
   | "preview"
   | "email"
@@ -54,11 +61,16 @@ export type QuestionDefinition = {
 
 export const funnelStepIds: readonly FunnelStepId[] = [
   "welcome",
+  "features",
+  "benefits",
+  "profile-intro",
   "promise",
+  "section-about",
   "age",
   "identity",
   "awake",
   "want",
+  "section-sleep",
   "rating",
   "latency",
   "night-wakes",
@@ -69,11 +81,13 @@ export const funnelStepIds: readonly FunnelStepId[] = [
   "consistency",
   "ritual",
   "daytime",
+  "analyzing",
+  "score",
+  "analysis",
+  "section-targets",
   "sleep-goal",
   "wake-time",
   "bedtime-nudge",
-  "analyzing",
-  "score",
   "profile",
   "preview",
   "email",
@@ -377,11 +391,110 @@ export const funnelCopy = {
     primary: "Start",
     timing: "About two minutes. No account needed.",
   },
+  features: {
+    eyebrow: "What you get",
+    headingBefore: "Everything for a better ",
+    headingAccent: "night",
+    headingAfter: "",
+    body: "A calm toolkit you'll actually reach for.",
+    items: [
+      {
+        title: "Wind-down breathing",
+        description: "Slow 4-7-8 sessions that settle your nervous system.",
+        hue: "blue",
+      },
+      {
+        title: "Soundscapes",
+        description: "Layer rain, waves and fire into your own sleep mix.",
+        hue: "coral",
+      },
+      {
+        title: "Sleep journal",
+        description: "Track mood and nights to see what truly helps.",
+        hue: "violet",
+      },
+      {
+        title: "Guided course",
+        description: "The science of sleep, one short lesson at a time.",
+        hue: "mint",
+      },
+      {
+        title: "Smart schedules",
+        description: "Bed and wake times that adapt to your week.",
+        hue: "blue",
+      },
+    ],
+    primary: "Continue",
+  },
+  benefits: {
+    eyebrow: "What changes",
+    headingBefore: "Good sleep changes ",
+    headingAccent: "everything",
+    headingAfter: " else.",
+    body: "Here's what gets better when your nights do.",
+    items: [
+      "Fall asleep faster",
+      "Wake up clear-headed",
+      "Steadier mood all day",
+      "Lower stress levels",
+      "Sharper focus",
+      "More energy that lasts",
+      "Habits that finally stick",
+    ],
+    more: "and much more",
+    primary: "Continue",
+  },
+  profileIntro: {
+    headingBefore: "Let's build your sleep ",
+    headingAccent: "profile",
+    headingAfter: "",
+    body: "It's quick, and your answers shape the tools, tips and plan you'll see inside.",
+    primary: "Create my profile",
+  },
+  sections: {
+    primary: "Continue",
+    about: {
+      part: 1,
+      total: 3,
+      title: "About you",
+      body: "First, a little context so we can personalize everything.",
+      hue: "coral",
+    },
+    sleep: {
+      part: 2,
+      total: 3,
+      title: "Your sleep",
+      body: "Ten quick questions about how you sleep right now.",
+      hue: "blue",
+    },
+    targets: {
+      part: 3,
+      total: 3,
+      title: "Your targets",
+      body: "Last step, set the goals night will help you hold.",
+      hue: "mint",
+    },
+  },
+  analysis: {
+    headingBefore: "We've analyzed your ",
+    headingAccent: "answers",
+    headingAfter: ".",
+    reassurance:
+      "You're already doing some things right, and a handful of focused changes can take your sleep much further. We've built a plan around exactly that.",
+    statHeadline: "9 in 10",
+    statBody:
+      "people who stick with Sleep feel more rested within their first three weeks.*",
+    chartFrom: "Now",
+    chartTo: "Your ideal sleep",
+    footnote: "*Based on self-reported check-ins. Your results will vary.",
+    primary: "Continue",
+  },
   promise: {
     eyebrow: "Before we begin",
-    headingBefore: "A few honest answers, then a plan for ",
-    headingAccent: "tonight",
-    headingAfter: "",
+    headingBefore: "A few honest answers, and night does the ",
+    headingAccent: "rest",
+    headingAfter: ".",
+    body: "It takes about two minutes. There are no wrong answers.",
     lines: [
       { text: "We read your rhythm", icon: "rhythm", hue: "blue" },
       { text: "We shape your wind-down", icon: "wind", hue: "violet" },
