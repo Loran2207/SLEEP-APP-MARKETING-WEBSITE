@@ -28,8 +28,6 @@ type StorePhoneProps = {
   screenWidth: number;
   className?: string;
   style?: CSSProperties;
-  /** Push a screen back into the stack. */
-  recede?: boolean;
 };
 
 function Button({
@@ -65,7 +63,6 @@ export function StorePhone({
   screenWidth,
   className,
   style,
-  recede = false,
 }: StorePhoneProps) {
   const screenHeight = Math.round(screenWidth * SCREEN_RATIO);
   const edge = Math.round(screenWidth * EDGE);
@@ -129,16 +126,6 @@ export function StorePhone({
             }}
           />
 
-          {recede ? (
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.38) 100%)",
-              }}
-            />
-          ) : null}
         </div>
       </div>
     </div>

@@ -23,15 +23,11 @@ const veil: Record<ShotHue, string> = {
 };
 
 const MAIN_TOP = 726;
-const FAN_TOP = 792;
 
 export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) {
   const rgb = hueRgb[shot.hue];
-  const fan = shot.behind?.length === 2;
-  const mainScreen = fan ? 700 : 860;
-  const sideScreen = 600;
+  const mainScreen = 860;
   const mainLeft = Math.round((SHOT_WIDTH - phoneBodyWidth(mainScreen)) / 2);
-  const sideLeft = Math.round(SHOT_WIDTH - phoneBodyWidth(sideScreen) + 70);
 
   return (
     <section
@@ -114,11 +110,9 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
         </div>
 
         <h2 className="mt-[46px] text-[98px] leading-[1.04] font-medium tracking-[-0.035em] text-ink">
-          {shot.headline.map((line, lineIndex) => (
-            <span key={lineIndex} className="block whitespace-nowrap">
-              {line.before}
-              {line.accent ? <span className="accent-serif">{line.accent}</span> : null}
-              {line.after}
+          {shot.headline.map((line) => (
+            <span key={line} className="block whitespace-nowrap">
+              {line}
             </span>
           ))}
         </h2>
@@ -155,25 +149,6 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
         ) : null}
       </div>
 
-      {fan ? (
-        <>
-          <StorePhone
-            src={shot.behind![0].src}
-            alt={shot.behind![0].alt}
-            screenWidth={sideScreen}
-            recede
-            style={{ position: "absolute", left: -70, top: 930, transform: "rotate(-6deg)" }}
-          />
-          <StorePhone
-            src={shot.behind![1].src}
-            alt={shot.behind![1].alt}
-            screenWidth={sideScreen}
-            recede
-            style={{ position: "absolute", left: sideLeft, top: 930, transform: "rotate(6deg)" }}
-          />
-        </>
-      ) : null}
-
       <StorePhone
         src={shot.screen}
         alt={shot.screenAlt}
@@ -181,7 +156,7 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
         style={{
           position: "absolute",
           left: mainLeft,
-          top: fan ? FAN_TOP : MAIN_TOP,
+          top: MAIN_TOP,
         }}
       />
     </section>
