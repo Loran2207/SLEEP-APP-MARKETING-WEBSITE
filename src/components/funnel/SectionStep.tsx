@@ -1,6 +1,7 @@
 import { funnelCopy, type FunnelHue } from "@/data/funnel";
 import { cn } from "@/lib/utils";
 
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 
 type SectionStepProps = {
@@ -33,7 +34,9 @@ export function SectionStep({ section, onContinue }: SectionStepProps) {
   const dots = Array.from({ length: section.total }, (_, index) => index);
 
   return (
-    <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(18px,env(safe-area-inset-top))] pb-[max(24px,env(safe-area-inset-bottom))]">
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
+
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <p
           className={cn(

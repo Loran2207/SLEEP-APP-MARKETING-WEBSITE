@@ -1,7 +1,7 @@
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 
 type PromiseStepProps = {
@@ -12,10 +12,8 @@ export function PromiseStep({ onContinue }: PromiseStepProps) {
   const copy = funnelCopy.promise;
 
   return (
-    <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(48px,env(safe-area-inset-top))] pb-[max(20px,env(safe-area-inset-bottom))]">
-      <div className="mx-auto w-full max-w-[280px]">
-        <Eyebrow>{copy.eyebrow}</Eyebrow>
-      </div>
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(20px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
 
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <AccentHeading

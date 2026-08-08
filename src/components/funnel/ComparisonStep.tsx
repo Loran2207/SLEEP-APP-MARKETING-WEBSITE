@@ -1,9 +1,8 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
-
 import { funnelCopy } from "@/data/funnel";
 
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 import { ReviewCard } from "./ReviewCard";
 
@@ -33,19 +32,12 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
 
   return (
     <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
-      <div className="flex items-center pt-[max(14px,env(safe-area-inset-top))]">
-        <button
-          type="button"
-          aria-label={funnelCopy.actions.back}
-          onClick={onBack}
-          className="grid size-10 shrink-0 place-items-center text-muted transition-colors duration-150 hover:text-ink motion-reduce:transition-none"
-        >
-          <ArrowLeft aria-hidden="true" size={20} strokeWidth={1.7} />
-        </button>
-      </div>
+      <FunnelHeader onBack={onBack} />
 
-      <h1 className="mt-6 text-[27px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
-        {copy.title}
+      <h1 className="mt-7 text-[27px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+        {copy.titleBefore}
+        <span className="text-blue">{copy.titleAccent}</span>
+        {copy.titleAfter}
       </h1>
 
       <div className="mt-9 grid grid-cols-2 gap-5">

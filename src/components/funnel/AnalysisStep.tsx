@@ -5,6 +5,7 @@ import { Check } from "lucide-react";
 import { funnelCopy } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 import type { ScoreResult } from "./types";
 
@@ -90,7 +91,9 @@ export function AnalysisStep({ result, onContinue }: AnalysisStepProps) {
   const copy = funnelCopy.analysis;
 
   return (
-    <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(30px,env(safe-area-inset-top))] pb-[max(24px,env(safe-area-inset-bottom))]">
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
+
       <AccentHeading
         before={copy.headingBefore}
         accent={copy.headingAccent}

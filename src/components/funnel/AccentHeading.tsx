@@ -21,9 +21,7 @@ export function AccentHeading({
         .join(" ")}
     >
       {before}
-      <span className="accent-serif inline-block pb-1 leading-[1.15]">
-        {accent}
-      </span>
+      <span className="text-blue">{accent}</span>
       {after}
     </h1>
   );

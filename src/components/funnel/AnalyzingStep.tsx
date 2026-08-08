@@ -12,10 +12,10 @@ import {
   type MotionValue,
 } from "motion/react";
 
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy } from "@/data/funnel";
 import { cn } from "@/lib/utils";
 
+import { FunnelHeader } from "./FunnelHeader";
 import { ReviewCard } from "./ReviewCard";
 
 type AnalyzingStepProps = {
@@ -146,12 +146,12 @@ export function AnalyzingStep({ onComplete, holdAt }: AnalyzingStepProps) {
   }, [copy.announcement, holdAt, onComplete, progress, reduceMotion, total]);
 
   return (
-    <section className="flex min-h-[100dvh] flex-col items-center px-5 pt-[max(56px,env(safe-area-inset-top))] pb-[max(32px,env(safe-area-inset-bottom))] text-center">
-      <div className="w-full max-w-[250px]">
-        <Eyebrow>{copy.eyebrow}</Eyebrow>
+    <section className="flex min-h-[100dvh] flex-col items-center px-5 pb-[max(32px,env(safe-area-inset-bottom))] text-center">
+      <div className="w-full">
+        <FunnelHeader />
       </div>
 
-      <div className="flex w-full flex-1 flex-col items-center justify-center py-10">
+      <div className="flex w-full flex-col items-center pt-10">
         <h1 className="max-w-[310px] text-balance text-[30px] leading-[1.16] font-medium tracking-[-0.03em] text-ink">
           {copy.title}
         </h1>

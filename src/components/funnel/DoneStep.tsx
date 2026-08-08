@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 import { AccentHeading } from "./AccentHeading";
 import type { EmailSaveStatus } from "./EmailStep";
-import { BrandPill } from "./QuestionChrome";
+import { FunnelHeader } from "./FunnelHeader";
 
 const QR_ALT = "QR code that opens this Sleep site";
 
@@ -61,10 +61,8 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
         : copy.answersSkipped;
 
   return (
-    <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(24px,env(safe-area-inset-top))] pb-[max(28px,env(safe-area-inset-bottom))]">
-      <div className="flex justify-center">
-        <BrandPill />
-      </div>
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(28px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
 
       <div className="relative mx-auto mt-9 grid place-items-center">
         <span

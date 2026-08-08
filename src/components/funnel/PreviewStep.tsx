@@ -5,11 +5,11 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
 import { AppScreenStack } from "./AppScreenStack";
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 import type { PreviewCard } from "./types";
 
@@ -45,10 +45,8 @@ export function PreviewStep({ cards, onContinue }: PreviewStepProps) {
   }));
 
   return (
-    <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(34px,env(safe-area-inset-top))] pb-[max(20px,env(safe-area-inset-bottom))]">
-      <div className="mx-auto w-full max-w-[260px]">
-        <Eyebrow>{copy.eyebrow}</Eyebrow>
-      </div>
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(20px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
 
       <AccentHeading
         before={copy.headingBefore}

@@ -385,9 +385,7 @@ export const questionById = Object.fromEntries(
 ) as Record<QuestionStepId, QuestionDefinition>;
 
 export const funnelCopy = {
-  welcome: {
-    eyebrow: "Sleep",
-    headingBefore: "A calmer path to ",
+  welcome: {    headingBefore: "A calmer path to ",
     headingAccent: "better",
     headingAfter: " sleep",
     body: "Tell us what your nights feel like. Sleep will shape a plan that fits.",
@@ -399,9 +397,7 @@ export const funnelCopy = {
     primary: "Start",
     timing: "About two minutes. No account needed.",
   },
-  features: {
-    eyebrow: "What you get",
-    headingBefore: "Everything for a better ",
+  features: {    headingBefore: "Everything for a better ",
     headingAccent: "night",
     headingAfter: "",
     body: "A calm toolkit you'll actually reach for.",
@@ -434,9 +430,7 @@ export const funnelCopy = {
     ],
     primary: "Continue",
   },
-  benefits: {
-    eyebrow: "What changes",
-    headingBefore: "Good sleep changes ",
+  benefits: {    headingBefore: "Good sleep changes ",
     headingAccent: "everything",
     headingAfter: " else.",
     body: "Here's what gets better when your nights do.",
@@ -519,7 +513,9 @@ export const funnelCopy = {
     primary: "Sounds good",
   },
   comparison: {
-    title: "Falling asleep is hard on your own. Sleep makes it easier.",
+    titleBefore: "Falling asleep is hard on your own. ",
+    titleAccent: "Sleep",
+    titleAfter: " makes it easier.",
     columns: [
       { label: "On your own", share: 0.92, caption: "Awake in bed" },
       { label: "With Sleep", share: 0.34, caption: "Awake in bed" },
@@ -532,9 +528,7 @@ export const funnelCopy = {
     ],
     primary: "Continue",
   },
-  promise: {
-    eyebrow: "Before we begin",
-    headingBefore: "A few honest answers, and night does the ",
+  promise: {    headingBefore: "A few honest answers, and night does the ",
     headingAccent: "rest",
     headingAfter: ".",
     body: "It takes about two minutes. There are no wrong answers.",
@@ -545,9 +539,7 @@ export const funnelCopy = {
     ],
     primary: "Continue",
   },
-  analyzing: {
-    eyebrow: "Your evening",
-    title: "Building your personal sleep plan",
+  analyzing: {    title: "Building your personal sleep plan",
     lines: [
       "Creating your sleep profile",
       "Analysing your answers",
@@ -577,15 +569,11 @@ export const funnelCopy = {
     ],
     announcement: "Your sleep plan is ready.",
   },
-  score: {
-    eyebrow: "Your sleep score",
-    lead: "Based on your answers, your sleep quality is",
+  score: {    lead: "Based on your answers, your sleep quality is",
     outOf: "out of 100",
     primary: "See my plan",
   },
-  profile: {
-    eyebrow: "Your rhythm",
-    headingBefore: "Your plan for ",
+  profile: {    headingBefore: "Your plan for ",
     headingAccent: "tonight",
     headingAfter: "",
     ageLabel: "Age range",
@@ -595,9 +583,7 @@ export const funnelCopy = {
     primary: "See Sleep+",
     secondary: "Continue with the free plan",
   },
-  preview: {
-    eyebrow: "Tonight's plan",
-    headingBefore: "Your first ",
+  preview: {    headingBefore: "Your first ",
     headingAccent: "night",
     headingAfter: "",
     primary: "See Sleep+",
@@ -621,9 +607,7 @@ export const funnelCopy = {
       fallback: "Your evening routine and wake alarm, kept together.",
     },
   },
-  email: {
-    eyebrow: "Keep your setup",
-    headingBefore: "Save your plan to your ",
+  email: {    headingBefore: "Save your plan to your ",
     headingAccent: "inbox",
     headingAfter: "",
     body: "Enter the email you will use in the app. Your answers are saved to it, so SLEEP opens already set up and you never answer these questions again.",
@@ -642,9 +626,7 @@ export const funnelCopy = {
     continueAnyway: "Continue anyway",
     skip: "Skip for now",
   },
-  paywall: {
-    eyebrow: "Sleep+",
-    headingBefore: "Everything the night ",
+  paywall: {    headingBefore: "Everything the night ",
     headingAccent: "asks",
     headingAfter: " for",
     body: "Seven days free, then keep the parts that work.",
@@ -655,9 +637,7 @@ export const funnelCopy = {
     trust: ["Cancel anytime", "Private by default", "No card charged today"],
     primary: "Start 7-day free trial",
   },
-  checkout: {
-    eyebrow: "Sleep+",
-    headingBefore: "Complete your ",
+  checkout: {    headingBefore: "Complete your ",
     headingAccent: "checkout",
     headingAfter: "",
     summaryLabel: "Order summary",

@@ -1,7 +1,7 @@
 // This screen is a design preview. Wire it to a real payment provider or remove it before the site goes public.
 "use client";
 
-import { ArrowLeft, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -11,12 +11,12 @@ import {
   PayPalMonoMark,
   VisaMark,
 } from "@/components/brand/marks";
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy, plans, type BillingPeriod } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
 import { CardForm } from "./CardForm";
 import { ExpressPay } from "./ExpressPay";
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 
 type CheckoutStepProps = {
@@ -38,21 +38,8 @@ export function CheckoutStep({
   const plan = plans[billing];
 
   return (
-    <section className="min-h-[100dvh] px-5 pt-[max(18px,env(safe-area-inset-top))] pb-[max(24px,env(safe-area-inset-bottom))]">
-      <header className="flex items-center gap-3">
-        <button
-          type="button"
-          aria-label={funnelCopy.actions.back}
-          onClick={onBack}
-          className="grid size-11 shrink-0 place-items-center text-muted transition-colors duration-150 hover:text-ink active:text-ink motion-reduce:transition-none"
-        >
-          <ArrowLeft aria-hidden="true" size={21} strokeWidth={1.6} />
-        </button>
-        <div className="min-w-0 flex-1">
-          <Eyebrow>{copy.eyebrow}</Eyebrow>
-        </div>
-        <span aria-hidden="true" className="size-11 shrink-0" />
-      </header>
+    <section className="min-h-[100dvh] px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
+      <FunnelHeader onBack={onBack} />
 
       <AccentHeading
         before={copy.headingBefore}

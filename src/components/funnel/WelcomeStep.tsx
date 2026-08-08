@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
 import { AppScreenStack } from "./AppScreenStack";
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 
 type WelcomeStepProps = {
@@ -35,7 +35,9 @@ export function WelcomeStep({ onStart }: WelcomeStepProps) {
   ] as const;
 
   return (
-    <section className="relative isolate flex min-h-[100dvh] flex-col overflow-hidden px-5 pt-[max(26px,env(safe-area-inset-top))] pb-[max(20px,env(safe-area-inset-bottom))]">
+    <section className="relative isolate flex min-h-[100dvh] flex-col overflow-hidden px-5 pb-[max(20px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
+
       <Image
         src="/art/hero-night.webp"
         alt=""
@@ -54,11 +56,7 @@ export function WelcomeStep({ onStart }: WelcomeStepProps) {
         }}
       />
 
-      <div className="mx-auto w-full max-w-[250px]">
-        <Eyebrow>{copy.eyebrow}</Eyebrow>
-      </div>
-
-      <div className="mt-4 text-center">
+      <div className="mt-6 text-center">
         <AccentHeading
           before={copy.headingBefore}
           accent={copy.headingAccent}

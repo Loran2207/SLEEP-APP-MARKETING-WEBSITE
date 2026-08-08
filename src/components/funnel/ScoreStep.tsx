@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "motion/react";
 
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy, type FunnelHue } from "@/data/funnel";
 import { cn } from "@/lib/utils";
 
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 import type { ScoreResult } from "./types";
 
@@ -106,10 +106,8 @@ export function ScoreStep({ result, onContinue }: ScoreStepProps) {
   const copy = funnelCopy.score;
 
   return (
-    <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(48px,env(safe-area-inset-top))] pb-[max(24px,env(safe-area-inset-bottom))]">
-      <div className="mx-auto w-full max-w-[250px]">
-        <Eyebrow>{copy.eyebrow}</Eyebrow>
-      </div>
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
 
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <p className="max-w-[300px] text-pretty text-[15px] leading-[1.5] text-ink-2">

@@ -8,10 +8,10 @@ import {
 
 import { Medallion } from "@/components/ambient/Medallion";
 import { GlassCard } from "@/components/primitives/GlassCard";
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
+import { FunnelHeader } from "./FunnelHeader";
 import { NightTimeline } from "./NightTimeline";
 import { PrimaryAction } from "./PrimaryAction";
 import type { ProfileResult } from "./types";
@@ -32,10 +32,8 @@ export function ProfileStep({
   const copy = funnelCopy.profile;
 
   return (
-    <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(48px,env(safe-area-inset-top))] pb-[max(24px,env(safe-area-inset-bottom))]">
-      <div className="mx-auto w-full max-w-[250px]">
-        <Eyebrow>{copy.eyebrow}</Eyebrow>
-      </div>
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
 
       <AccentHeading
         before={copy.headingBefore}

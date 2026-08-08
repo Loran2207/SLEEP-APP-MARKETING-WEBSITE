@@ -4,6 +4,7 @@ import { Medallion } from "@/components/ambient/Medallion";
 import { funnelCopy } from "@/data/funnel";
 
 import { AccentHeading } from "./AccentHeading";
+import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 
 type ProfileIntroStepProps = {
@@ -15,7 +16,9 @@ export function ProfileIntroStep({ onContinue }: ProfileIntroStepProps) {
   const copy = funnelCopy.profileIntro;
 
   return (
-    <section className="flex min-h-[100dvh] flex-col px-5 pt-[max(18px,env(safe-area-inset-top))] pb-[max(24px,env(safe-area-inset-bottom))]">
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
+      <FunnelHeader />
+
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <Medallion hue="coral" size={116}>
           <User aria-hidden="true" size={46} strokeWidth={1.4} />
