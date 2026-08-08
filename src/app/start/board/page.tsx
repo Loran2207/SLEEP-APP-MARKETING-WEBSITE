@@ -2,6 +2,7 @@
 
 import { AnalyzingStep } from "@/components/funnel/AnalyzingStep";
 import { CheckoutStep } from "@/components/funnel/CheckoutStep";
+import { ComparisonStep } from "@/components/funnel/ComparisonStep";
 import { DoneStep } from "@/components/funnel/DoneStep";
 import { PaywallStep } from "@/components/funnel/PaywallStep";
 import { SocialProofStep } from "@/components/funnel/SocialProofStep";
@@ -15,6 +16,7 @@ const noop = () => {};
  */
 export default function BoardPage() {
   const cells = [
+    ["comparison", <ComparisonStep key="cmp" onContinue={noop} onBack={noop} />],
     ["social-proof", <SocialProofStep key="s" onContinue={noop} onBack={noop} />],
     ["analyzing", <AnalyzingStep key="a" onComplete={noop} holdAt={362} />],
     ["paywall", <PaywallStep key="p" billing="yearly" onBillingChange={noop} onBack={noop} onTrial={noop} />],

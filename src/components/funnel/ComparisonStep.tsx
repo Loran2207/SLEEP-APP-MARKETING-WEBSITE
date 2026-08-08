@@ -14,9 +14,15 @@ type ComparisonStepProps = {
 
 const TICKS = ["2h", "1h 30m", "1h", "30m", "0"];
 
+/** The same pair as the paywall's now/after block, so the story stays one person. */
+const PHOTOS = [
+  { src: "/funnel/paywall/now.webp", hue: "var(--color-ink-2)" },
+  { src: "/funnel/paywall/after.webp", hue: "var(--color-blue)" },
+] as const;
+
 /**
- * The before and after block, laid out like Rest AI's: two columns of bars
- * under one headline, then the reviews.
+ * The before and after block, laid out like Rest AI's: the same person before
+ * and after over two columns of bars, under one headline, then the reviews.
  *
  * The bars carry the one thing the app can honestly speak to, the time spent
  * awake in bed, and both numbers are marked as an illustration rather than a
@@ -45,10 +51,29 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
       <div className="mt-9 grid grid-cols-2 gap-5">
         {copy.columns.map((column, index) => (
           <div key={column.label}>
-            <p className="text-center text-[13px] font-medium tracking-[0.02em] text-ink-2">
-              {column.label}
-            </p>
-            <div className="relative mt-3 h-[190px]">
+            <div className="relative overflow-hidden rounded-card border border-hair">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={PHOTOS[index].src}
+                alt=""
+                className="aspect-[3/4] w-full object-cover"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 h-16 bg-[linear-gradient(180deg,transparent,#000000)]"
+              />
+              <span
+                className="absolute left-1/2 top-2.5 -translate-x-1/2 whitespace-nowrap rounded-full border px-2.5 py-1 text-[10.5px] font-medium"
+                style={{
+                  color: PHOTOS[index].hue,
+                  borderColor: `color-mix(in srgb, ${PHOTOS[index].hue} 40%, transparent)`,
+                  backgroundColor: "rgba(0,0,0,0.72)",
+                }}
+              >
+                {column.label}
+              </span>
+            </div>
+            <div className="relative mt-4 h-[190px]">
               {TICKS.map((tick, tickIndex) => (
                 <span
                   key={tick}
