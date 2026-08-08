@@ -1,7 +1,6 @@
 import type { QuestionDefinition } from "@/data/funnel";
 import { funnelCopy } from "@/data/funnel";
 
-import { getQuestionProgress } from "./registry";
 import { OptionButton } from "./OptionButton";
 import { PrimaryAction } from "./PrimaryAction";
 import { QuestionChrome } from "./QuestionChrome";
@@ -22,15 +21,10 @@ export function MultiSelectStep({
   onContinue,
   onBack,
 }: MultiSelectStepProps) {
-  const progress = getQuestionProgress(question.id);
 
   return (
     <section className="flex min-h-[100dvh] flex-col px-5">
-      <QuestionChrome
-        {...progress}
-        hue={question.hue}
-        onBack={onBack}
-      />
+      <QuestionChrome stepId={question.id} hue={question.hue} onBack={onBack} />
 
       <div className="flex flex-1 flex-col pt-10">
         <h1 className="max-w-[390px] text-balance text-[30px] leading-[1.16] font-medium tracking-[-0.03em] text-ink">

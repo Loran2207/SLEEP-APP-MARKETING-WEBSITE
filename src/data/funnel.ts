@@ -22,6 +22,10 @@ export type QuestionStepId =
 
 export type FunnelStepId =
   | "welcome"
+  | "name"
+  | "social-proof"
+  | "habit-scale"
+  | "comparison"
   | "features"
   | "benefits"
   | "profile-intro"
@@ -65,22 +69,26 @@ export const funnelStepIds: readonly FunnelStepId[] = [
   "benefits",
   "profile-intro",
   "promise",
+  "name",
   "section-about",
   "age",
   "identity",
   "awake",
   "want",
+  "social-proof",
   "section-sleep",
   "rating",
   "latency",
   "night-wakes",
   "early-wake",
   "racing-mind",
+  "habit-scale",
   "screens",
   "caffeine",
   "consistency",
   "ritual",
   "daytime",
+  "comparison",
   "analyzing",
   "score",
   "analysis",
@@ -487,6 +495,41 @@ export const funnelCopy = {
     chartFrom: "Now",
     chartTo: "Your ideal sleep",
     footnote: "*Based on self-reported check-ins. Your results will vary.",
+    primary: "Continue",
+  },
+  name: {
+    title: "First, what should we call you?",
+    body: "It only shows up inside the app, on your own screen. Skip it if you would rather not.",
+    placeholder: "Your name",
+    primary: "Continue",
+    skip: "Skip for now",
+  },
+  habitScale: {
+    lead: "Which of these describes you?",
+    // Placeholder statement. The client is sending the real list.
+    statement: "I scroll on my phone in bed until I finally fall asleep.",
+    low: "Not at all",
+    high: "Totally",
+    primary: "Continue",
+  },
+  socialProof: {
+    lead: "People fall asleep with Sleep in every time zone there is.",
+    title: "You are in good hands",
+    body: "Answer honestly and the plan fits you, not an average of everyone else.",
+    primary: "Sounds good",
+  },
+  comparison: {
+    title: "Falling asleep is hard on your own. Sleep makes it easier.",
+    columns: [
+      { label: "On your own", share: 0.92, caption: "Awake in bed" },
+      { label: "With Sleep", share: 0.34, caption: "Awake in bed" },
+    ],
+    footnote: "Illustration of the goal, not a measured result.",
+    reviews: [
+      { name: "Name", title: "Headline goes here", body: "Review copy to be supplied by the client." },
+      { name: "Name", title: "Headline goes here", body: "Review copy to be supplied by the client." },
+      { name: "Name", title: "Headline goes here", body: "Review copy to be supplied by the client." },
+    ],
     primary: "Continue",
   },
   promise: {

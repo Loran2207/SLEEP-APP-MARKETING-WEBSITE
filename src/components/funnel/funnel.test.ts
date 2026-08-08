@@ -105,8 +105,8 @@ test("keeps every goal explanation from the app", () => {
 });
 
 test("keeps all deep links unique and progress limited to 17 questions", () => {
-  assert.equal(funnelStepIds.length, 34);
-  assert.equal(new Set(funnelStepIds).size, 34);
+  assert.equal(funnelStepIds.length, 38);
+  assert.equal(new Set(funnelStepIds).size, 38);
   assert.deepEqual(getQuestionProgress("night-wakes"), {
     current: 7,
     total: 17,
@@ -155,19 +155,24 @@ test("reflects waking and racing-mind answers in plan tools", () => {
 test("asks only what the app onboarding asks", () => {
   // The funnel exists to pre-fill the app, so it must not add or drop a question.
   assert.equal(questionStepIds.length, 17);
-  assert.equal(funnelStepIds.length, 34);
+  assert.equal(funnelStepIds.length, 38);
   const asked: readonly string[] = questionStepIds;
   const nonQuestions = funnelStepIds.filter((id) => !asked.includes(id));
-  // Everything that is not a question either mirrors an app onboarding screen
-  // or is one of the four the web needs on its own.
+  // Everything that is not a question either mirrors an app onboarding screen,
+  // is one the web needs on its own, or is one of the four marketing beats the
+  // client asked for after seeing the Rest AI funnel.
   assert.deepEqual(nonQuestions, [
     "welcome",
     "features",
     "benefits",
     "profile-intro",
     "promise",
+    "name",
     "section-about",
+    "social-proof",
     "section-sleep",
+    "habit-scale",
+    "comparison",
     "analyzing",
     "score",
     "analysis",
@@ -211,7 +216,8 @@ test("scores the night the way the app scores its own onboarding", () => {
 
 test("puts the score between the wait and the profile", () => {
   // The app runs calculating, score, analysis, then the targets block.
-  assert.equal(getNextStep("daytime"), "analyzing");
+  assert.equal(getNextStep("daytime"), "comparison");
+  assert.equal(getNextStep("comparison"), "analyzing");
   assert.equal(getNextStep("analyzing"), "score");
   assert.equal(getNextStep("score"), "analysis");
   assert.equal(getNextStep("analysis"), "section-targets");

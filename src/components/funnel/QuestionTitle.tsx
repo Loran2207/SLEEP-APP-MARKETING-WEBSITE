@@ -1,28 +1,14 @@
 type QuestionTitleProps = {
   title: string;
-  accentWord: string;
+  /** Kept so callers do not change; the funnel no longer marks a word. */
+  accentWord?: string;
 };
 
-export function QuestionTitle({
-  title,
-  accentWord,
-}: QuestionTitleProps) {
-  const accentIndex = title.indexOf(accentWord);
-
-  if (accentIndex < 0) {
-    return <>{title}</>;
-  }
-
-  const before = title.slice(0, accentIndex);
-  const after = title.slice(accentIndex + accentWord.length);
-
-  return (
-    <>
-      {before}
-      <span className="accent-serif inline-block pb-1 leading-[1.15]">
-        {accentWord}
-      </span>
-      {after}
-    </>
-  );
+/**
+ * Plain, one typeface. The italic serif accent was pulled out of the questions
+ * on the client's note: inside a question it competes with the answer options
+ * instead of leading the eye to them.
+ */
+export function QuestionTitle({ title }: QuestionTitleProps) {
+  return <>{title}</>;
 }

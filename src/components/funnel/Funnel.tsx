@@ -35,6 +35,10 @@ import { PreviewStep } from "./PreviewStep";
 import { ProfileIntroStep } from "./ProfileIntroStep";
 import { ProfileStep } from "./ProfileStep";
 import { PromiseStep } from "./PromiseStep";
+import { NameStep } from "./NameStep";
+import { SocialProofStep } from "./SocialProofStep";
+import { ScaleStep } from "./ScaleStep";
+import { ComparisonStep } from "./ComparisonStep";
 import {
   getNextStep,
   getPreviousStep,
@@ -51,6 +55,10 @@ import { WelcomeStep } from "./WelcomeStep";
 
 const stepHues: Record<FunnelStepId, FunnelHue> = {
   welcome: "blue",
+  name: "coral",
+  "social-proof": "violet",
+  "habit-scale": "blue",
+  comparison: "violet",
   features: "blue",
   benefits: "violet",
   "profile-intro": "coral",
@@ -96,6 +104,8 @@ export function Funnel() {
   const selectionTimer = useRef<number | null>(null);
   const [answers, setAnswers] = useState<FunnelAnswers>({ want: [] });
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [habitScale, setHabitScale] = useState<number | undefined>(undefined);
   const [emailSaveStatus, setEmailSaveStatus] =
     useState<EmailSaveStatus>("idle");
   const [billing, setBilling] = useState<BillingPeriod>("yearly");
@@ -231,6 +241,38 @@ export function Funnel() {
         return <ProfileIntroStep onContinue={() => goTo("promise")} />;
       case "promise":
         return <PromiseStep onContinue={() => goTo("section-about")} />;
+      case "name":
+        return (
+          <NameStep
+            value={name}
+            onChange={setName}
+            onContinue={() => goTo(getNextStep("name"))}
+            onBack={() => goTo(getPreviousStep("name"))}
+          />
+        );
+      case "social-proof":
+        return (
+          <SocialProofStep
+            onContinue={() => goTo(getNextStep("social-proof"))}
+            onBack={() => goTo(getPreviousStep("social-proof"))}
+          />
+        );
+      case "habit-scale":
+        return (
+          <ScaleStep
+            value={habitScale}
+            onSelect={setHabitScale}
+            onContinue={() => goTo(getNextStep("habit-scale"))}
+            onBack={() => goTo(getPreviousStep("habit-scale"))}
+          />
+        );
+      case "comparison":
+        return (
+          <ComparisonStep
+            onContinue={() => goTo(getNextStep("comparison"))}
+            onBack={() => goTo(getPreviousStep("comparison"))}
+          />
+        );
       case "section-about":
         return (
           <SectionStep

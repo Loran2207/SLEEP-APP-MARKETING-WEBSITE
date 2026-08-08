@@ -3,7 +3,6 @@
 import { funnelCopy, type QuestionDefinition } from "@/data/funnel";
 import { cn } from "@/lib/utils";
 
-import { getQuestionProgress } from "./registry";
 import { PrimaryAction } from "./PrimaryAction";
 import { QuestionChrome } from "./QuestionChrome";
 import { QuestionTitle } from "./QuestionTitle";
@@ -35,7 +34,6 @@ export function WakeTimeStep({
   onContinue,
   onBack,
 }: WakeTimeStepProps) {
-  const progress = getQuestionProgress(question.id);
   const wakeTime = value ?? DEFAULT_WAKE_TIME;
   const { hours, minutes } = splitTime(wakeTime);
   const goalHours = sleepGoalHours ?? DEFAULT_SLEEP_GOAL_HOURS;
@@ -43,7 +41,7 @@ export function WakeTimeStep({
 
   return (
     <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
-      <QuestionChrome {...progress} hue={question.hue} onBack={onBack} />
+      <QuestionChrome stepId="wake-time" hue={question.hue} onBack={onBack} />
 
       <div className="flex flex-1 flex-col pt-12">
         <h1 className="max-w-[390px] text-balance text-[30px] leading-[1.16] font-medium tracking-[-0.03em] text-ink">

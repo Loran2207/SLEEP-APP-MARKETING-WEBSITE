@@ -1,6 +1,5 @@
 import type { QuestionDefinition } from "@/data/funnel";
 
-import { getQuestionProgress } from "./registry";
 import { OptionButton } from "./OptionButton";
 import { QuestionChrome } from "./QuestionChrome";
 import { QuestionTitle } from "./QuestionTitle";
@@ -18,17 +17,12 @@ export function SingleSelectStep({
   onSelect,
   onBack,
 }: SingleSelectStepProps) {
-  const progress = getQuestionProgress(question.id);
 
   return (
     <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
-      <QuestionChrome
-        {...progress}
-        hue={question.hue}
-        onBack={onBack}
-      />
+      <QuestionChrome stepId={question.id} hue={question.hue} onBack={onBack} />
 
-      <div className="flex flex-1 flex-col pt-12">
+      <div className="flex flex-1 flex-col pt-9">
         <h1 className="max-w-[390px] text-balance text-[30px] leading-[1.16] font-medium tracking-[-0.03em] text-ink">
           <QuestionTitle
             title={question.title}
