@@ -53,11 +53,11 @@ export function PlanCard({
 
   return (
     <div className="rim rounded-card border border-hair bg-surface/65 p-4">
-      <h2 className="text-balance text-center text-[19px] leading-[1.3] font-medium tracking-[-0.015em] text-ink">
+      <h2 className="text-balance text-[19px] leading-[1.3] font-medium tracking-[-0.015em] text-ink">
         {copy.heading}
       </h2>
 
-      <div className="mt-3 flex justify-center">
+      <div className="mt-3 flex">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-coral/40 bg-coral/[0.14] px-3 py-1 text-[12px] font-medium text-coral">
           <Clock aria-hidden="true" size={13} strokeWidth={2} />
           {copy.offerBefore}
@@ -158,7 +158,7 @@ export function PlanCard({
                 </label>
 
                 {row.recommended ? (
-                  <p className="mt-2 flex items-center justify-center gap-1.5 text-[12px] font-medium text-blue">
+                  <p className="mt-2 flex items-center gap-1.5 pl-1 text-[12px] font-medium text-blue">
                     <Sparkles aria-hidden="true" size={13} strokeWidth={1.8} />
                     {row.recommended}
                   </p>
@@ -169,7 +169,7 @@ export function PlanCard({
         </div>
       </fieldset>
 
-      <p className="mt-3 text-center text-[11px] leading-[1.5] text-faint">
+      <p className="mt-3 text-[11px] leading-[1.5] text-faint">
         {copy.footnote}
       </p>
 
@@ -177,7 +177,7 @@ export function PlanCard({
         <PrimaryAction onClick={onTrial}>{paywallCopy.cta}</PrimaryAction>
       </div>
 
-      <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] text-muted">
+      <p className="mt-3 flex items-center gap-1.5 text-[12px] text-muted">
         <ShieldCheck
           aria-hidden="true"
           size={14}
@@ -191,7 +191,7 @@ export function PlanCard({
         {funnelCopy.paywall.trust.map((item) => (
           <span
             key={item}
-            className="flex items-start justify-center gap-1 text-center text-[10px] leading-[1.35] text-muted"
+            className="flex items-start gap-1 text-[10px] leading-[1.35] text-muted"
           >
             <Check
               aria-hidden="true"

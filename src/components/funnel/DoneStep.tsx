@@ -63,10 +63,10 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
     <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
       <FunnelHeader />
 
-      <div className="relative mx-auto mt-6 grid place-items-center">
+      <div className="relative mt-6 grid w-fit place-items-center">
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute size-[180px]"
+          className="pointer-events-none absolute size-[128px]"
           style={{
             background:
               "radial-gradient(ellipse 50% 50% at center, rgba(93,221,179,0.2), transparent 72%)",
@@ -80,9 +80,9 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
         </span>
       </div>
 
-      <h1 className="mx-auto mt-5 max-w-[300px] text-balance text-center text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+      <h1 className="mt-5 text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
         {copy.headingBefore}
-        <span className="text-blue">{copy.headingAccent}</span>
+        <span className="text-blue whitespace-nowrap">{copy.headingAccent}</span>
         {copy.headingAfter}
       </h1>
 
@@ -150,11 +150,11 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
         </li>
       </ol>
 
-      <p className="mx-auto mt-4 max-w-[340px] text-pretty text-center text-[12px] leading-[1.55] text-muted">
+      <p className="mt-4 max-w-[340px] text-pretty text-[12px] leading-[1.55] text-muted">
         {answersLine}
       </p>
 
-      <div className="mt-6 flex flex-col items-center">
+      <div className="mt-6 flex flex-col items-start">
         <button
           type="button"
           aria-disabled="true"
@@ -165,15 +165,15 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
         </button>
         <p
           id="store-note"
-          className="mt-2 max-w-[320px] text-pretty text-center text-[12px] leading-[1.55] text-muted"
+          className="mt-2 max-w-[320px] text-pretty text-[12px] leading-[1.55] text-muted"
         >
           {copy.storeNote}
         </p>
       </div>
 
-      <p className="mt-5 text-center text-[13px] text-ink-2">{copy.qrLead}</p>
+      <p className="mt-5 text-[13px] text-ink-2">{copy.qrLead}</p>
 
-      <div className="relative mx-auto mt-3 size-[148px] rounded-[14px] bg-white p-2.5">
+      <div className="relative mt-3 size-[148px] rounded-[14px] bg-white p-2.5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/funnel/qr-start.svg"

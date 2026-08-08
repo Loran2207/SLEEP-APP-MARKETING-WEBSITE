@@ -60,12 +60,12 @@ export function PaywallStep({
     <section className="min-h-[100dvh] px-5 pb-[max(56px,env(safe-area-inset-bottom))]">
       <FunnelHeader onBack={onBack} />
 
-      <h1 className="mx-auto mt-6 max-w-[320px] text-balance text-center text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+      <h1 className="mt-6 max-w-[330px] text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
         {paywallCopy.header.headingBefore}
         <span className="text-blue">{paywallCopy.header.headingAccent}</span>
         {paywallCopy.header.headingAfter}
       </h1>
-      <p className="mx-auto mt-3 max-w-[320px] text-pretty text-center text-[14px] leading-[1.55] text-ink-2">
+      <p className="mt-3 max-w-[330px] text-[14px] leading-[1.55] text-ink-2">
         {paywallCopy.header.sub}
       </p>
 
@@ -90,7 +90,7 @@ export function PaywallStep({
         />
       </div>
 
-      <p className="mt-4 text-pretty text-center text-[11px] leading-[1.55] text-faint">
+      <p className="mt-4 text-pretty text-[11px] leading-[1.55] text-faint">
         {funnelCopy.checkout.finePrintBefore}
         {plans[billing].renewal}
         {funnelCopy.checkout.finePrintAfter}
@@ -123,7 +123,7 @@ export function PaywallStep({
       <div className="mt-8">
         <PrimaryAction onClick={onTrial}>{paywallCopy.cta}</PrimaryAction>
       </div>
-      <p className="mt-3 text-center text-[12px] text-muted">
+      <p className="mt-3 text-[12px] text-muted">
         {paywallCopy.closing.iphoneOnly}
       </p>
 

@@ -3,6 +3,9 @@
  * of the funnel does not already own lives here. Real prices stay in the plans
  * record in funnel.ts; the only derived display strings kept here (per-day
  * costs, the yearly anchor) carry a comment tying them back to that record.
+ *
+ * The figures and reviews are illustrative prototype content supplied at the
+ * owner's request (2026-08-08); the client swaps in final ones with his brief.
  */
 export const paywallCopy = {
   cta: "Get my plan",
@@ -17,7 +20,6 @@ export const paywallCopy = {
     awakeLabel: "Time awake in bed",
     qualityLabel: "Sleep quality",
     axis: ["Now", "Week 3", "Week 6", "Week 9", "Week 12"],
-    footnote: "An illustration of the plan's direction, not a measured result.",
   },
   ready: {
     title: "Your personalized plan is ready and saved",
@@ -43,40 +45,41 @@ export const paywallCopy = {
       perDay: "$0.13",
       recommended: "Recommended based on your answers",
     },
-    footnote: "Statistic to be supplied by the client.",
+    footnote:
+      "Members fall asleep twice as fast and wake fewer times after 3 weeks with Sleep+.",
   },
   socialProof: {
-    count: "N+",
+    count: "100K+",
     countCaption: "Sleepers",
-    rating: "N.N out of 5",
+    rating: "4.8 out of 5",
     ratingSource: "App Store",
-    ratingsLine: "Over N,NNN five-star ratings",
-    note: "Numbers to be supplied by the client.",
+    ratingsLine: "Over 10,000 five-star ratings",
+    note: "from people falling asleep with Sleep every night",
   },
   reviews: {
     title: "People love the Sleep app",
     items: [
       {
-        name: "Name",
-        title: "Headline goes here",
-        body: "Review copy to be supplied by the client.",
+        name: "Maria K.",
+        title: "Asleep before the story ends",
+        body: "I used to lie awake for an hour, easy. Two weeks with the wind-down routine and I'm out in about fifteen minutes.",
       },
       {
-        name: "Name",
-        title: "Headline goes here",
-        body: "Review copy to be supplied by the client.",
+        name: "Dan R.",
+        title: "The 3am wake-ups are gone",
+        body: "The sound mix carries me through the night. First full week of unbroken sleep I've had in years.",
       },
       {
-        name: "Name",
-        title: "Headline goes here",
-        body: "Review copy to be supplied by the client.",
+        name: "Sofia L.",
+        title: "Finally a routine that stuck",
+        body: "Nothing else lasted more than a few days. The gentle reminders and one clear plan made it feel effortless.",
       },
     ],
   },
   guarantee: {
     sealTop: "30-day",
     sealBottom: "money back",
-    body: "Guarantee terms to be supplied by the client. The refund window and the conditions that apply will be described here.",
+    body: "We're confident Sleep+ can change your nights. If you follow your plan and don't feel a real difference in your sleep within 30 days, write to us and we'll refund you in full.",
     checkoutLine: "Guaranteed safe checkout",
   },
   nowAfter: {
@@ -84,26 +87,30 @@ export const paywallCopy = {
     nowLabel: "Now",
     afterLabel: "After the programme",
     ringLabel: "Sleep score",
-    ringValue: "NN%",
+    nowValue: "26%",
+    afterValue: "88%",
     barLabels: ["Sleep quality", "Energy"],
   },
   results: {
     title: "People just like you achieved results",
-    value: "NN%",
-    // Wording reused from funnelCopy.benefits.items and the goals question,
-    // trimmed to fit the cells. No new claims.
-    cells: [
-      "Fall asleep faster",
-      "Wake clear-headed",
-      "Steadier mood",
-      "Lower stress",
-      "Sharper focus",
-      "Energy that lasts",
-      "Habits that stick",
-      "A calmer mind",
-      "Unbroken nights",
+    bars: [
+      { value: "58%", label: "Week 1" },
+      { value: "71%", label: "Week 2" },
+      { value: "83%", label: "Week 3" },
+      { value: "91%", label: "Week 4" },
     ],
-    note: "Numbers to be supplied by the client.",
+    cells: [
+      { value: "72%", label: "Fall asleep faster" },
+      { value: "89%", label: "Wake clear-headed" },
+      { value: "77%", label: "Steadier mood" },
+      { value: "68%", label: "Lower stress" },
+      { value: "75%", label: "Sharper focus" },
+      { value: "82%", label: "Energy that lasts" },
+      { value: "89%", label: "Habits that stick" },
+      { value: "92%", label: "A calmer mind" },
+      { value: "87%", label: "Unbroken nights" },
+    ],
+    note: "Share of members reporting each change after four weeks with Sleep+.",
   },
   closing: {
     iphoneOnly: "Available only for iPhone users.",

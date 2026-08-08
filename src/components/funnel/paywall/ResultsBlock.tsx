@@ -1,14 +1,10 @@
 import { paywallCopy } from "@/data/paywall";
 import { cn } from "@/lib/utils";
 
-/** Bar heights are illustrative geometry; the caption is the placeholder. */
+/** Bar pixel heights matching the four weekly values, week 1 to week 4. */
 const BAR_HEIGHTS = [36, 54, 68, 80] as const;
 
-/**
- * Rest AI's results wall: a small bar chart, then a grid of percent cells.
- * Every figure stays "NN%" until the client sends real numbers, and the note
- * under the grid says so.
- */
+/** Rest AI's results wall: a small bar chart, then a grid of percent cells. */
 export function ResultsBlock() {
   const copy = paywallCopy.results;
 
@@ -18,45 +14,55 @@ export function ResultsBlock() {
         {copy.title}
       </h2>
 
-      <div className="mt-4 flex h-[112px] items-end gap-3 border-b border-hair px-3 pb-0">
-        {BAR_HEIGHTS.map((height, index) => (
-          <div key={index} className="flex flex-1 flex-col items-center gap-1.5">
+      <div className="mt-4 flex h-[128px] items-end gap-3 border-b border-hair px-3 pb-0">
+        {copy.bars.map((bar, index) => (
+          <div key={bar.label} className="flex flex-1 flex-col items-center gap-1.5">
             <span className="text-[11px] text-ink-2 tabular-nums">
-              {copy.value}
+              {bar.value}
             </span>
             <span
               className="w-full max-w-[44px] rounded-t-[8px]"
               style={{
-                height: `${height}px`,
+                height: `${BAR_HEIGHTS[index]}px`,
                 background:
-                  "linear-gradient(180deg,var(--color-blue),color-mix(in srgb,var(--color-violet) 70%,#05060a))",
+                  "linear-gradient(180deg,var(--color-blue),color-mix(in srgb,var(--color-violet) 70%,var(--color-abyss)))",
               }}
             />
           </div>
         ))}
       </div>
+      <div className="flex gap-3 px-3">
+        {copy.bars.map((bar) => (
+          <span
+            key={bar.label}
+            className="flex-1 pt-1.5 text-center text-[10px] text-muted"
+          >
+            {bar.label}
+          </span>
+        ))}
+      </div>
 
       <div className="mt-4 grid grid-cols-3 overflow-hidden rounded-card border border-hair bg-surface/50">
-        {copy.cells.map((label, index) => (
+        {copy.cells.map((cell, index) => (
           <div
-            key={label}
+            key={cell.label}
             className={cn(
-              "px-2 py-3 text-center",
+              "px-2 py-3",
               index % 3 !== 0 && "border-l border-hair",
               index >= 3 && "border-t border-hair",
             )}
           >
             <p className="text-[15px] leading-none font-medium tracking-[-0.01em] text-ink tabular-nums">
-              {copy.value}
+              {cell.value}
             </p>
             <p className="mt-1 text-[11px] leading-[1.35] text-ink-2">
-              {label}
+              {cell.label}
             </p>
           </div>
         ))}
       </div>
 
-      <p className="mt-2.5 text-[11px] text-faint">{copy.note}</p>
+      <p className="mt-2.5 text-[11px] leading-[1.5] text-faint">{copy.note}</p>
     </div>
   );
 }

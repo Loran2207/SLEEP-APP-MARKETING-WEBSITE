@@ -42,16 +42,13 @@ function Laurel({ flip }: { flip?: boolean }) {
   );
 }
 
-/**
- * Rest AI's laurel band. Every number stays a placeholder in the house style
- * until the client supplies real figures, and the note under the band says so.
- */
+/** Rest AI's laurel band on the shared left rail. */
 export function SocialProofBand() {
   const copy = paywallCopy.socialProof;
 
   return (
-    <div className="rim rounded-card border border-hair bg-surface/65 p-5 text-center">
-      <div className="flex items-center justify-center gap-3.5">
+    <div className="rim rounded-card border border-hair bg-surface/65 p-5">
+      <div className="flex items-center gap-3.5">
         <Laurel />
         <div>
           <p className="text-[26px] leading-none font-medium tracking-[-0.02em] text-ink">
@@ -62,12 +59,9 @@ export function SocialProofBand() {
         <Laurel flip />
       </div>
 
-      <div className="mt-4 flex items-center justify-center gap-4 border-t border-hair pt-4">
+      <div className="mt-4 flex items-center gap-4 border-t border-hair pt-4">
         <div>
-          <div
-            aria-label="Five stars"
-            className="flex justify-center gap-0.5"
-          >
+          <div aria-label="Five stars" className="flex gap-0.5">
             {Array.from({ length: 5 }, (_, i) => (
               <Star
                 key={i}
@@ -87,7 +81,7 @@ export function SocialProofBand() {
       </div>
 
       <p className="mt-4 text-[14px] text-ink-2">{copy.ratingsLine}</p>
-      <p className="mt-1.5 text-[11px] text-faint">{copy.note}</p>
+      <p className="mt-1 text-[11px] text-faint">{copy.note}</p>
     </div>
   );
 }

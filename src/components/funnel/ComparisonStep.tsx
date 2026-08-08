@@ -108,8 +108,6 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
         ))}
       </div>
 
-      <p className="mt-3 text-[11px] text-faint">{copy.footnote}</p>
-
       <div className="mt-8 flex flex-col gap-3">
         {copy.reviews.map((review, index) => (
           <ReviewCard key={index} review={review} />

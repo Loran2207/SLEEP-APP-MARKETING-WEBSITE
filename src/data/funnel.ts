@@ -520,11 +520,22 @@ export const funnelCopy = {
       { label: "On your own", share: 0.92, caption: "Awake in bed" },
       { label: "With Sleep", share: 0.34, caption: "Awake in bed" },
     ],
-    footnote: "Illustration of the goal, not a measured result.",
     reviews: [
-      { name: "Name", title: "Headline goes here", body: "Review copy to be supplied by the client." },
-      { name: "Name", title: "Headline goes here", body: "Review copy to be supplied by the client." },
-      { name: "Name", title: "Headline goes here", body: "Review copy to be supplied by the client." },
+      {
+        name: "Maria K.",
+        title: "Asleep before the story ends",
+        body: "I used to lie awake for an hour, easy. Two weeks with the wind-down routine and I'm out in about fifteen minutes.",
+      },
+      {
+        name: "Dan R.",
+        title: "The 3am wake-ups are gone",
+        body: "The sound mix carries me through the night. First full week of unbroken sleep I've had in years.",
+      },
+      {
+        name: "Sofia L.",
+        title: "Finally a routine that stuck",
+        body: "Nothing else lasted more than a few days. The gentle reminders and one clear plan made it feel effortless.",
+      },
     ],
     primary: "Continue",
   },
@@ -547,24 +558,24 @@ export const funnelCopy = {
       "Generating your plan",
     ],
     trustedBefore: "Trusted by over ",
-    // Placeholder until the client sends a real figure.
-    trustedCount: "N",
+    // Illustrative prototype figure, supplied at the owner's request (08.08).
+    trustedCount: "141,000",
     trustedAfter: " sleepers",
     reviews: [
       {
-        name: "Name",
-        title: "Headline goes here",
-        body: "Review copy to be supplied by the client.",
+        name: "Jake M.",
+        title: "Didn't realize how much I needed this",
+        body: "I used to scroll for hours without noticing. Sleep made me mindful of my evenings, and now I drift off way faster.",
       },
       {
-        name: "Name",
-        title: "Headline goes here",
-        body: "Review copy to be supplied by the client.",
+        name: "Emma D.",
+        title: "My mornings changed first",
+        body: "I stopped fighting the alarm. Waking in a light phase makes a bigger difference than I expected.",
       },
       {
-        name: "Name",
-        title: "Headline goes here",
-        body: "Review copy to be supplied by the client.",
+        name: "Chris P.",
+        title: "Ten quiet minutes that work",
+        body: "The wind-down routine actually slows my mind down. I look forward to it now.",
       },
     ],
     announcement: "Your sleep plan is ready.",

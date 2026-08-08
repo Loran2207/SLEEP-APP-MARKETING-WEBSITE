@@ -10,6 +10,7 @@ const SIDES = [
     src: "/funnel/paywall/now.webp",
     hue: "var(--color-coral)",
     ringShare: 0.26,
+    ringValue: paywallCopy.nowAfter.nowValue,
     litSegments: 2,
   },
   {
@@ -17,13 +18,22 @@ const SIDES = [
     src: "/funnel/paywall/after.webp",
     hue: "var(--color-mint)",
     ringShare: 0.88,
+    ringValue: paywallCopy.nowAfter.afterValue,
     litSegments: 5,
   },
 ] as const;
 
 const SEGMENT_COUNT = 6;
 
-function PercentRing({ share, hue }: { share: number; hue: string }) {
+function PercentRing({
+  share,
+  hue,
+  value,
+}: {
+  share: number;
+  hue: string;
+  value: string;
+}) {
   return (
     <span className="relative grid size-10 shrink-0 place-items-center">
       <svg aria-hidden="true" viewBox="0 0 44 44" className="size-full -rotate-90">
@@ -48,7 +58,7 @@ function PercentRing({ share, hue }: { share: number; hue: string }) {
         />
       </svg>
       <span className="absolute text-[10px] font-medium text-ink tabular-nums">
-        {paywallCopy.nowAfter.ringValue}
+        {value}
       </span>
     </span>
   );
@@ -120,7 +130,11 @@ export function NowAfterBlock() {
             </div>
 
             <div className="mt-2.5 flex items-center gap-2">
-              <PercentRing share={side.ringShare} hue={side.hue} />
+              <PercentRing
+                share={side.ringShare}
+                hue={side.hue}
+                value={side.ringValue}
+              />
               <span className="text-[11px] leading-[1.35] text-ink-2">
                 {copy.ringLabel}
               </span>

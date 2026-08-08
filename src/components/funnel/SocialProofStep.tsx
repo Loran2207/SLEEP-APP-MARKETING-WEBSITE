@@ -84,15 +84,15 @@ export function SocialProofStep({ onContinue }: SocialProofStepProps) {
         ))}
       </div>
 
-      <p className="mx-auto mt-7 max-w-[320px] text-center text-[14px] leading-[1.55] text-ink-2">
+      <p className="mt-7 max-w-[330px] text-[14px] leading-[1.55] text-ink-2">
         {copy.lead}
       </p>
 
-      <h1 className="mx-auto mt-5 max-w-[340px] text-balance text-center text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+      <h1 className="mt-5 max-w-[340px] text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
         {copy.title}
       </h1>
 
-      <p className="mx-auto mt-4 max-w-[320px] text-center text-[14px] leading-[1.55] text-ink-2">
+      <p className="mt-4 max-w-[330px] text-[14px] leading-[1.55] text-ink-2">
         {copy.body}
       </p>
 

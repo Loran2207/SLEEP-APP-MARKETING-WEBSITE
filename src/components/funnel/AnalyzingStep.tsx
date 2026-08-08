@@ -146,13 +146,13 @@ export function AnalyzingStep({ onComplete, holdAt }: AnalyzingStepProps) {
   }, [copy.announcement, holdAt, onComplete, progress, reduceMotion, total]);
 
   return (
-    <section className="flex min-h-[100dvh] flex-col items-center px-5 pb-[max(32px,env(safe-area-inset-bottom))] text-center">
+    <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(32px,env(safe-area-inset-bottom))]">
       <div className="w-full">
         <FunnelHeader />
       </div>
 
-      <div className="mt-6 flex w-full flex-col items-center">
-        <h1 className="max-w-[310px] text-balance text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+      <div className="mt-6 flex w-full flex-col">
+        <h1 className="max-w-[330px] text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
           {copy.title}
         </h1>
 
@@ -174,7 +174,7 @@ export function AnalyzingStep({ onComplete, holdAt }: AnalyzingStepProps) {
           ))}
         </div>
 
-        <p className="mt-8 max-w-[310px] text-pretty text-[13px] text-ink-2">
+        <p className="mt-8 text-[13px] text-ink-2">
           {copy.trustedBefore}
           <span className="font-medium text-blue">{copy.trustedCount}</span>
           {copy.trustedAfter}

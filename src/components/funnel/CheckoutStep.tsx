@@ -40,7 +40,7 @@ export function CheckoutStep({
     <section className="min-h-[100dvh] px-5 pb-[max(16px,env(safe-area-inset-bottom))]">
       <FunnelHeader onBack={onBack} />
 
-      <h1 className="mx-auto mt-6 max-w-[320px] text-balance text-center text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+      <h1 className="mt-6 max-w-[320px] text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
         {copy.headingBefore}
         <span className="text-blue">{copy.headingAccent}</span>
         {copy.headingAfter}
@@ -115,7 +115,7 @@ export function CheckoutStep({
         </div>
       </div>
 
-      <p className="mt-3 text-center text-[11px] leading-[1.5] text-muted">
+      <p className="mt-3 text-[11px] leading-[1.5] text-muted">
         {copy.legalBefore}
         <Link href="/terms" className="font-medium text-blue">
           {copy.legalTerms}
@@ -127,7 +127,7 @@ export function CheckoutStep({
         {copy.legalAfter}
       </p>
 
-      <p className="mt-2 text-pretty text-center text-[11px] leading-[1.5] text-faint">
+      <p className="mt-2 text-pretty text-[11px] leading-[1.5] text-faint">
         {copy.finePrintBefore}
         <span className="text-ink-2">{plan.renewal}</span>
         {copy.finePrintAfter}
@@ -135,7 +135,7 @@ export function CheckoutStep({
 
       <p
         id={previewNoteId}
-        className="mx-auto mt-2.5 max-w-[340px] text-pretty text-center text-[11px] leading-[1.5] text-muted"
+        className="mt-2.5 max-w-[340px] text-pretty text-[11px] leading-[1.5] text-muted"
       >
         {copy.preview}
       </p>

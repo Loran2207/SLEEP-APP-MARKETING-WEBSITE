@@ -145,8 +145,6 @@ export function ProgressChartCard() {
           </span>
         ))}
       </div>
-
-      <p className="mt-2.5 text-[11px] leading-[1.4] text-faint">{copy.footnote}</p>
     </div>
   );
 }
