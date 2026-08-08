@@ -23,7 +23,7 @@ export function ExpressPay() {
           type="button"
           onClick={() => setOpened("applePay")}
           aria-label={copy.methods.applePay}
-          className="flex h-12 w-full items-center justify-center rounded-full bg-white transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none"
+          className="flex h-14 w-full items-center justify-center rounded-full bg-white transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none"
         >
           <ApplePayMark className="h-[20px] w-auto" />
         </button>
@@ -32,7 +32,7 @@ export function ExpressPay() {
           type="button"
           onClick={() => setOpened("paypal")}
           aria-label={copy.methods.paypal}
-          className="flex h-12 w-full items-center justify-center rounded-full bg-[#ffc439] transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none"
+          className="flex h-14 w-full items-center justify-center rounded-full bg-[#ffc439] transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none"
         >
           <PayPalMark className="h-[18px] w-auto" />
         </button>

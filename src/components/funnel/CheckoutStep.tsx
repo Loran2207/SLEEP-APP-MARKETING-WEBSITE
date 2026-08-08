@@ -27,12 +27,9 @@ type CheckoutStepProps = {
 
 const previewNoteId = "checkout-design-preview-note";
 
-export function CheckoutStep({
-  billing,
-  onBack,
-  onChangePlan,
-  onTrial,
-}: CheckoutStepProps) {
+// onChangePlan stays in the props type for Funnel.tsx; this screen mirrors the
+// reference checkout, which has no plan-change link, so it is not rendered.
+export function CheckoutStep({ billing, onBack, onTrial }: CheckoutStepProps) {
   const copy = funnelCopy.checkout;
   const plan = plans[billing];
 
@@ -47,16 +44,7 @@ export function CheckoutStep({
       </h1>
 
       <div className="rim mt-5 rounded-card border border-hair bg-surface/65 p-4">
-        <div className="flex items-baseline justify-between gap-4">
-          <p className="text-[12px] text-muted">{copy.summaryLabel}</p>
-          <button
-            type="button"
-            onClick={onChangePlan}
-            className="shrink-0 text-[12px] font-medium text-blue transition-colors duration-150 hover:text-blue-soft motion-reduce:transition-none"
-          >
-            {copy.changePlan}
-          </button>
-        </div>
+        <p className="text-[12px] text-muted">{copy.summaryLabel}</p>
 
         <dl className="mt-2 flex flex-col gap-1.5">
           <div className="flex items-baseline justify-between gap-4">
@@ -100,22 +88,21 @@ export function CheckoutStep({
         </div>
       </form>
 
-      <div className="mt-4">
-        <p className="flex items-center justify-center gap-2 text-[12px] text-ink-2">
-          <Lock aria-hidden="true" size={13} strokeWidth={1.8} />
+      <div className="mt-4 rounded-[14px] border border-hair bg-surface/45 px-4 py-3.5">
+        <p className="flex items-center gap-2 text-[13px] font-medium text-ink">
+          <Lock aria-hidden="true" size={13} strokeWidth={1.8} className="shrink-0" />
           {copy.secure}
         </p>
-        <div className="mt-2.5 flex items-center justify-center gap-3.5 text-ink-2">
+        <div className="mt-3 flex items-center justify-between text-ink-2">
           <VisaMark className="h-[16px] w-auto" />
           <MastercardMark className="h-[17px] w-auto" />
           <AmexMark className="h-[17px] w-auto" />
-          <span aria-hidden="true" className="h-4 w-px bg-hair" />
-          <ApplePayMonoMark className="h-[14px] w-auto" />
-          <PayPalMonoMark className="h-[14px] w-auto" />
+          <ApplePayMonoMark className="h-[16px] w-auto" />
+          <PayPalMonoMark className="h-[16px] w-auto" />
         </div>
       </div>
 
-      <p className="mt-3 text-[11px] leading-[1.5] text-muted">
+      <p className="mt-3 text-pretty text-[11px] leading-[1.5] text-muted">
         {copy.legalBefore}
         <Link href="/terms" className="font-medium text-blue">
           {copy.legalTerms}
@@ -124,13 +111,12 @@ export function CheckoutStep({
         <Link href="/privacy" className="font-medium text-blue">
           {copy.legalPrivacy}
         </Link>
-        {copy.legalAfter}
-      </p>
-
-      <p className="mt-2 text-pretty text-[11px] leading-[1.5] text-faint">
-        {copy.finePrintBefore}
-        <span className="text-ink-2">{plan.renewal}</span>
-        {copy.finePrintAfter}
+        {copy.legalAfter}{" "}
+        <span className="text-faint">
+          {copy.finePrintBefore}
+          <span className="text-ink-2">{plan.renewal}</span>
+          {copy.finePrintAfter}
+        </span>
       </p>
 
       <p

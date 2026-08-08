@@ -85,16 +85,24 @@ export function SocialProofStep({ onContinue }: SocialProofStepProps) {
       </div>
 
       <p className="mt-7 max-w-[330px] text-[14px] leading-[1.55] text-ink-2">
-        {copy.lead}
+        {copy.leadBefore}
+        <strong className="font-medium text-ink">{copy.leadStrong}</strong>
+        {copy.leadAfter}
       </p>
 
-      <h1 className="mt-5 max-w-[340px] text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
-        {copy.title}
+      <h1 className="mt-5 max-w-[350px] text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+        {copy.titleBefore}
+        <span className="text-blue">{copy.titleAccent}</span>
+        {copy.titleAfter}
       </h1>
 
       <p className="mt-4 max-w-[330px] text-[14px] leading-[1.55] text-ink-2">
-        {copy.body}
+        {copy.bodyBefore}
+        <span className="font-medium text-blue">{copy.bodyAccent}</span>
+        {copy.bodyAfter}
       </p>
+
+      <p className="mt-4 text-[14px] text-ink-2">{copy.tagline}</p>
 
       <div className="mt-auto pt-8">
         <PrimaryAction onClick={onContinue}>{copy.primary}</PrimaryAction>

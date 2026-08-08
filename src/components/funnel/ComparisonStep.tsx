@@ -13,7 +13,7 @@ type ComparisonStepProps = {
 };
 
 const TICKS = ["2h", "1h 30m", "1h", "30m", "0"];
-const CHART_HEIGHT = 160;
+const CHART_HEIGHT = 150;
 /** Hour-label column width plus its gap, so bars and captions center over the plot. */
 const PLOT_INSET = "pl-[46px]";
 
@@ -70,40 +70,30 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
                 )}
               >
                 <span
-                  className="relative block w-[58px] rounded-t-[10px]"
+                  className="block w-[58px] rounded-t-[10px]"
                   style={{
                     height: `${Math.round(column.share * CHART_HEIGHT)}px`,
                     background:
                       index === 0
-                        ? "linear-gradient(180deg,#4d3a63,#2a2036)"
+                        ? "linear-gradient(180deg,color-mix(in srgb,var(--color-violet) 40%,var(--color-abyss)),color-mix(in srgb,var(--color-violet) 16%,var(--color-abyss)))"
                         : "linear-gradient(180deg,var(--color-blue),color-mix(in srgb,var(--color-violet) 70%,var(--color-abyss)))",
                     boxShadow:
                       index === 0
                         ? undefined
                         : "0 0 26px color-mix(in srgb, var(--color-blue) 34%, transparent)",
                   }}
-                >
-                  {index === 0 ? (
-                    <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="rotate-180 text-[10px] font-medium text-ink-2 [writing-mode:vertical-rl]">
-                        {column.caption}
-                      </span>
-                    </span>
-                  ) : null}
-                </span>
+                />
               </div>
             </div>
 
-            {index === 1 ? (
-              <p
-                className={cn(
-                  "mt-2 text-center text-[11px] leading-none text-muted",
-                  PLOT_INSET,
-                )}
-              >
-                {column.caption}
-              </p>
-            ) : null}
+            <p
+              className={cn(
+                "mt-2 text-center text-[11px] leading-none text-muted",
+                PLOT_INSET,
+              )}
+            >
+              {column.caption}
+            </p>
           </div>
         ))}
       </div>
