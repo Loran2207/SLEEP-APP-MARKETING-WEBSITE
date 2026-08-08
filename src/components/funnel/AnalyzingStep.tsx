@@ -1,60 +1,134 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Check, MoonStar } from "lucide-react";
+import { Check } from "lucide-react";
 import {
   animate,
+  motion,
   useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
   useTransform,
+  type MotionValue,
 } from "motion/react";
 
-import { Medallion } from "@/components/ambient/Medallion";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { funnelCopy } from "@/data/funnel";
 import { cn } from "@/lib/utils";
 
+import { ReviewCard } from "./ReviewCard";
+
 type AnalyzingStepProps = {
   onComplete: () => void;
+  /** Freeze the master progress at this value and never complete. Capture-board only. */
+  holdAt?: number;
 };
 
-const FULL_DURATION = 4.5;
-const REDUCED_DURATION = 0.72;
+type RowState = "pending" | "active" | "complete";
 
-export function AnalyzingStep({ onComplete }: AnalyzingStepProps) {
+const FULL_DURATION = 7.6;
+const REDUCED_DURATION = 0.6;
+/** Each line owns a 0-100 slice of the master progress value. */
+const SLICE = 100;
+
+// Not in funnelCopy.analyzing yet; local until the shared copy adds it.
+const REVIEWS_GROUP_LABEL = "Reviews";
+
+function AnalyzingRow({
+  label,
+  index,
+  progress,
+  state,
+}: {
+  label: string;
+  index: number;
+  progress: MotionValue<number>;
+  state: RowState;
+}) {
+  const rowProgress = useTransform(progress, (latest) =>
+    Math.min(SLICE, Math.max(0, latest - index * SLICE)),
+  );
+  const fillWidth = useTransform(rowProgress, (latest) => `${latest}%`);
+  const percentRef = useRef<HTMLSpanElement>(null);
+
+  useMotionValueEvent(rowProgress, "change", (latest) => {
+    if (percentRef.current) {
+      percentRef.current.textContent = `${Math.round(latest)}%`;
+    }
+  });
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex items-baseline justify-between gap-3">
+        <span
+          className={cn(
+            "text-[14px] transition-colors duration-300 motion-reduce:transition-none",
+            state === "pending" ? "text-faint" : "text-ink",
+          )}
+        >
+          {label}
+        </span>
+        <span
+          aria-hidden="true"
+          className={cn(
+            "flex items-center gap-1.5 text-[13px] tabular-nums",
+            state === "pending" ? "text-faint" : "text-ink-2",
+          )}
+        >
+          {state === "complete" ? (
+            <Check
+              size={12}
+              strokeWidth={2.4}
+              className="shrink-0 text-blue"
+            />
+          ) : null}
+          <span ref={percentRef}>{state === "complete" ? "100%" : "0%"}</span>
+        </span>
+      </div>
+      <div
+        aria-hidden="true"
+        className="h-[2.5px] w-full overflow-hidden rounded-full bg-hair"
+      >
+        <motion.span
+          className="block h-full rounded-full bg-blue"
+          style={{
+            width: fillWidth,
+            boxShadow:
+              "0 0 8px color-mix(in srgb, var(--color-blue) 35%, transparent)",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+export function AnalyzingStep({ onComplete, holdAt }: AnalyzingStepProps) {
   const reduceMotion = useReducedMotion();
   const progress = useMotionValue(0);
-  const displayProgress = useTransform(progress, (latest) =>
-    Math.round(latest),
-  );
-  const percentRef = useRef<HTMLSpanElement>(null);
   const completionTimer = useRef<number | null>(null);
-  const [currentStage, setCurrentStage] = useState(0);
-  const [completeStages, setCompleteStages] = useState(0);
+  const [activeStage, setActiveStage] = useState(0);
+  const [done, setDone] = useState(false);
   const [announcement, setAnnouncement] = useState("");
   const copy = funnelCopy.analyzing;
+  const total = copy.lines.length * SLICE;
 
-  useMotionValueEvent(displayProgress, "change", (latest) => {
-    if (percentRef.current) {
-      percentRef.current.textContent = `${latest}%`;
-    }
-
-    const nextStage = Math.min(Math.floor(latest / 25), copy.lines.length - 1);
-    const nextComplete = Math.min(Math.floor(latest / 25), copy.lines.length);
-    setCurrentStage((current) => (current === nextStage ? current : nextStage));
-    setCompleteStages((current) =>
-      current === nextComplete ? current : nextComplete,
-    );
+  useMotionValueEvent(progress, "change", (latest) => {
+    const next = Math.min(Math.floor(latest / SLICE), copy.lines.length - 1);
+    setActiveStage((current) => (current === next ? current : next));
   });
 
   useEffect(() => {
+    if (holdAt != null) {
+      progress.set(Math.min(holdAt, total));
+      return;
+    }
+
     const duration = reduceMotion ? REDUCED_DURATION : FULL_DURATION;
-    const controls = animate(progress, 100, {
+    const controls = animate(progress, total, {
       duration,
       ease: "linear",
       onComplete: () => {
-        setCompleteStages(copy.lines.length);
+        setDone(true);
         setAnnouncement(copy.announcement);
         completionTimer.current = window.setTimeout(
           onComplete,
@@ -69,7 +143,7 @@ export function AnalyzingStep({ onComplete }: AnalyzingStepProps) {
       }
       controls.stop();
     };
-  }, [copy.announcement, copy.lines.length, onComplete, progress, reduceMotion]);
+  }, [copy.announcement, holdAt, onComplete, progress, reduceMotion, total]);
 
   return (
     <section className="flex min-h-[100dvh] flex-col items-center px-5 pt-[max(56px,env(safe-area-inset-top))] pb-[max(32px,env(safe-area-inset-bottom))] text-center">
@@ -77,55 +151,46 @@ export function AnalyzingStep({ onComplete }: AnalyzingStepProps) {
         <Eyebrow>{copy.eyebrow}</Eyebrow>
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center py-12">
-        <div className="relative">
-          <span
-            aria-hidden="true"
-            className="animate-breathe absolute top-1/2 left-1/2 size-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--color-blue)_22%,transparent)_0%,color-mix(in_srgb,var(--color-violet)_8%,transparent)_48%,transparent_72%)] blur-[10px]"
-          />
-          <Medallion hue="blue" size={92}>
-            <MoonStar aria-hidden="true" size={33} strokeWidth={1.35} />
-          </Medallion>
-        </div>
-
-        <h1 className="mt-10 text-balance text-[30px] leading-[1.16] font-medium tracking-[-0.03em] text-ink">
+      <div className="flex w-full flex-1 flex-col items-center justify-center py-10">
+        <h1 className="max-w-[310px] text-balance text-[30px] leading-[1.16] font-medium tracking-[-0.03em] text-ink">
           {copy.title}
         </h1>
 
-        <p aria-hidden="true" className="mt-4 font-medium text-blue">
-          <span ref={percentRef}>0%</span>
+        <div className="mt-10 flex w-full max-w-[344px] flex-col gap-5 text-left">
+          {copy.lines.map((line, index) => (
+            <AnalyzingRow
+              key={line}
+              label={line}
+              index={index}
+              progress={progress}
+              state={
+                done || index < activeStage
+                  ? "complete"
+                  : index === activeStage
+                    ? "active"
+                    : "pending"
+              }
+            />
+          ))}
+        </div>
+
+        <p className="mt-10 max-w-[310px] text-pretty text-[14px] text-ink-2">
+          {copy.trustedBefore}
+          <span className="font-medium text-blue">{copy.trustedCount}</span>
+          {copy.trustedAfter}
         </p>
 
-        <div className="mt-9 flex w-full max-w-[300px] flex-col gap-4 text-left">
-          {copy.lines.map((line, index) => {
-            const complete = index < completeStages;
-            const active = index === currentStage && !complete;
-
-            return (
-              <div
-                key={line}
-                className={cn(
-                  "flex items-center gap-3 text-[15px] transition-colors duration-300 motion-reduce:transition-none",
-                  complete || active ? "text-ink" : "text-faint",
-                )}
-              >
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "grid size-6 place-items-center rounded-full border transition-[background-color,border-color,color] duration-300 motion-reduce:transition-none",
-                    complete
-                      ? "border-blue/40 bg-blue/12 text-blue"
-                      : active
-                        ? "border-blue/40 bg-blue/8 text-transparent"
-                      : "border-hair text-transparent",
-                  )}
-                >
-                  <Check size={13} strokeWidth={2.2} />
-                </span>
-                <span>{line}</span>
-              </div>
-            );
-          })}
+        <div
+          role="group"
+          aria-label={REVIEWS_GROUP_LABEL}
+          tabIndex={0}
+          className="-mx-5 mt-5 flex snap-x snap-mandatory gap-3 self-stretch overflow-x-auto scroll-px-5 rounded-[20px] px-5 py-1 text-left [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-hair-strong [&::-webkit-scrollbar]:hidden"
+        >
+          {copy.reviews.map((review, index) => (
+            <div key={index} className="w-[268px] shrink-0 snap-center">
+              <ReviewCard review={review} />
+            </div>
+          ))}
         </div>
       </div>
 

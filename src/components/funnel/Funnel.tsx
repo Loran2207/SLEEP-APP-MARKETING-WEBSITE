@@ -240,7 +240,7 @@ export function Funnel() {
       case "profile-intro":
         return <ProfileIntroStep onContinue={() => goTo("promise")} />;
       case "promise":
-        return <PromiseStep onContinue={() => goTo("section-about")} />;
+        return <PromiseStep onContinue={() => goTo(getNextStep("promise"))} />;
       case "name":
         return (
           <NameStep

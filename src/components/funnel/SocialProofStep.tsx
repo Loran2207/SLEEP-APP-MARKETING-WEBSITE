@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, Moon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import { funnelCopy } from "@/data/funnel";
 
@@ -13,20 +13,20 @@ type SocialProofStepProps = {
 
 /** Where the faces sit on the map, in percent of the frame. */
 const PEOPLE = [
-  { left: 13, top: 20, size: 46, hue: "var(--color-coral)" },
-  { left: 41, top: 6, size: 56, hue: "var(--color-blue)" },
-  { left: 72, top: 16, size: 42, hue: "var(--color-violet)" },
-  { left: 26, top: 58, size: 40, hue: "var(--color-mint)" },
-  { left: 63, top: 62, size: 38, hue: "var(--color-blue)" },
+  { left: 13, top: 20, size: 46, hue: "var(--color-coral)", src: "/funnel/people/p4.webp" },
+  { left: 41, top: 6, size: 56, hue: "var(--color-blue)", src: "/funnel/people/p1.webp" },
+  { left: 72, top: 16, size: 42, hue: "var(--color-violet)", src: "/funnel/people/p3.webp" },
+  { left: 26, top: 58, size: 40, hue: "var(--color-mint)", src: "/funnel/people/p5.webp" },
+  { left: 63, top: 62, size: 38, hue: "var(--color-blue)", src: "/funnel/people/p2.webp" },
 ] as const;
 
 /**
  * The reach screen, laid out like Rest AI's: a dotted world with people on it,
  * one plain sentence, then the agreement button.
  *
- * The map is the real coastline, sampled on a grid. The people are marks, not
- * photographs, and there are deliberately no counts next to them: a number
- * beside a face is a claim, and we have none to make yet.
+ * The map is the real coastline, sampled on a grid. The portraits are generated
+ * placeholders, not customers, and there are deliberately no counts next to
+ * them: a number beside a face is a claim, and we have none to make yet.
  */
 export function SocialProofStep({ onContinue, onBack }: SocialProofStepProps) {
   const copy = funnelCopy.socialProof;
@@ -55,21 +55,22 @@ export function SocialProofStep({ onContinue, onBack }: SocialProofStepProps) {
         {PEOPLE.map((person) => (
           <span
             key={`${person.left}-${person.top}`}
-            className="absolute grid place-items-center rounded-full"
+            className="absolute overflow-hidden rounded-full bg-abyss"
             style={{
               left: `${person.left}%`,
               top: `${person.top}%`,
               width: person.size,
               height: person.size,
-              background: `radial-gradient(circle at 34% 28%, color-mix(in srgb, ${person.hue} 62%, #05060a), #05060a 78%)`,
               boxShadow: `0 0 0 2px rgba(245,245,247,0.14), 0 0 26px color-mix(in srgb, ${person.hue} 40%, transparent)`,
             }}
           >
-            <Moon
-              aria-hidden="true"
-              size={Math.round(person.size * 0.34)}
-              strokeWidth={1.6}
-              style={{ color: person.hue }}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={person.src}
+              alt=""
+              width={person.size}
+              height={person.size}
+              className="h-full w-full object-cover"
             />
           </span>
         ))}

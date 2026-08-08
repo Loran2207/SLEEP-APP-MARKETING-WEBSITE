@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { ApplePayMark, PayPalMark } from "@/components/brand/marks";
 import { funnelCopy } from "@/data/funnel";
+import { cn } from "@/lib/utils";
 
 type Wallet = "applePay" | "paypal";
 
@@ -39,7 +40,10 @@ export function ExpressPay() {
 
       <p
         aria-live="polite"
-        className="mt-3 min-h-5 text-center text-[12px] leading-[1.5] text-muted"
+        className={cn(
+          "text-center text-[12px] leading-[1.5] text-muted",
+          opened ? "mt-2.5" : undefined,
+        )}
       >
         {opened ? copy.providerLines[opened] : ""}
       </p>

@@ -27,7 +27,7 @@ type QuestionChromeProps = {
 };
 
 /** The wordmark, so the visitor always knows whose flow this is. */
-function BrandPill() {
+export function BrandPill() {
   return (
     <span className="inline-flex items-center gap-2 rounded-full border border-hair bg-white/[0.045] px-3.5 py-1.5">
       <span

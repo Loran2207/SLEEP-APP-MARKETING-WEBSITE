@@ -547,12 +547,33 @@ export const funnelCopy = {
   },
   analyzing: {
     eyebrow: "Your evening",
-    title: "Building a quieter plan",
+    title: "Building your personal sleep plan",
     lines: [
-      "Reading your rhythm",
-      "Calibrating your wind-down",
-      "Choosing your sounds",
-      "Fine-tuning your alarm",
+      "Creating your sleep profile",
+      "Analysing your answers",
+      "Preparing your programme",
+      "Generating your plan",
+    ],
+    trustedBefore: "Trusted by over ",
+    // Placeholder until the client sends a real figure.
+    trustedCount: "N",
+    trustedAfter: " sleepers",
+    reviews: [
+      {
+        name: "Name",
+        title: "Headline goes here",
+        body: "Review copy to be supplied by the client.",
+      },
+      {
+        name: "Name",
+        title: "Headline goes here",
+        body: "Review copy to be supplied by the client.",
+      },
+      {
+        name: "Name",
+        title: "Headline goes here",
+        body: "Review copy to be supplied by the client.",
+      },
     ],
     announcement: "Your sleep plan is ready.",
   },
@@ -688,13 +709,18 @@ export const funnelCopy = {
       "Design preview. No payment is taken and no card details are stored.",
   },
   done: {
-    eyebrow: "Your setup",
-    headingBefore: "Your plan is ",
-    headingAccent: "ready",
+    headingBefore: "Your Sleep membership ",
+    headingAccent: "is live",
     headingAfter: "",
-    download: "Download SLEEP on iPhone",
-    signInPrefix: "Sign in with ",
-    signInFallback: "Sign in with the email you used here",
+    steps: {
+      download: "Download the Sleep app on iPhone",
+      login: "Log in with the email below",
+      loginFallback: "Log in with the email you used here",
+      start: "Start your first night",
+    },
+    copyEmail: "Copy the email address",
+    copied: "Copied",
+    qrLead: "or scan the QR code below",
     answers:
       "Your answers are already there, tonight's routine is set",
     answersUnavailable:

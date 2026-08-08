@@ -63,9 +63,7 @@ export function CheckoutStep({
 
       <div className="rim mt-8 rounded-card border border-hair bg-surface/65 p-5">
         <div className="flex items-baseline justify-between gap-4">
-          <p className="text-[12px] font-medium text-muted">
-            {copy.summaryLabel}
-          </p>
+          <p className="text-[13px] text-muted">{copy.summaryLabel}</p>
           <button
             type="button"
             onClick={onChangePlan}
@@ -75,10 +73,10 @@ export function CheckoutStep({
           </button>
         </div>
 
-        <dl className="mt-4 flex flex-col gap-3">
+        <dl className="mt-2 flex flex-col gap-2">
           <div className="flex items-baseline justify-between gap-4">
             <dt className="text-[15px] text-ink">{plan.summaryName}</dt>
-            <dd className="shrink-0 text-[15px] text-ink-2 tabular-nums">
+            <dd className="shrink-0 text-[15px] font-medium text-ink tabular-nums">
               {plan.renewal}
             </dd>
           </div>
@@ -88,21 +86,22 @@ export function CheckoutStep({
               {copy.freeValue}
             </dd>
           </div>
+          <div className="flex items-baseline justify-between gap-4 border-t border-hair pt-2">
+            <dt className="text-[15px] font-semibold text-ink">
+              {copy.totalLabel}
+            </dt>
+            <dd className="shrink-0 text-[15px] font-semibold text-ink tabular-nums">
+              {copy.totalValue}
+            </dd>
+          </div>
         </dl>
-
-        <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-hair pt-4">
-          <p className="text-[16px] font-medium text-ink">{copy.totalLabel}</p>
-          <p className="shrink-0 text-[22px] leading-none font-medium tracking-[-0.02em] text-ink tabular-nums">
-            {copy.totalValue}
-          </p>
-        </div>
       </div>
 
       <div className="mt-6">
         <ExpressPay />
       </div>
 
-      <div className="my-6 flex items-center gap-3">
+      <div className="my-[18px] flex items-center gap-3">
         <span aria-hidden="true" className="h-px flex-1 bg-hair" />
         <span className="text-[12px] text-muted">{copy.cardDivider}</span>
         <span aria-hidden="true" className="h-px flex-1 bg-hair" />
@@ -111,12 +110,12 @@ export function CheckoutStep({
       <form autoComplete="off" noValidate onSubmit={(event) => event.preventDefault()}>
         <CardForm previewNoteId={previewNoteId} />
 
-        <div className="mt-7">
+        <div className="mt-3">
           <PrimaryAction onClick={onTrial}>{copy.primary}</PrimaryAction>
         </div>
       </form>
 
-      <div className="mt-6 rounded-[16px] border border-hair bg-surface/45 px-4 py-3.5">
+      <div className="mt-[26px]">
         <p className="flex items-center justify-center gap-2 text-[12px] text-ink-2">
           <Lock aria-hidden="true" size={13} strokeWidth={1.8} />
           {copy.secure}
@@ -131,13 +130,13 @@ export function CheckoutStep({
         </div>
       </div>
 
-      <p className="mt-5 text-center text-[12px] leading-[1.55] text-ink-2">
+      <p className="mt-[14px] text-center text-[12px] leading-[18px] text-muted">
         {copy.legalBefore}
-        <Link href="/terms" className="text-ink underline underline-offset-2">
+        <Link href="/terms" className="font-medium text-blue">
           {copy.legalTerms}
         </Link>
         {copy.legalJoin}
-        <Link href="/privacy" className="text-ink underline underline-offset-2">
+        <Link href="/privacy" className="font-medium text-blue">
           {copy.legalPrivacy}
         </Link>
         {copy.legalAfter}

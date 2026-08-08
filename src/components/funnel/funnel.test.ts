@@ -230,8 +230,8 @@ test("keeps the email failure and download ending honest", () => {
     funnelCopy.email.unavailable,
     "We could not save it just now, you can still continue",
   );
-  assert.equal(funnelCopy.done.headingAccent, "ready");
-  assert.match(funnelCopy.done.download, /iPhone/);
+  assert.equal(funnelCopy.done.headingAccent, "is live");
+  assert.match(funnelCopy.done.steps.download, /iPhone/);
   assert.equal(
     funnelCopy.done.storeNote,
     "The badge opens the App Store once the app is published.",
