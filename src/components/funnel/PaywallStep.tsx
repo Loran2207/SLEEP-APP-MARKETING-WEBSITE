@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { funnelCopy, plans, type BillingPeriod } from "@/data/funnel";
 import { paywallCopy } from "@/data/paywall";
 
-import { AccentHeading } from "./AccentHeading";
 import { FunnelHeader } from "./FunnelHeader";
 import { PrimaryAction } from "./PrimaryAction";
 import { BillingConditions } from "./paywall/BillingConditions";
@@ -61,13 +60,12 @@ export function PaywallStep({
     <section className="min-h-[100dvh] px-5 pb-[max(56px,env(safe-area-inset-bottom))]">
       <FunnelHeader onBack={onBack} />
 
-      <AccentHeading
-        before={paywallCopy.header.headingBefore}
-        accent={paywallCopy.header.headingAccent}
-        after={paywallCopy.header.headingAfter}
-        className="mx-auto mt-8 max-w-[390px] text-center"
-      />
-      <p className="mx-auto mt-4 max-w-[340px] text-pretty text-center text-[16px] leading-[1.6] text-ink-2">
+      <h1 className="mx-auto mt-6 max-w-[320px] text-balance text-center text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+        {paywallCopy.header.headingBefore}
+        <span className="text-blue">{paywallCopy.header.headingAccent}</span>
+        {paywallCopy.header.headingAfter}
+      </h1>
+      <p className="mx-auto mt-3 max-w-[320px] text-pretty text-center text-[14px] leading-[1.55] text-ink-2">
         {paywallCopy.header.sub}
       </p>
 
@@ -75,15 +73,15 @@ export function PaywallStep({
         <ProgressChartCard />
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <PlanReadyCard countdown={countdown} onTrial={onTrial} />
       </div>
 
-      <div className="mt-12">
+      <div className="mt-10">
         <FeatureList />
       </div>
 
-      <div className="mt-12">
+      <div className="mt-10">
         <PlanCard
           billing={billing}
           onBillingChange={onBillingChange}
@@ -92,48 +90,48 @@ export function PaywallStep({
         />
       </div>
 
-      <p className="mt-5 text-pretty text-center text-[11px] leading-[1.55] text-faint">
+      <p className="mt-4 text-pretty text-center text-[11px] leading-[1.55] text-faint">
         {funnelCopy.checkout.finePrintBefore}
         {plans[billing].renewal}
         {funnelCopy.checkout.finePrintAfter}
       </p>
 
-      <div className="mt-12">
+      <div className="mt-10">
         <SocialProofBand />
       </div>
 
-      <div className="mt-12">
+      <div className="mt-10">
         <ReviewsBlock />
       </div>
 
-      <div className="mt-10">
+      <div className="mt-8">
         <PrimaryAction onClick={onTrial}>{paywallCopy.cta}</PrimaryAction>
       </div>
 
-      <div className="mt-12">
+      <div className="mt-10">
         <GuaranteeCard />
       </div>
 
-      <div className="mt-12">
+      <div className="mt-10">
         <NowAfterBlock />
       </div>
 
-      <div className="mt-12">
+      <div className="mt-10">
         <ResultsBlock />
       </div>
 
-      <div className="mt-10">
+      <div className="mt-8">
         <PrimaryAction onClick={onTrial}>{paywallCopy.cta}</PrimaryAction>
       </div>
-      <p className="mt-3.5 text-center text-[12px] text-muted">
+      <p className="mt-3 text-center text-[12px] text-muted">
         {paywallCopy.closing.iphoneOnly}
       </p>
 
-      <div className="mt-12">
+      <div className="mt-10">
         <HelpCard />
       </div>
 
-      <div className="mt-10">
+      <div className="mt-8">
         <BillingConditions billing={billing} />
       </div>
     </section>

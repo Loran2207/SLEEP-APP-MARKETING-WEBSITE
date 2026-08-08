@@ -16,10 +16,10 @@ export function GuaranteeCard() {
   const copy = paywallCopy.guarantee;
 
   return (
-    <div className="rim rounded-card border border-hair bg-surface/65 p-6 text-center">
+    <div className="rim rounded-card border border-hair bg-surface/65 p-5">
       <svg
         viewBox="0 0 104 104"
-        className="mx-auto size-[104px]"
+        className="size-[92px]"
         role="img"
         aria-label={`${copy.sealTop} ${copy.sealBottom}`}
       >
@@ -64,14 +64,14 @@ export function GuaranteeCard() {
         </text>
       </svg>
 
-      <p className="mx-auto mt-4 max-w-[320px] text-pretty text-[14px] leading-[1.55] text-ink-2">
+      <p className="mt-3.5 text-pretty text-[14px] leading-[1.55] text-ink-2">
         {copy.body}
       </p>
 
-      <p className="mt-6 text-[13px] font-medium text-ink">
+      <p className="mt-4 text-[13px] font-medium text-ink">
         {copy.checkoutLine}
       </p>
-      <div className="mt-3.5 flex items-center justify-center gap-4 text-ink-2">
+      <div className="mt-3 flex items-center gap-3.5 text-ink-2">
         <ApplePayMonoMark className="size-6" />
         <PayPalMonoMark className="size-6" />
         <VisaMark className="size-6" />

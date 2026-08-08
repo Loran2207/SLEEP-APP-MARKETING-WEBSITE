@@ -13,8 +13,9 @@ type CardFormProps = {
   previewNoteId: string;
 };
 
-// The transcribe2text checkout describes each field in its placeholder and
-// shows no label line. funnelCopy.checkout has no slot for these lines yet.
+// The transcribe2text checkout describes each field in its placeholder, shows
+// no label line and has no name-on-card row. funnelCopy.checkout has no slot
+// for these placeholder lines yet.
 const descriptivePlaceholders = {
   number: "Credit or debit card number",
   expiry: "Expiry date MM / YY",
@@ -22,7 +23,7 @@ const descriptivePlaceholders = {
 } as const;
 
 const fieldClass =
-  "h-12 w-full cursor-default rounded-[10px] border border-hair bg-surface/80 text-ink placeholder:text-muted focus:border-blue focus:outline-none";
+  "h-[46px] w-full cursor-default rounded-[10px] border border-hair bg-surface/80 text-ink placeholder:text-muted focus:border-blue focus:outline-none";
 
 function Field({
   label,
@@ -98,13 +99,6 @@ export function CardForm({ previewNoteId }: CardFormProps) {
             className="text-muted"
           />
         }
-      />
-      <Field
-        label={copy.fields.name.label}
-        placeholder={copy.fields.name.label}
-        previewNoteId={previewNoteId}
-        className="col-span-2"
-        inputClassName="px-[14px] text-[14px]"
       />
     </div>
   );

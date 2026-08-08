@@ -26,28 +26,28 @@ export function ScaleStep({ value, onSelect, onContinue, onBack }: ScaleStepProp
     <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
       <QuestionChrome stepId="racing-mind" hue="blue" onBack={onBack} />
 
-      <div className="flex flex-1 flex-col pt-9">
-        <p className="text-[14px] text-ink-2">{copy.lead}</p>
+      <div className="flex flex-1 flex-col">
+        <p className="mt-6 text-[13px] text-muted">{copy.lead}</p>
 
-        <div className="relative mt-4">
+        <div className="mt-3">
           <span
             aria-hidden="true"
-            className="absolute -top-3 -left-1 font-serif text-[56px] leading-none text-white/12"
+            className="block h-6 select-none text-[44px] leading-none text-faint"
           >
             &ldquo;
           </span>
-          <h1 className="relative px-6 text-[24px] leading-[1.3] font-medium tracking-[-0.02em] text-ink">
+          <h1 className="mt-1 text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
             {copy.statement}
           </h1>
           <span
             aria-hidden="true"
-            className="absolute -bottom-8 right-0 font-serif text-[56px] leading-none text-white/12"
+            className="block h-8 select-none text-right text-[44px] leading-none text-faint"
           >
             &rdquo;
           </span>
         </div>
 
-        <div className="mt-14 grid grid-cols-5 gap-2.5">
+        <div className="mt-6 grid grid-cols-5 gap-2">
           {VALUES.map((option) => {
             const active = value === option;
             return (
@@ -56,15 +56,13 @@ export function ScaleStep({ value, onSelect, onContinue, onBack }: ScaleStepProp
                 type="button"
                 onClick={() => onSelect(option)}
                 aria-pressed={active}
-                className="grid h-[68px] place-items-center rounded-[18px] border text-[20px] font-medium transition-colors duration-150 motion-reduce:transition-none"
+                className="grid aspect-square place-items-center rounded-[16px] border text-[17px] font-medium transition-colors duration-150 motion-reduce:transition-none"
                 style={{
-                  borderColor: active
-                    ? "color-mix(in srgb, var(--color-blue) 66%, transparent)"
-                    : "var(--color-hair)",
+                  borderColor: active ? "var(--color-blue)" : "var(--color-hair)",
                   backgroundColor: active
-                    ? "color-mix(in srgb, var(--color-blue) 22%, transparent)"
+                    ? "var(--color-blue)"
                     : "rgba(245,245,247,0.035)",
-                  color: active ? "var(--color-ink)" : "var(--color-ink-2)",
+                  color: active ? "var(--color-void)" : "var(--color-ink-2)",
                 }}
               >
                 {option}
@@ -73,7 +71,7 @@ export function ScaleStep({ value, onSelect, onContinue, onBack }: ScaleStepProp
           })}
         </div>
 
-        <div className="mt-3 flex justify-between text-[13px] text-muted">
+        <div className="mt-2 flex justify-between text-[12px] text-muted">
           <span>{copy.low}</span>
           <span>{copy.high}</span>
         </div>

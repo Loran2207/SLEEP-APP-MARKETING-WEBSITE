@@ -16,15 +16,15 @@ export function FeatureList() {
 
   return (
     <div>
-      <h2 className="text-[22px] font-medium tracking-[-0.02em] text-ink">
+      <h2 className="text-[19px] font-medium tracking-[-0.015em] text-ink">
         {paywallCopy.featuresTitle}
       </h2>
-      <ul className="mt-5 flex flex-col gap-4">
+      <ul className="mt-4 flex flex-col gap-3">
         {features.map((feature) => (
-          <li key={feature.title} className="flex items-start gap-3.5">
+          <li key={feature.title} className="flex items-start gap-3">
             <Star
               aria-hidden="true"
-              size={17}
+              size={16}
               className="mt-0.5 shrink-0 fill-current"
               style={{ color: hueColors[feature.hue] }}
             />

@@ -15,12 +15,12 @@ export function ProgressChartCard() {
   const copy = paywallCopy.chart;
 
   return (
-    <div className="rim overflow-hidden rounded-card border border-hair bg-surface/65 p-5">
+    <div className="rim overflow-hidden rounded-card border border-hair bg-surface/65 p-4">
       <h2 className="text-[16px] font-medium tracking-[-0.01em] text-ink">
         {copy.title}
       </h2>
 
-      <div className="relative mt-4">
+      <div className="relative mt-3">
         <svg
           aria-hidden="true"
           viewBox="0 0 320 148"
@@ -112,7 +112,7 @@ export function ProgressChartCard() {
         </svg>
 
         <span
-          className="absolute left-[6%] top-[6%] rounded-full border border-coral/40 px-2.5 py-1 text-[10.5px] font-medium text-coral"
+          className="absolute left-[3%] top-[3%] rounded-full border border-coral/40 px-2.5 py-1 text-[10px] font-medium leading-none text-coral"
           style={{
             backgroundColor:
               "color-mix(in srgb, var(--color-coral) 14%, var(--color-surface))",
@@ -121,7 +121,7 @@ export function ProgressChartCard() {
           {copy.awakeLabel}
         </span>
         <span
-          className="absolute bottom-[16%] left-[6%] rounded-full border border-mint/40 px-2.5 py-1 text-[10.5px] font-medium text-mint"
+          className="absolute bottom-[11%] left-[3%] rounded-full border border-mint/40 px-2.5 py-1 text-[10px] font-medium leading-none text-mint"
           style={{
             backgroundColor:
               "color-mix(in srgb, var(--color-mint) 14%, var(--color-surface))",
@@ -146,7 +146,7 @@ export function ProgressChartCard() {
         ))}
       </div>
 
-      <p className="mt-3 text-[11px] leading-[1.4] text-faint">{copy.footnote}</p>
+      <p className="mt-2.5 text-[11px] leading-[1.4] text-faint">{copy.footnote}</p>
     </div>
   );
 }

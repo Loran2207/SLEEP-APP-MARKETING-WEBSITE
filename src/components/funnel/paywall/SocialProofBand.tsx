@@ -18,21 +18,21 @@ function Laurel({ flip }: { flip?: boolean }) {
     <svg
       aria-hidden="true"
       viewBox="0 0 28 58"
-      className={cn("h-14 w-7 text-muted", flip && "-scale-x-100")}
+      className={cn("h-12 w-6 text-muted", flip && "-scale-x-100")}
     >
       <path
         d="M 24 55 C 11 47, 5 31, 10 8"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.3"
+        strokeWidth="1.25"
       />
       {leaves.map((leaf) => (
         <ellipse
           key={`${leaf.cx}-${leaf.cy}`}
           cx={leaf.cx}
           cy={leaf.cy}
-          rx="5.4"
-          ry="2.1"
+          rx="5"
+          ry="1.9"
           fill="currentColor"
           opacity="0.85"
           transform={`rotate(${leaf.angle} ${leaf.cx} ${leaf.cy})`}
@@ -50,19 +50,19 @@ export function SocialProofBand() {
   const copy = paywallCopy.socialProof;
 
   return (
-    <div className="rim rounded-card border border-hair bg-surface/65 px-5 py-7 text-center">
-      <div className="flex items-center justify-center gap-4">
+    <div className="rim rounded-card border border-hair bg-surface/65 p-5 text-center">
+      <div className="flex items-center justify-center gap-3.5">
         <Laurel />
         <div>
-          <p className="text-[38px] leading-none font-medium tracking-[-0.03em] text-ink">
+          <p className="text-[26px] leading-none font-medium tracking-[-0.02em] text-ink">
             {copy.count}
           </p>
-          <p className="mt-1.5 text-[13px] text-ink-2">{copy.countCaption}</p>
+          <p className="mt-1 text-[13px] text-ink-2">{copy.countCaption}</p>
         </div>
         <Laurel flip />
       </div>
 
-      <div className="mt-6 flex items-center justify-center gap-5 border-t border-hair pt-6">
+      <div className="mt-4 flex items-center justify-center gap-4 border-t border-hair pt-4">
         <div>
           <div
             aria-label="Five stars"
@@ -77,17 +77,17 @@ export function SocialProofBand() {
               />
             ))}
           </div>
-          <p className="mt-2 text-[17px] font-medium text-ink">{copy.rating}</p>
+          <p className="mt-1.5 text-[15px] font-medium text-ink">{copy.rating}</p>
         </div>
-        <span aria-hidden="true" className="h-9 w-px bg-hair" />
+        <span aria-hidden="true" className="h-8 w-px bg-hair" />
         <div className="flex items-center gap-1.5 text-muted">
-          <Apple aria-hidden="true" size={17} strokeWidth={1.6} />
+          <Apple aria-hidden="true" size={16} strokeWidth={1.6} />
           <span className="text-[13px]">{copy.ratingSource}</span>
         </div>
       </div>
 
-      <p className="mt-5 text-[14px] text-ink-2">{copy.ratingsLine}</p>
-      <p className="mt-2 text-[11px] text-faint">{copy.note}</p>
+      <p className="mt-4 text-[14px] text-ink-2">{copy.ratingsLine}</p>
+      <p className="mt-1.5 text-[11px] text-faint">{copy.note}</p>
     </div>
   );
 }

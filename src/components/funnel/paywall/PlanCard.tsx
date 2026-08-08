@@ -52,13 +52,13 @@ export function PlanCard({
   ];
 
   return (
-    <div className="rim rounded-card border border-hair bg-surface/65 p-5">
-      <h2 className="text-balance text-center text-[22px] leading-[1.25] font-medium tracking-[-0.02em] text-ink">
+    <div className="rim rounded-card border border-hair bg-surface/65 p-4">
+      <h2 className="text-balance text-center text-[19px] leading-[1.3] font-medium tracking-[-0.015em] text-ink">
         {copy.heading}
       </h2>
 
-      <div className="mt-4 flex justify-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-coral/40 bg-coral/[0.14] px-3.5 py-1.5 text-[12px] font-medium text-coral">
+      <div className="mt-3 flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-coral/40 bg-coral/[0.14] px-3 py-1 text-[12px] font-medium text-coral">
           <Clock aria-hidden="true" size={13} strokeWidth={2} />
           {copy.offerBefore}
           <span className="tabular-nums">{countdown}</span>
@@ -66,9 +66,9 @@ export function PlanCard({
         </span>
       </div>
 
-      <fieldset className="mt-5">
+      <fieldset className="mt-4">
         <legend className="sr-only">{funnelCopy.paywall.planLabel}</legend>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2.5">
           {rows.map((row) => {
             const selected = billing === row.period;
 
@@ -85,21 +85,21 @@ export function PlanCard({
                   />
                   <span
                     className={cn(
-                      "rim flex items-center gap-3.5 rounded-card border p-4 transition-[background-color,border-color] duration-150 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-blue motion-reduce:transition-none",
+                      "rim flex items-center gap-3 rounded-card border p-3.5 transition-[background-color,border-color] duration-150 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-blue motion-reduce:transition-none",
                       selected
-                        ? "border-blue bg-blue/[0.08]"
+                        ? "border-blue bg-blue/[0.1]"
                         : "border-hair bg-transparent",
                     )}
                   >
                     <span
                       aria-hidden="true"
                       className={cn(
-                        "grid size-5 shrink-0 place-items-center rounded-full border",
+                        "grid size-[18px] shrink-0 place-items-center rounded-full border",
                         selected ? "border-blue" : "border-hair-strong",
                       )}
                     >
                       {selected ? (
-                        <span className="size-2.5 rounded-full bg-blue" />
+                        <span className="size-2 rounded-full bg-blue" />
                       ) : null}
                     </span>
 
@@ -119,15 +119,15 @@ export function PlanCard({
                           {row.badge}
                         </span>
                       </span>
-                      <span className="mt-1.5 flex flex-wrap items-baseline gap-x-2 text-[14px] text-ink-2">
+                      <span className="mt-1 flex flex-wrap items-baseline gap-x-2 text-[13px] text-ink-2">
                         {row.anchor ? (
-                          <s className="text-[12px] text-faint">{row.anchor}</s>
+                          <s className="text-[11px] text-faint">{row.anchor}</s>
                         ) : null}
                         <span className="font-medium text-ink">
                           {row.priceLine}
                         </span>
                         {row.subLine ? (
-                          <span className="text-[12px] text-muted">
+                          <span className="text-[11px] text-muted">
                             {row.subLine}
                           </span>
                         ) : null}
@@ -136,18 +136,18 @@ export function PlanCard({
 
                     <span
                       className={cn(
-                        "flex shrink-0 flex-col items-center rounded-[12px] px-3 py-2",
+                        "flex shrink-0 flex-col items-center rounded-[10px] px-2.5 py-1.5",
                         selected
                           ? "bg-blue text-void"
                           : "border border-hair bg-surface-3 text-ink",
                       )}
                     >
-                      <span className="text-[15px] leading-none font-medium tabular-nums">
+                      <span className="text-[14px] leading-none font-medium tabular-nums">
                         {row.perDay}
                       </span>
                       <span
                         className={cn(
-                          "mt-1 text-[10px] leading-none",
+                          "mt-1 text-[9.5px] leading-none",
                           selected ? "text-void/70" : "text-muted",
                         )}
                       >
@@ -169,15 +169,15 @@ export function PlanCard({
         </div>
       </fieldset>
 
-      <p className="mt-4 text-center text-[11px] leading-[1.5] text-faint">
+      <p className="mt-3 text-center text-[11px] leading-[1.5] text-faint">
         {copy.footnote}
       </p>
 
-      <div className="mt-4">
+      <div className="mt-3.5">
         <PrimaryAction onClick={onTrial}>{paywallCopy.cta}</PrimaryAction>
       </div>
 
-      <p className="mt-3.5 flex items-center justify-center gap-1.5 text-[12px] text-muted">
+      <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] text-muted">
         <ShieldCheck
           aria-hidden="true"
           size={14}
@@ -187,7 +187,7 @@ export function PlanCard({
         {funnelCopy.checkout.secure}
       </p>
 
-      <div className="mt-4 grid grid-cols-3 gap-2 border-t border-hair pt-4">
+      <div className="mt-3.5 grid grid-cols-3 gap-2 border-t border-hair pt-3.5">
         {funnelCopy.paywall.trust.map((item) => (
           <span
             key={item}

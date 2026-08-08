@@ -25,7 +25,7 @@ const SEGMENT_COUNT = 6;
 
 function PercentRing({ share, hue }: { share: number; hue: string }) {
   return (
-    <span className="relative grid size-[46px] shrink-0 place-items-center">
+    <span className="relative grid size-10 shrink-0 place-items-center">
       <svg aria-hidden="true" viewBox="0 0 44 44" className="size-full -rotate-90">
         <circle
           cx="22"
@@ -33,14 +33,14 @@ function PercentRing({ share, hue }: { share: number; hue: string }) {
           r={RING_RADIUS}
           fill="none"
           stroke="rgba(245,245,247,0.1)"
-          strokeWidth="4.5"
+          strokeWidth="4"
         />
         <circle
           cx="22"
           cy="22"
           r={RING_RADIUS}
           fill="none"
-          strokeWidth="4.5"
+          strokeWidth="4"
           strokeLinecap="round"
           strokeDasharray={RING_CIRCUMFERENCE}
           strokeDashoffset={RING_CIRCUMFERENCE * (1 - share)}
@@ -66,7 +66,7 @@ function SegmentedBar({
   return (
     <div>
       <span className="text-[11px] leading-none text-muted">{label}</span>
-      <div className="mt-1.5 flex gap-1">
+      <div className="mt-1 flex gap-1">
         {Array.from({ length: SEGMENT_COUNT }, (_, index) => (
           <span
             key={index}
@@ -89,11 +89,11 @@ export function NowAfterBlock() {
 
   return (
     <div>
-      <h2 className="text-center text-[22px] font-medium tracking-[-0.02em] text-ink">
+      <h2 className="text-[19px] font-medium tracking-[-0.015em] text-ink">
         {copy.title}
       </h2>
 
-      <div className="mt-5 grid grid-cols-2 gap-3.5">
+      <div className="mt-4 grid grid-cols-2 gap-3">
         {SIDES.map((side, index) => (
           <div key={side.key}>
             <div className="relative overflow-hidden rounded-card border border-hair">
@@ -119,13 +119,13 @@ export function NowAfterBlock() {
               </span>
             </div>
 
-            <div className="mt-3 flex items-center gap-2.5">
+            <div className="mt-2.5 flex items-center gap-2">
               <PercentRing share={side.ringShare} hue={side.hue} />
               <span className="text-[11px] leading-[1.35] text-ink-2">
                 {copy.ringLabel}
               </span>
             </div>
-            <div className="mt-3 flex flex-col gap-3">
+            <div className="mt-2.5 flex flex-col gap-2.5">
               {copy.barLabels.map((label) => (
                 <SegmentedBar
                   key={label}

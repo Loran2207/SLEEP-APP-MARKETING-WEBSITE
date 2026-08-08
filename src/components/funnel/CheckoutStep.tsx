@@ -13,7 +13,6 @@ import {
 } from "@/components/brand/marks";
 import { funnelCopy, plans, type BillingPeriod } from "@/data/funnel";
 
-import { AccentHeading } from "./AccentHeading";
 import { CardForm } from "./CardForm";
 import { ExpressPay } from "./ExpressPay";
 import { FunnelHeader } from "./FunnelHeader";
@@ -38,57 +37,56 @@ export function CheckoutStep({
   const plan = plans[billing];
 
   return (
-    <section className="min-h-[100dvh] px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
+    <section className="min-h-[100dvh] px-5 pb-[max(16px,env(safe-area-inset-bottom))]">
       <FunnelHeader onBack={onBack} />
 
-      <AccentHeading
-        before={copy.headingBefore}
-        accent={copy.headingAccent}
-        after={copy.headingAfter}
-        className="mx-auto mt-8 max-w-[390px] text-center"
-      />
+      <h1 className="mx-auto mt-6 max-w-[320px] text-balance text-center text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
+        {copy.headingBefore}
+        <span className="text-blue">{copy.headingAccent}</span>
+        {copy.headingAfter}
+      </h1>
 
-      <div className="rim mt-8 rounded-card border border-hair bg-surface/65 p-5">
+      <div className="rim mt-5 rounded-card border border-hair bg-surface/65 p-4">
         <div className="flex items-baseline justify-between gap-4">
-          <p className="text-[13px] text-muted">{copy.summaryLabel}</p>
+          <p className="text-[12px] text-muted">{copy.summaryLabel}</p>
           <button
             type="button"
             onClick={onChangePlan}
-            className="shrink-0 text-[13px] font-medium text-blue transition-colors duration-150 hover:text-blue-soft motion-reduce:transition-none"
+            className="shrink-0 text-[12px] font-medium text-blue transition-colors duration-150 hover:text-blue-soft motion-reduce:transition-none"
           >
             {copy.changePlan}
           </button>
         </div>
 
-        <dl className="mt-2 flex flex-col gap-2">
+        <dl className="mt-2 flex flex-col gap-1.5">
           <div className="flex items-baseline justify-between gap-4">
-            <dt className="text-[15px] text-ink">{plan.summaryName}</dt>
-            <dd className="shrink-0 text-[15px] font-medium text-ink tabular-nums">
+            <dt className="text-[14px] text-ink">{plan.summaryName}</dt>
+            <dd className="shrink-0 text-[14px] font-medium text-ink tabular-nums">
               {plan.renewal}
             </dd>
           </div>
           <div className="flex items-baseline justify-between gap-4">
-            <dt className="text-[15px] text-ink">{copy.trialItem}</dt>
-            <dd className="shrink-0 text-[15px] font-medium text-mint">
+            <dt className="text-[14px] text-ink">{copy.trialItem}</dt>
+            <dd className="shrink-0 text-[14px] font-medium text-mint">
               {copy.freeValue}
             </dd>
           </div>
-          <div className="flex items-baseline justify-between gap-4 border-t border-hair pt-2">
-            <dt className="text-[15px] font-semibold text-ink">
+          <div className="flex items-baseline justify-between gap-4 border-t border-hair pt-1.5">
+            <dt className="text-[14px] font-semibold text-ink">
               {copy.totalLabel}
             </dt>
-            <dd className="shrink-0 text-[15px] font-semibold text-ink tabular-nums">
+            <dd className="shrink-0 text-[14px] font-semibold text-ink tabular-nums">
               {copy.totalValue}
             </dd>
           </div>
         </dl>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-4">
         <ExpressPay />
       </div>
 
-      <div className="my-[18px] flex items-center gap-3">
+      <div className="my-4 flex items-center gap-3">
         <span aria-hidden="true" className="h-px flex-1 bg-hair" />
         <span className="text-[12px] text-muted">{copy.cardDivider}</span>
         <span aria-hidden="true" className="h-px flex-1 bg-hair" />
@@ -102,22 +100,22 @@ export function CheckoutStep({
         </div>
       </form>
 
-      <div className="mt-[26px]">
+      <div className="mt-4">
         <p className="flex items-center justify-center gap-2 text-[12px] text-ink-2">
           <Lock aria-hidden="true" size={13} strokeWidth={1.8} />
           {copy.secure}
         </p>
-        <div className="mt-3 flex items-center justify-center gap-3.5 text-ink-2">
-          <VisaMark className="h-[17px] w-auto" />
-          <MastercardMark className="h-[18px] w-auto" />
-          <AmexMark className="h-[18px] w-auto" />
+        <div className="mt-2.5 flex items-center justify-center gap-3.5 text-ink-2">
+          <VisaMark className="h-[16px] w-auto" />
+          <MastercardMark className="h-[17px] w-auto" />
+          <AmexMark className="h-[17px] w-auto" />
           <span aria-hidden="true" className="h-4 w-px bg-hair" />
-          <ApplePayMonoMark className="h-[15px] w-auto" />
-          <PayPalMonoMark className="h-[15px] w-auto" />
+          <ApplePayMonoMark className="h-[14px] w-auto" />
+          <PayPalMonoMark className="h-[14px] w-auto" />
         </div>
       </div>
 
-      <p className="mt-[14px] text-center text-[12px] leading-[18px] text-muted">
+      <p className="mt-3 text-center text-[11px] leading-[1.5] text-muted">
         {copy.legalBefore}
         <Link href="/terms" className="font-medium text-blue">
           {copy.legalTerms}
@@ -129,7 +127,7 @@ export function CheckoutStep({
         {copy.legalAfter}
       </p>
 
-      <p className="mt-3 text-pretty text-center text-[11px] leading-[1.55] text-muted">
+      <p className="mt-2 text-pretty text-center text-[11px] leading-[1.5] text-faint">
         {copy.finePrintBefore}
         <span className="text-ink-2">{plan.renewal}</span>
         {copy.finePrintAfter}
@@ -137,7 +135,7 @@ export function CheckoutStep({
 
       <p
         id={previewNoteId}
-        className="mx-auto mt-4 max-w-[350px] text-pretty text-center text-[11px] leading-[1.5] text-muted"
+        className="mx-auto mt-2.5 max-w-[340px] text-pretty text-center text-[11px] leading-[1.5] text-muted"
       >
         {copy.preview}
       </p>

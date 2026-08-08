@@ -17,8 +17,8 @@ type FunnelHeaderProps = {
  */
 export function FunnelHeader({ onBack }: FunnelHeaderProps) {
   return (
-    <header className="pt-[max(14px,env(safe-area-inset-top))]">
-      <div className="relative flex h-11 items-center justify-center">
+    <header className="pt-[max(10px,env(safe-area-inset-top))]">
+      <div className="relative flex h-10 items-center justify-center">
         {onBack ? (
           <button
             type="button"

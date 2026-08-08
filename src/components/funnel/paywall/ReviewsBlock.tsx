@@ -8,10 +8,10 @@ export function ReviewsBlock() {
 
   return (
     <div>
-      <h2 className="text-center text-[22px] font-medium tracking-[-0.02em] text-ink">
+      <h2 className="text-center text-[19px] font-medium tracking-[-0.015em] text-ink">
         {copy.title}
       </h2>
-      <div className="mt-5 flex flex-col gap-3">
+      <div className="mt-4 flex flex-col gap-3">
         {copy.items.map((review, index) => (
           <ReviewCard key={index} review={review} />
         ))}

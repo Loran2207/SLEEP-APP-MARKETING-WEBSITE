@@ -58,11 +58,11 @@ function AnalyzingRow({
   });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between gap-3">
         <span
           className={cn(
-            "text-[14px] transition-colors duration-300 motion-reduce:transition-none",
+            "text-[13px] transition-colors duration-300 motion-reduce:transition-none",
             state === "pending" ? "text-faint" : "text-ink",
           )}
         >
@@ -87,7 +87,7 @@ function AnalyzingRow({
       </div>
       <div
         aria-hidden="true"
-        className="h-[2.5px] w-full overflow-hidden rounded-full bg-hair"
+        className="h-[2px] w-full overflow-hidden rounded-full bg-hair"
       >
         <motion.span
           className="block h-full rounded-full bg-blue"
@@ -151,12 +151,12 @@ export function AnalyzingStep({ onComplete, holdAt }: AnalyzingStepProps) {
         <FunnelHeader />
       </div>
 
-      <div className="flex w-full flex-col items-center pt-10">
-        <h1 className="max-w-[310px] text-balance text-[30px] leading-[1.16] font-medium tracking-[-0.03em] text-ink">
+      <div className="mt-6 flex w-full flex-col items-center">
+        <h1 className="max-w-[310px] text-balance text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
           {copy.title}
         </h1>
 
-        <div className="mt-10 flex w-full max-w-[344px] flex-col gap-5 text-left">
+        <div className="mt-8 flex w-full flex-col gap-4 text-left">
           {copy.lines.map((line, index) => (
             <AnalyzingRow
               key={line}
@@ -174,7 +174,7 @@ export function AnalyzingStep({ onComplete, holdAt }: AnalyzingStepProps) {
           ))}
         </div>
 
-        <p className="mt-10 max-w-[310px] text-pretty text-[14px] text-ink-2">
+        <p className="mt-8 max-w-[310px] text-pretty text-[13px] text-ink-2">
           {copy.trustedBefore}
           <span className="font-medium text-blue">{copy.trustedCount}</span>
           {copy.trustedAfter}
@@ -184,10 +184,10 @@ export function AnalyzingStep({ onComplete, holdAt }: AnalyzingStepProps) {
           role="group"
           aria-label={REVIEWS_GROUP_LABEL}
           tabIndex={0}
-          className="-mx-5 mt-5 flex snap-x snap-mandatory gap-3 self-stretch overflow-x-auto scroll-px-5 rounded-[20px] px-5 py-1 text-left [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-hair-strong [&::-webkit-scrollbar]:hidden"
+          className="-mx-5 mt-4 flex snap-x snap-mandatory gap-3 self-stretch overflow-x-auto scroll-px-5 rounded-[20px] px-5 py-1 text-left [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-hair-strong [&::-webkit-scrollbar]:hidden"
         >
           {copy.reviews.map((review, index) => (
-            <div key={index} className="w-[268px] shrink-0 snap-center">
+            <div key={index} className="w-[240px] shrink-0 snap-center">
               <ReviewCard review={review} />
             </div>
           ))}

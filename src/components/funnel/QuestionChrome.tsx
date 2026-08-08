@@ -111,20 +111,17 @@ export function QuestionChrome({ stepId, hue, onBack }: QuestionChromeProps) {
   const accent = hueColors[hue];
 
   return (
-    <header className="pt-[max(14px,env(safe-area-inset-top))]">
-      <div className="flex items-center">
+    <header className="pt-[max(10px,env(safe-area-inset-top))]">
+      <div className="relative flex h-10 items-center justify-center">
         <button
           type="button"
           aria-label={funnelCopy.actions.back}
           onClick={onBack}
-          className="grid size-10 shrink-0 place-items-center text-muted transition-colors duration-150 hover:text-ink active:text-ink motion-reduce:transition-none"
+          className="absolute top-1/2 left-0 grid size-10 -translate-y-1/2 place-items-center text-muted transition-colors duration-150 hover:text-ink active:text-ink motion-reduce:transition-none"
         >
           <ArrowLeft aria-hidden="true" size={20} strokeWidth={1.7} />
         </button>
-        <div className="flex flex-1 justify-center">
-          <BrandPill />
-        </div>
-        <span aria-hidden="true" className="size-10 shrink-0" />
+        <BrandPill />
       </div>
 
       <div
@@ -133,28 +130,28 @@ export function QuestionChrome({ stepId, hue, onBack }: QuestionChromeProps) {
         aria-valuemin={1}
         aria-valuemax={section.steps.length}
         aria-valuenow={progress?.position ?? 1}
-        className="mt-6"
+        className="mt-4"
       >
         <SegmentedProgress stepId={stepId} hue={hue} />
       </div>
 
-      <div className="mt-5 flex items-center gap-3.5">
+      <div className="mt-4 flex items-center gap-3">
         <span
           aria-hidden="true"
-          className="grid size-11 shrink-0 place-items-center rounded-[14px] border"
+          className="grid size-10 shrink-0 place-items-center rounded-[12px] border"
           style={{
             borderColor: `color-mix(in srgb, ${accent} 46%, transparent)`,
             backgroundColor: `color-mix(in srgb, ${accent} 10%, transparent)`,
             color: accent,
           }}
         >
-          <SectionIcon size={20} strokeWidth={1.7} />
+          <SectionIcon size={18} strokeWidth={1.7} />
         </span>
         <span className="min-w-0">
-          <span className="block text-[17px] font-medium tracking-[-0.01em] text-ink">
+          <span className="block text-[15px] font-medium tracking-[-0.01em] text-ink">
             {section.title}
           </span>
-          <span className="block text-[13px] leading-[1.4] text-muted">
+          <span className="block text-[12px] leading-[1.4] text-muted">
             {section.body}
           </span>
         </span>
