@@ -1,14 +1,7 @@
 import { Star } from "lucide-react";
 
-import { sleepPlusFeatures, type FunnelHue } from "@/data/funnel";
+import { sleepPlusFeatures } from "@/data/funnel";
 import { paywallCopy } from "@/data/paywall";
-
-const hueColors: Record<FunnelHue, string> = {
-  blue: "var(--color-blue)",
-  coral: "var(--color-coral)",
-  mint: "var(--color-mint)",
-  violet: "var(--color-violet)",
-};
 
 /** Rest AI's starred benefit rows, fed by the app's real Sleep+ features. */
 export function FeatureList() {
@@ -25,8 +18,7 @@ export function FeatureList() {
             <Star
               aria-hidden="true"
               size={16}
-              className="mt-0.5 shrink-0 fill-current"
-              style={{ color: hueColors[feature.hue] }}
+              className="mt-0.5 shrink-0 fill-blue text-blue"
             />
             <div className="min-w-0">
               <h3 className="text-[15px] font-medium leading-[1.35] text-ink">

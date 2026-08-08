@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { Check, Copy, Moon } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 
+import { Medallion } from "@/components/ambient/Medallion";
 import { AppStoreBadge } from "@/components/brand/marks";
 import { funnelCopy } from "@/data/funnel";
 import { cn } from "@/lib/utils";
@@ -63,21 +64,10 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
     <section className="flex min-h-[100dvh] flex-col px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
       <FunnelHeader />
 
-      <div className="relative mt-6 grid w-fit place-items-center">
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute size-[128px]"
-          style={{
-            background:
-              "radial-gradient(ellipse 50% 50% at center, rgba(93,221,179,0.2), transparent 72%)",
-          }}
-        />
-        <span
-          aria-hidden="true"
-          className="rim relative grid size-16 place-items-center rounded-full border border-mint/50 bg-mint/12 text-mint"
-        >
-          <Check aria-hidden="true" size={28} strokeWidth={2.2} />
-        </span>
+      <div className="mt-4">
+        <Medallion hue="mint" size={56}>
+          <Check aria-hidden="true" size={24} strokeWidth={2} />
+        </Medallion>
       </div>
 
       <h1 className="mt-5 text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
@@ -88,7 +78,7 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
 
       <ol className="mt-6 w-full border-t border-hair">
         <li className="flex gap-3 border-b border-hair py-4">
-          <span className="grid size-7 shrink-0 place-items-center rounded-full border border-mint/40 bg-mint/10 text-[13px] font-medium text-mint">
+          <span className="grid size-7 shrink-0 place-items-center rounded-full border border-hair-strong bg-white/[0.04] text-[13px] font-medium text-ink-2">
             1
           </span>
           <p className="min-w-0 flex-1 pt-[3px] text-[15px] leading-[1.5] text-ink">
@@ -97,7 +87,7 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
         </li>
 
         <li className="flex gap-3 border-b border-hair py-4">
-          <span className="grid size-7 shrink-0 place-items-center rounded-full border border-blue/40 bg-blue/10 text-[13px] font-medium text-blue">
+          <span className="grid size-7 shrink-0 place-items-center rounded-full border border-hair-strong bg-white/[0.04] text-[13px] font-medium text-ink-2">
             2
           </span>
           <div className="min-w-0 flex-1 pt-[3px]">
@@ -141,7 +131,7 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
         </li>
 
         <li className="flex gap-3 border-b border-hair py-4">
-          <span className="grid size-7 shrink-0 place-items-center rounded-full border border-violet/40 bg-violet/10 text-[13px] font-medium text-violet">
+          <span className="grid size-7 shrink-0 place-items-center rounded-full border border-hair-strong bg-white/[0.04] text-[13px] font-medium text-ink-2">
             3
           </span>
           <p className="min-w-0 flex-1 pt-[3px] text-[15px] leading-[1.5] text-ink">
@@ -173,7 +163,7 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
 
       <p className="mt-5 text-[13px] text-ink-2">{copy.qrLead}</p>
 
-      <div className="relative mt-3 size-[148px] rounded-[14px] bg-white p-2.5">
+      <div className="relative mt-3 size-[148px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/funnel/qr-start.svg"
@@ -182,9 +172,20 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
         />
         <span
           aria-hidden="true"
-          className="absolute top-1/2 left-1/2 grid size-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[8px] bg-void"
+          className="absolute top-1/2 left-1/2 grid size-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-void"
         >
-          <Moon aria-hidden="true" size={16} strokeWidth={1.8} className="text-mint" />
+          <span
+            className="relative block size-7 overflow-hidden rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle at 34% 28%, #ffffff 0%, #f2f4f8 60%, #dceaff 100%)",
+            }}
+          >
+            <span
+              className="absolute rounded-full bg-void"
+              style={{ width: 22, height: 22, left: 10, top: -4 }}
+            />
+          </span>
         </span>
       </div>
     </section>

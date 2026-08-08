@@ -111,7 +111,12 @@ export function NowAfterBlock() {
               <img
                 src={side.src}
                 alt=""
-                className="aspect-[3/4] w-full object-cover"
+                className="aspect-[3/4] w-full object-cover brightness-[.92] contrast-[1.05] grayscale-[.85]"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 mix-blend-color"
+                style={{ backgroundColor: side.hue, opacity: 0.3 }}
               />
               <span
                 aria-hidden="true"

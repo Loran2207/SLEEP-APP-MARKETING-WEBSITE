@@ -12,10 +12,11 @@ type ComparisonStepProps = {
   onBack: () => void;
 };
 
-const TICKS = ["2h", "1h 30m", "1h", "30m", "0"];
-const CHART_HEIGHT = 150;
+/** Five gridlines; only the anchor rows carry a label, like the reference. */
+const TICKS = ["2h", "", "1h", "", "0"];
+const CHART_HEIGHT = 130;
 /** Hour-label column width plus its gap, so bars and captions center over the plot. */
-const PLOT_INSET = "pl-[46px]";
+const PLOT_INSET = "pl-[34px]";
 
 /**
  * The before and after block, laid out like Rest AI's chart pair: two panels
@@ -42,7 +43,8 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
           <div key={column.label}>
             <p
               className={cn(
-                "text-[12px] font-medium",
+                "text-center text-[12px] font-medium",
+                PLOT_INSET,
                 index === 1 ? "text-blue" : "text-ink-2",
               )}
             >
@@ -52,11 +54,11 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
             <div className="relative mt-3" style={{ height: CHART_HEIGHT }}>
               {TICKS.map((tick, tickIndex) => (
                 <span
-                  key={tick}
+                  key={tickIndex}
                   className="absolute inset-x-0 flex -translate-y-1/2 items-center gap-1.5"
                   style={{ top: `${(tickIndex / (TICKS.length - 1)) * 100}%` }}
                 >
-                  <span className="w-[40px] shrink-0 text-right text-[10px] leading-none whitespace-nowrap text-faint">
+                  <span className="w-[28px] shrink-0 text-right text-[10px] leading-none text-faint">
                     {tick}
                   </span>
                   <span className="flex-1 border-t border-dashed border-hair" />
@@ -69,8 +71,17 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
                   PLOT_INSET,
                 )}
               >
+                {index === 1 ? (
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-0 w-[72px] rounded-t-[12px] bg-white/[0.05]"
+                    style={{
+                      height: `${Math.round(copy.columns[0].share * CHART_HEIGHT)}px`,
+                    }}
+                  />
+                ) : null}
                 <span
-                  className="block w-[58px] rounded-t-[10px]"
+                  className="relative block w-[72px] rounded-t-[12px]"
                   style={{
                     height: `${Math.round(column.share * CHART_HEIGHT)}px`,
                     background:
