@@ -28,29 +28,23 @@ export function ProgressChartCard() {
         >
           <defs>
             <linearGradient id="pw-awake-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="0"
-                style={{ stopColor: "var(--color-coral)" }}
-                stopOpacity="0.2"
-              />
-              <stop
-                offset="1"
-                style={{ stopColor: "var(--color-coral)" }}
-                stopOpacity="0"
-              />
+              <stop offset="0" stopColor="rgb(255, 142, 124)" stopOpacity="0.32" />
+              <stop offset="0.55" stopColor="rgb(255, 142, 124)" stopOpacity="0.1" />
+              <stop offset="1" stopColor="rgb(255, 142, 124)" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="pw-quality-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="0"
-                style={{ stopColor: "var(--color-mint)" }}
-                stopOpacity="0.2"
-              />
-              <stop
-                offset="1"
-                style={{ stopColor: "var(--color-mint)" }}
-                stopOpacity="0"
-              />
+              <stop offset="0" stopColor="rgb(93, 221, 179)" stopOpacity="0.32" />
+              <stop offset="0.55" stopColor="rgb(93, 221, 179)" stopOpacity="0.1" />
+              <stop offset="1" stopColor="rgb(93, 221, 179)" stopOpacity="0" />
             </linearGradient>
+            <radialGradient id="pw-awake-dot" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stopColor="rgb(255, 142, 124)" stopOpacity="0.45" />
+              <stop offset="1" stopColor="rgb(255, 142, 124)" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="pw-quality-dot" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stopColor="rgb(93, 221, 179)" stopOpacity="0.5" />
+              <stop offset="1" stopColor="rgb(93, 221, 179)" stopOpacity="0" />
+            </radialGradient>
           </defs>
 
           {GRID_X.map((x) => (
@@ -77,10 +71,18 @@ export function ProgressChartCard() {
             <path
               d={AWAKE_PATH}
               fill="none"
+              stroke="rgba(255, 142, 124, 0.28)"
+              strokeWidth="7"
+              strokeLinecap="round"
+            />
+            <path
+              d={AWAKE_PATH}
+              fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
+            <circle cx="308" cy="132" r="14" fill="url(#pw-awake-dot)" />
             <circle
               cx="308"
               cy="132"
@@ -96,10 +98,18 @@ export function ProgressChartCard() {
             <path
               d={QUALITY_PATH}
               fill="none"
+              stroke="rgba(93, 221, 179, 0.28)"
+              strokeWidth="7"
+              strokeLinecap="round"
+            />
+            <path
+              d={QUALITY_PATH}
+              fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
+            <circle cx="308" cy="24" r="14" fill="url(#pw-quality-dot)" />
             <circle
               cx="308"
               cy="24"

@@ -1,16 +1,8 @@
 // This screen is a design preview. Wire it to a real payment provider or remove it before the site goes public.
 "use client";
 
-import { Lock } from "lucide-react";
 import Link from "next/link";
 
-import {
-  AmexMark,
-  ApplePayMark,
-  MastercardMark,
-  PayPalMark,
-  VisaMark,
-} from "@/components/brand/marks";
 import { funnelCopy, plans, type BillingPeriod } from "@/data/funnel";
 
 import { CardForm } from "./CardForm";
@@ -89,17 +81,13 @@ export function CheckoutStep({ billing, onBack, onTrial }: CheckoutStepProps) {
       </form>
 
       <div className="mt-4 rounded-[14px] border border-hair bg-surface/45 px-4 py-3.5">
-        <p className="flex items-center gap-2 text-[13px] font-medium text-ink">
-          <Lock aria-hidden="true" size={13} strokeWidth={1.8} className="shrink-0" />
-          {copy.secure}
-        </p>
-        <div className="mt-3 flex items-center justify-between">
-          <VisaMark className="h-[18px] w-auto" />
-          <MastercardMark className="h-[22px] w-auto" />
-          <AmexMark className="h-[20px] w-auto" />
-          <ApplePayMark className="h-[19px] w-auto" />
-          <PayPalMark className="h-[19px] w-auto" />
-        </div>
+        {/* The TTT secure-checkout badge artwork, re-cut for the dark canvas. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/funnel/secure-checkout-badge.png"
+          alt={copy.secure}
+          className="h-auto w-full"
+        />
       </div>
 
       <p className="mt-3 text-pretty text-[11px] leading-[1.5] text-muted">
