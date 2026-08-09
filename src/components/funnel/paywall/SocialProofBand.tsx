@@ -1,42 +1,56 @@
 import { Star } from "lucide-react";
 
 import { paywallCopy } from "@/data/paywall";
-import { cn } from "@/lib/utils";
 
-/** One hand-drawn laurel branch; the right side renders it mirrored. */
+/**
+ * Leaf geometry is baked into plain path coordinates: the Figma capture drops
+ * SVG transform attributes, which once reduced these branches to bare stems.
+ */
+function leafPath(
+  cx: number,
+  cy: number,
+  angleDeg: number,
+  rx: number,
+  ry: number,
+  flip: boolean,
+): string {
+  const angle = (angleDeg * Math.PI) / 180;
+  const point = (px: number, py: number) => {
+    const x = cx + px * Math.cos(angle) - py * Math.sin(angle);
+    const y = cy + px * Math.sin(angle) + py * Math.cos(angle);
+    return `${(flip ? 28 - x : x).toFixed(2)} ${y.toFixed(2)}`;
+  };
+  return `M ${point(-rx, 0)} Q ${point(0, -ry * 2)} ${point(rx, 0)} Q ${point(0, ry * 2)} ${point(-rx, 0)} Z`;
+}
+
+/** Twelve-leaf stations along the stem: [cx, cy, angle of the outward leaf]. */
+const LEAF_STATIONS: readonly [number, number, number][] = [
+  [20.5, 50, -14],
+  [16.5, 43.5, -28],
+  [13.5, 36.5, -44],
+  [11.5, 29, -60],
+  [10.8, 21.5, -76],
+  [11.8, 14, -92],
+  [14, 7.5, -108],
+];
+
 function Laurel({ flip }: { flip?: boolean }) {
-  const leaves = [
-    { cx: 20, cy: 49, angle: -18 },
-    { cx: 15.5, cy: 41, angle: -32 },
-    { cx: 12, cy: 32.5, angle: -50 },
-    { cx: 10.5, cy: 24, angle: -66 },
-    { cx: 10.5, cy: 15.5, angle: -80 },
-    { cx: 12.5, cy: 8, angle: -96 },
-  ];
+  const mirrored = Boolean(flip);
+  const stem = mirrored
+    ? "M 4 55 C 17 47, 23 31, 18 8"
+    : "M 24 55 C 11 47, 5 31, 10 8";
 
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 28 58"
-      className={cn("h-12 w-6 text-muted", flip && "-scale-x-100")}
-    >
-      <path
-        d="M 24 55 C 11 47, 5 31, 10 8"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.25"
-      />
-      {leaves.map((leaf) => (
-        <ellipse
-          key={`${leaf.cx}-${leaf.cy}`}
-          cx={leaf.cx}
-          cy={leaf.cy}
-          rx="5"
-          ry="1.9"
-          fill="currentColor"
-          opacity="0.85"
-          transform={`rotate(${leaf.angle} ${leaf.cx} ${leaf.cy})`}
-        />
+    <svg aria-hidden="true" viewBox="0 0 28 58" className="h-12 w-6 text-muted">
+      <path d={stem} fill="none" stroke="currentColor" strokeWidth="1.25" />
+      {LEAF_STATIONS.map(([cx, cy, angle]) => (
+        <g key={`${cx}-${cy}`} fill="currentColor">
+          <path d={leafPath(cx, cy, angle, 4.6, 1.5, mirrored)} opacity="0.9" />
+          <path
+            d={leafPath(cx + 2.6, cy - 1.2, angle + 42, 3.9, 1.3, mirrored)}
+            opacity="0.6"
+          />
+        </g>
       ))}
     </svg>
   );

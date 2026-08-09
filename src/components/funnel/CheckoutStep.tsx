@@ -78,6 +78,12 @@ export function CheckoutStep({ billing, onBack, onTrial }: CheckoutStepProps) {
         <div className="mt-3">
           <PrimaryAction onClick={onTrial}>{copy.primary}</PrimaryAction>
         </div>
+
+        <p className="mx-auto mt-2.5 max-w-[340px] text-pretty text-center text-[10.5px] leading-[1.5] text-faint">
+          {copy.finePrintBefore}
+          <span className="text-muted">{plan.renewal}</span>
+          {copy.finePrintAfter}
+        </p>
       </form>
 
       <div className="mt-4 rounded-[14px] border border-hair bg-surface/45 px-4 py-3.5">
@@ -90,7 +96,7 @@ export function CheckoutStep({ billing, onBack, onTrial }: CheckoutStepProps) {
         />
       </div>
 
-      <p className="mt-3 text-pretty text-[11px] leading-[1.5] text-muted">
+      <p className="mx-auto mt-3 max-w-[300px] text-pretty text-center text-[12px] leading-[1.55] text-muted">
         {copy.legalBefore}
         <Link href="/terms" className="font-medium text-blue">
           {copy.legalTerms}
@@ -99,17 +105,12 @@ export function CheckoutStep({ billing, onBack, onTrial }: CheckoutStepProps) {
         <Link href="/privacy" className="font-medium text-blue">
           {copy.legalPrivacy}
         </Link>
-        {copy.legalAfter}{" "}
-        <span className="text-faint">
-          {copy.finePrintBefore}
-          <span className="text-ink-2">{plan.renewal}</span>
-          {copy.finePrintAfter}
-        </span>
+        {copy.legalAfter}
       </p>
 
       <p
         id={previewNoteId}
-        className="mt-2.5 max-w-[340px] text-pretty text-[11px] leading-[1.5] text-muted"
+        className="mx-auto mt-2.5 max-w-[340px] text-pretty text-center text-[10.5px] leading-[1.5] text-faint"
       >
         {copy.preview}
       </p>
