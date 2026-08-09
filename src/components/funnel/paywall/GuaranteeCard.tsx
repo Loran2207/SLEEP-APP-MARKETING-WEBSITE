@@ -1,17 +1,6 @@
-import {
-  AmexMonoMark,
-  ApplePayMonoMark,
-  MastercardMonoMark,
-  PayPalMonoMark,
-  VisaMark,
-} from "@/components/brand/marks";
 import { paywallCopy } from "@/data/paywall";
 
-/**
- * The money-back card. The seal is the title; the body stays a marked
- * placeholder because the refund terms are the client's to write, and this
- * site does not promise behaviour nobody has committed to.
- */
+/** The money-back card: the seal beside its terms, the TTT badge on the base. */
 export function GuaranteeCard() {
   const copy = paywallCopy.guarantee;
 
@@ -70,15 +59,14 @@ export function GuaranteeCard() {
         </p>
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-hair pt-4">
-        <p className="text-[13px] font-medium text-ink">{copy.checkoutLine}</p>
-        <div className="flex items-center gap-2.5 text-ink-2">
-          <ApplePayMonoMark className="size-5" />
-          <PayPalMonoMark className="size-5" />
-          <VisaMark className="size-5" />
-          <MastercardMonoMark className="size-5" />
-          <AmexMonoMark className="size-5" />
-        </div>
+      <div className="mt-4 border-t border-hair pt-4">
+        {/* The TTT secure-checkout badge artwork, re-cut for the dark canvas. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/funnel/secure-checkout-badge.png"
+          alt={copy.checkoutLine}
+          className="h-auto w-full"
+        />
       </div>
     </div>
   );

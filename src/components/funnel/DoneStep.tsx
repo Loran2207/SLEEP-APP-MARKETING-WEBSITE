@@ -72,7 +72,15 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
 
       <h1 className="mt-5 text-[24px] leading-[1.22] font-medium tracking-[-0.025em] text-ink">
         {copy.headingBefore}
-        <span className="text-blue whitespace-nowrap">{copy.headingAccent}</span>
+        <span
+          className="text-mint whitespace-nowrap"
+          style={{
+            textShadow:
+              "0 0 18px color-mix(in srgb, var(--color-mint) 45%, transparent)",
+          }}
+        >
+          {copy.headingAccent}
+        </span>
         {copy.headingAfter}
       </h1>
 
@@ -172,10 +180,10 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
         />
         <span
           aria-hidden="true"
-          className="absolute top-1/2 left-1/2 grid size-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-void"
+          className="absolute top-1/2 left-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-mint/45 bg-void"
         >
           <span
-            className="relative block size-7 overflow-hidden rounded-full"
+            className="relative block size-8 overflow-hidden rounded-full"
             style={{
               background:
                 "radial-gradient(circle at 34% 28%, #ffffff 0%, #f2f4f8 60%, #dceaff 100%)",
@@ -183,7 +191,7 @@ export function DoneStep({ email, emailSaveStatus }: DoneStepProps) {
           >
             <span
               className="absolute rounded-full bg-void"
-              style={{ width: 22, height: 22, left: 10, top: -4 }}
+              style={{ width: 25, height: 25, left: 12, top: -5 }}
             />
           </span>
         </span>
