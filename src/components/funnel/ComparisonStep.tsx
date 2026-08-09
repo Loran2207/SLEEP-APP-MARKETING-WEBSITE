@@ -74,9 +74,11 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
                 {index === 1 ? (
                   <span
                     aria-hidden="true"
-                    className="absolute bottom-0 w-[72px] rounded-t-[12px] bg-white/[0.05]"
+                    className="absolute bottom-0 w-[72px] rounded-t-[12px]"
                     style={{
                       height: `${Math.round(copy.columns[0].share * CHART_HEIGHT)}px`,
+                      backgroundColor:
+                        "color-mix(in srgb, var(--color-blue) 12%, transparent)",
                     }}
                   />
                 ) : null}
@@ -85,13 +87,11 @@ export function ComparisonStep({ onContinue, onBack }: ComparisonStepProps) {
                   style={{
                     height: `${Math.round(column.share * CHART_HEIGHT)}px`,
                     background:
-                      index === 0
-                        ? "linear-gradient(180deg,color-mix(in srgb,var(--color-violet) 40%,var(--color-abyss)),color-mix(in srgb,var(--color-violet) 16%,var(--color-abyss)))"
-                        : "linear-gradient(180deg,var(--color-blue),color-mix(in srgb,var(--color-violet) 70%,var(--color-abyss)))",
+                      "linear-gradient(180deg, color-mix(in srgb, var(--color-blue) 72%, white) 0%, var(--color-blue) 34%, color-mix(in srgb, var(--color-blue) 52%, var(--color-abyss)) 100%)",
                     boxShadow:
                       index === 0
-                        ? undefined
-                        : "0 0 26px color-mix(in srgb, var(--color-blue) 34%, transparent)",
+                        ? "inset 0 1px 0 rgba(255,255,255,0.3)"
+                        : "inset 0 1px 0 rgba(255,255,255,0.3), 0 0 26px color-mix(in srgb, var(--color-blue) 30%, transparent)",
                   }}
                 />
               </div>

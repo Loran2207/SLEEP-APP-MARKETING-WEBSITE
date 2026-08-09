@@ -18,12 +18,27 @@ type SocialProofStepProps = {
  * are part of the illustration, not a measured claim.
  */
 const PEOPLE = [
-  { left: 8, top: 16, size: 60, hue: "var(--color-coral)", src: "/funnel/people/p4.webp", badge: "\u{1F44D}", count: "65" },
-  { left: 38, top: 2, size: 94, hue: "var(--color-blue)", src: "/funnel/people/p1.webp", badge: "\u{1F44D}❤️", count: "57" },
-  { left: 74, top: 12, size: 56, hue: "var(--color-violet)", src: "/funnel/people/p3.webp", badge: "\u{1F60D}❤️", count: "46" },
-  { left: 20, top: 56, size: 58, hue: "var(--color-mint)", src: "/funnel/people/p5.webp", badge: "\u{1F60D}", count: "72" },
-  { left: 62, top: 60, size: 56, hue: "var(--color-blue)", src: "/funnel/people/p2.webp", badge: "\u{1F44D}", count: "84" },
+  { left: 8, top: 16, size: 60, hue: "var(--color-coral)", src: "/funnel/people/p4.webp", thumb: true, heart: false, smile: false, count: "65" },
+  { left: 38, top: 2, size: 94, hue: "var(--color-blue)", src: "/funnel/people/p1.webp", thumb: true, heart: true, smile: false, count: "57" },
+  { left: 74, top: 12, size: 56, hue: "var(--color-violet)", src: "/funnel/people/p3.webp", thumb: false, heart: true, smile: true, count: "46" },
+  { left: 20, top: 56, size: 58, hue: "var(--color-mint)", src: "/funnel/people/p5.webp", thumb: false, heart: false, smile: true, count: "72" },
+  { left: 62, top: 60, size: 56, hue: "var(--color-blue)", src: "/funnel/people/p2.webp", thumb: true, heart: false, smile: false, count: "84" },
 ] as const;
+
+/**
+ * The emoji heart renders as a white text glyph in the capture browser, so the
+ * heart is drawn; its red is the pictographic emoji red, not a palette accent.
+ */
+function HeartGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-[11px]" aria-hidden="true">
+      <path
+        fill="#ff4b55"
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+      />
+    </svg>
+  );
+}
 
 /**
  * The reach screen, laid out like Rest AI's: a dotted world with people on it,
@@ -75,7 +90,13 @@ export function SocialProofStep({ onContinue }: SocialProofStepProps) {
               aria-hidden="true"
               className="absolute -right-3 -bottom-1.5 flex items-center gap-1 rounded-full border border-hair bg-[rgba(0,0,0,0.82)] px-2 py-0.5"
             >
-              <span className="text-[11px] leading-[1.4]">{person.badge}</span>
+              {person.thumb ? (
+                <span className="text-[11px] leading-[1.4]">{"\u{1F44D}"}</span>
+              ) : null}
+              {person.smile ? (
+                <span className="text-[11px] leading-[1.4]">{"\u{1F60D}"}</span>
+              ) : null}
+              {person.heart ? <HeartGlyph /> : null}
               <span className="text-[11px] leading-[1.4] font-medium text-ink tabular-nums">
                 {person.count}
               </span>

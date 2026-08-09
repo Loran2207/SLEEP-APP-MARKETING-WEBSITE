@@ -25,7 +25,9 @@ export function ResultsBlock() {
               style={{
                 height: `${BAR_HEIGHTS[index]}px`,
                 background:
-                  "linear-gradient(180deg,var(--color-blue),color-mix(in srgb,var(--color-violet) 70%,var(--color-abyss)))",
+                  "linear-gradient(180deg, color-mix(in srgb, var(--color-blue) 72%, white) 0%, var(--color-blue) 34%, color-mix(in srgb, var(--color-blue) 52%, var(--color-abyss)) 100%)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.3), 0 0 18px color-mix(in srgb, var(--color-blue) 22%, transparent)",
               }}
             />
           </div>

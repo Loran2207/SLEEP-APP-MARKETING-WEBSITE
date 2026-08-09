@@ -50,11 +50,10 @@ export const paywallCopy = {
   },
   socialProof: {
     count: "100K+",
-    countCaption: "Sleepers",
+    countCaption: "people began their journey to calmer nights with us",
     rating: "4.8 out of 5",
     ratingSource: "App Store",
     ratingsLine: "Over 10,000 five-star ratings",
-    note: "from people falling asleep with Sleep every night",
   },
   reviews: {
     title: "People love the Sleep app",

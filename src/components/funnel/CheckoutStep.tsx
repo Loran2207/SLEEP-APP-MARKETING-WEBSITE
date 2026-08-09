@@ -6,9 +6,9 @@ import Link from "next/link";
 
 import {
   AmexMark,
-  ApplePayMonoMark,
+  ApplePayMark,
   MastercardMark,
-  PayPalMonoMark,
+  PayPalMark,
   VisaMark,
 } from "@/components/brand/marks";
 import { funnelCopy, plans, type BillingPeriod } from "@/data/funnel";
@@ -93,12 +93,12 @@ export function CheckoutStep({ billing, onBack, onTrial }: CheckoutStepProps) {
           <Lock aria-hidden="true" size={13} strokeWidth={1.8} className="shrink-0" />
           {copy.secure}
         </p>
-        <div className="mt-3 flex items-center justify-between text-ink-2">
-          <VisaMark className="h-[16px] w-auto" />
-          <MastercardMark className="h-[17px] w-auto" />
-          <AmexMark className="h-[17px] w-auto" />
-          <ApplePayMonoMark className="h-[16px] w-auto" />
-          <PayPalMonoMark className="h-[16px] w-auto" />
+        <div className="mt-3 flex items-center justify-between">
+          <VisaMark className="h-[18px] w-auto" />
+          <MastercardMark className="h-[22px] w-auto" />
+          <AmexMark className="h-[20px] w-auto" />
+          <ApplePayMark className="h-[19px] w-auto" />
+          <PayPalMark className="h-[19px] w-auto" />
         </div>
       </div>
 

@@ -17,12 +17,13 @@ export function GuaranteeCard() {
 
   return (
     <div className="rim rounded-card border border-hair bg-surface/65 p-5">
-      <svg
-        viewBox="0 0 104 104"
-        className="size-[92px]"
-        role="img"
-        aria-label={`${copy.sealTop} ${copy.sealBottom}`}
-      >
+      <div className="flex items-center gap-4">
+        <svg
+          viewBox="0 0 104 104"
+          className="size-[88px] shrink-0"
+          role="img"
+          aria-label={`${copy.sealTop} ${copy.sealBottom}`}
+        >
         <circle
           cx="52"
           cy="52"
@@ -62,21 +63,22 @@ export function GuaranteeCard() {
         >
           {copy.sealBottom}
         </text>
-      </svg>
+        </svg>
 
-      <p className="mt-3.5 text-pretty text-[14px] leading-[1.55] text-ink-2">
-        {copy.body}
-      </p>
+        <p className="min-w-0 flex-1 text-pretty text-[13px] leading-[1.55] text-ink-2">
+          {copy.body}
+        </p>
+      </div>
 
-      <p className="mt-4 text-[13px] font-medium text-ink">
-        {copy.checkoutLine}
-      </p>
-      <div className="mt-3 flex items-center gap-3.5 text-ink-2">
-        <ApplePayMonoMark className="size-6" />
-        <PayPalMonoMark className="size-6" />
-        <VisaMark className="size-6" />
-        <MastercardMonoMark className="size-6" />
-        <AmexMonoMark className="size-6" />
+      <div className="mt-4 flex items-center justify-between border-t border-hair pt-4">
+        <p className="text-[13px] font-medium text-ink">{copy.checkoutLine}</p>
+        <div className="flex items-center gap-2.5 text-ink-2">
+          <ApplePayMonoMark className="size-5" />
+          <PayPalMonoMark className="size-5" />
+          <VisaMark className="size-5" />
+          <MastercardMonoMark className="size-5" />
+          <AmexMonoMark className="size-5" />
+        </div>
       </div>
     </div>
   );
