@@ -78,12 +78,6 @@ export function CheckoutStep({ billing, onBack, onTrial }: CheckoutStepProps) {
         <div className="mt-3">
           <PrimaryAction onClick={onTrial}>{copy.primary}</PrimaryAction>
         </div>
-
-        <p className="mx-auto mt-2.5 max-w-[340px] text-pretty text-center text-[10.5px] leading-[1.5] text-faint">
-          {copy.finePrintBefore}
-          <span className="text-muted">{plan.renewal}</span>
-          {copy.finePrintAfter}
-        </p>
       </form>
 
       <div className="mt-4 rounded-[14px] border border-hair bg-surface/45 px-4 py-3.5">
