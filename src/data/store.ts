@@ -46,8 +46,8 @@ export type StoreShot = {
 export const storeShots: readonly StoreShot[] = [
   {
     id: "01-all-in-one",
-    headline: ["All in one app", "for sleep"],
-    accentLine: 1,
+    headline: ["All in one", "app for", "sleep"],
+    accentLine: 2,
     hue: "violet",
     features: [
       {
