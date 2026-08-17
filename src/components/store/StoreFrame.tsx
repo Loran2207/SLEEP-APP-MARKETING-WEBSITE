@@ -70,7 +70,7 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
             className="pointer-events-none absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(180deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.6) 22%, rgba(0,0,0,0.12) 38%, rgba(0,0,0,0) 48%)",
+                "linear-gradient(180deg, rgba(0,0,0,0.66) 0%, rgba(0,0,0,0.3) 14%, rgba(0,0,0,0.06) 26%, rgba(0,0,0,0) 34%)",
             }}
           />
           <div
@@ -87,6 +87,18 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
             style={{
               backgroundImage:
                 "radial-gradient(ellipse 74% 58% at 50% 46%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.5) 78%, rgba(0,0,0,0.88) 100%)",
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute"
+            style={{
+              left: -240,
+              top: 380,
+              width: 1420,
+              height: 940,
+              backgroundImage:
+                "radial-gradient(ellipse at center, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 44%, rgba(0,0,0,0) 72%)",
             }}
           />
           {/* Two flares over the sky, the kind the landing page carries: one
@@ -182,7 +194,7 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
       <div
         className={
           isList
-            ? "relative flex flex-col items-start px-[96px] pt-[240px] text-left"
+            ? "relative flex flex-col items-start px-[96px] pt-[524px] text-left"
             : "relative flex flex-col items-center px-[96px] pt-[200px] text-center"
         }
       >

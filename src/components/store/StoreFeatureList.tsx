@@ -18,13 +18,13 @@ const hueRgb: Record<ShotHue, string> = {
   violet: "157, 124, 255",
 };
 
-const DISC = 132;
-const RING = 168;
+const DISC = 142;
+const RING = 180;
 
 function Glyph({ kind }: { kind: FeatureGlyph }) {
   const common = {
-    width: 64,
-    height: 64,
+    width: 68,
+    height: 68,
     viewBox: "0 0 48 48",
     fill: "none",
     stroke: "#ffffff",
@@ -86,7 +86,7 @@ function FeatureRow({ feature }: { feature: StoreFeature }) {
 
   return (
     <li
-      className="flex items-center gap-[46px] px-[54px] py-[60px]"
+      className="flex items-center gap-[48px] px-[56px] py-[78px]"
       style={{
         borderRadius: 42,
         border: "1px solid rgba(245, 245, 247, 0.13)",
@@ -122,7 +122,7 @@ function FeatureRow({ feature }: { feature: StoreFeature }) {
       </span>
 
       <span className="min-w-0">
-        <span className="block text-[52px] leading-[1.1] font-semibold tracking-[-0.022em] text-ink">
+        <span className="block text-[54px] leading-[1.1] font-semibold tracking-[-0.022em] text-ink">
           {feature.name}
         </span>
         <span
