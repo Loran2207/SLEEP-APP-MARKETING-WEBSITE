@@ -78,7 +78,7 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
             className="pointer-events-none absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.55) 18%, rgba(0,0,0,0.18) 33%, rgba(0,0,0,0) 44%)",
+                "linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.68) 20%, rgba(0,0,0,0.3) 36%, rgba(0,0,0,0) 50%)",
             }}
           />
           <div
@@ -87,6 +87,32 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
             style={{
               backgroundImage:
                 "radial-gradient(ellipse 74% 58% at 50% 46%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.5) 78%, rgba(0,0,0,0.88) 100%)",
+            }}
+          />
+          {/* Two flares over the sky, the kind the landing page carries: one
+              cool and low, one pale and high on the right. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute"
+            style={{
+              left: 40,
+              top: 880,
+              width: 1040,
+              height: 620,
+              backgroundImage:
+                "radial-gradient(ellipse at center, rgba(146, 186, 255, 0.13) 0%, rgba(146, 186, 255, 0.05) 40%, rgba(146, 186, 255, 0) 72%)",
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute"
+            style={{
+              right: -120,
+              top: 1160,
+              width: 760,
+              height: 460,
+              backgroundImage:
+                "radial-gradient(ellipse at center, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 42%, rgba(255, 255, 255, 0) 74%)",
             }}
           />
         </>
@@ -179,8 +205,8 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
               style={
                 lineIndex === shot.accentLine
                   ? {
-                      color: "rgb(205, 189, 255)",
-                      textShadow: "0 0 90px rgba(157, 124, 255, 0.6)",
+                      color: "rgb(148, 190, 255)",
+                      textShadow: "0 0 90px rgba(92, 155, 255, 0.62)",
                     }
                   : undefined
               }

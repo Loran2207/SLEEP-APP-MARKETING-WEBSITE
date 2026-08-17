@@ -146,7 +146,7 @@ export function StoreFeatureList({
   features: readonly StoreFeature[];
 }) {
   return (
-    <ul className="flex w-full flex-col gap-[96px] text-left">
+    <ul className="flex w-full flex-col gap-[34px] text-left">
       {features.map((feature) => (
         <FeatureRow key={feature.glyph} feature={feature} />
       ))}
