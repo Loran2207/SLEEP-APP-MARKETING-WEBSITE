@@ -1,6 +1,7 @@
 import { StarField } from "@/components/ambient/StarField";
 import type { ShotHue, StoreShot } from "@/data/store";
 
+import { StoreFeatureList } from "./StoreFeatureList";
 import { phoneBodyWidth, StorePhone } from "./StorePhone";
 
 /** What App Store Connect asks for on the 6.9" iPhone slot. */
@@ -22,12 +23,14 @@ const veil: Record<ShotHue, string> = {
   violet: "/store/veil-violet.webp",
 };
 
-const MAIN_TOP = 726;
+/** The phone frames: headline high, phone large, nothing between them. */
+const PHONE_TOP = 600;
+const PHONE_SCREEN = 920;
 
 export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) {
   const rgb = hueRgb[shot.hue];
-  const mainScreen = 860;
-  const mainLeft = Math.round((SHOT_WIDTH - phoneBodyWidth(mainScreen)) / 2);
+  const isList = Boolean(shot.features);
+  const phoneLeft = Math.round((SHOT_WIDTH - phoneBodyWidth(PHONE_SCREEN)) / 2);
 
   return (
     <section
@@ -61,55 +64,51 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
 
       <StarField count={150} seed={2411 + index * 137} className="opacity-80" />
 
-      {/* the light the phone sits in */}
+      {/* the light the subject sits in */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute"
         style={{
           left: -110,
-          top: 520,
+          top: isList ? 700 : 440,
           width: 1510,
           height: 1620,
-          backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, 0.58) 0%, rgba(${rgb}, 0.34) 30%, rgba(${rgb}, 0.15) 50%, rgba(${rgb}, 0.05) 65%, rgba(${rgb}, 0) 80%)`,
+          backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, ${isList ? 0.22 : 0.58}) 0%, rgba(${rgb}, ${isList ? 0.12 : 0.34}) 30%, rgba(${rgb}, ${isList ? 0.05 : 0.15}) 50%, rgba(${rgb}, 0.04) 65%, rgba(${rgb}, 0) 80%)`,
         }}
       />
 
-      {/* the app draws a dashed ring around every medallion; here it holds
-          the phone the same way */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute rounded-full"
-        style={{
-          left: 45,
-          top: 596,
-          width: 1200,
-          height: 1200,
-          border: `2px dashed rgba(${rgb}, 0.2)`,
-        }}
-      />
+      {/* the app draws a dashed ring around every medallion; on the phone
+          frames it holds the phone the same way */}
+      {isList ? null : (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute rounded-full"
+          style={{
+            left: 45,
+            top: 480,
+            width: 1200,
+            height: 1200,
+            border: `2px dashed rgba(${rgb}, 0.2)`,
+          }}
+        />
+      )}
 
       <div
         aria-hidden="true"
         className="pointer-events-none absolute"
         style={{
           left: 55,
-          top: 1780,
+          top: isList ? 1980 : 1800,
           width: 1180,
           height: 900,
-          backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, 0.46) 0%, rgba(${rgb}, 0.19) 40%, rgba(${rgb}, 0) 72%)`,
+          backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, ${isList ? 0.2 : 0.46}) 0%, rgba(${rgb}, ${isList ? 0.08 : 0.19}) 40%, rgba(${rgb}, 0) 72%)`,
         }}
       />
 
-      <div className="relative flex flex-col items-center px-[96px] pt-[150px] text-center">
-        <div className="flex w-full max-w-[660px] items-center gap-6">
-          <span aria-hidden="true" className="hair-fade h-px flex-1" />
-          <span className="shrink-0 text-[26px] font-medium tracking-[0.14em] text-muted">
-            {shot.eyebrow}
-          </span>
-          <span aria-hidden="true" className="hair-fade h-px flex-1" />
-        </div>
-
-        <h2 className="mt-[46px] text-[98px] leading-[1.04] font-medium tracking-[-0.035em] text-ink">
+      {/* Every frame opens its headline on the same line, so the four read as
+          one set when App Store Connect puts them side by side. */}
+      <div className="relative flex flex-col items-center px-[96px] pt-[200px] text-center">
+        <h2 className="text-[104px] leading-[1.04] font-medium tracking-[-0.035em] text-ink">
           {shot.headline.map((line) => (
             <span key={line} className="block whitespace-nowrap">
               {line}
@@ -117,48 +116,25 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
           ))}
         </h2>
 
-        {shot.sub ? (
-          <p className="mt-[52px] text-[36px] leading-[1.5] text-ink-2">
-            {shot.sub.map((line) => (
-              <span key={line} className="block whitespace-nowrap">
-                {line}
-              </span>
-            ))}
-          </p>
-        ) : null}
-
-        {shot.pills ? (
-          <div className="mt-[54px] flex flex-col items-center gap-[18px]">
-            {[shot.pills.slice(0, 3), shot.pills.slice(3)].map((row, rowIndex) => (
-              <ul key={rowIndex} className="flex justify-center gap-[18px]">
-                {row.map((pill) => (
-                  <li
-                    key={pill}
-                    className="rounded-full px-[30px] py-[15px] text-[30px] whitespace-nowrap text-ink-2"
-                    style={{
-                      border: "1px solid rgba(245, 245, 247, 0.14)",
-                      background: "rgba(245, 245, 247, 0.045)",
-                    }}
-                  >
-                    {pill}
-                  </li>
-                ))}
-              </ul>
-            ))}
+        {shot.features ? (
+          <div className="mt-[160px] w-full">
+            <StoreFeatureList features={shot.features} />
           </div>
         ) : null}
       </div>
 
-      <StorePhone
-        src={shot.screen}
-        alt={shot.screenAlt}
-        screenWidth={mainScreen}
-        style={{
-          position: "absolute",
-          left: mainLeft,
-          top: MAIN_TOP,
-        }}
-      />
+      {shot.screen ? (
+        <StorePhone
+          src={shot.screen}
+          alt={shot.screenAlt ?? ""}
+          screenWidth={PHONE_SCREEN}
+          style={{
+            position: "absolute",
+            left: phoneLeft,
+            top: PHONE_TOP,
+          }}
+        />
+      ) : null}
     </section>
   );
 }

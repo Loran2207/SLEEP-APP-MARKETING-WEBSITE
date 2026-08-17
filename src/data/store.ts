@@ -7,68 +7,92 @@
 // iPhone slot, and the one it also accepts for 6.7". Exporting a frame at 1x
 // from Figma gives a file Apple takes without resizing.
 //
-// Headline and sub are written as explicit lines, never as one string left to
-// wrap. A wrapped line is what breaks the Figma transfer: the exporter
-// measures it badly and prints both lines on top of each other.
+// Headline lines are written out one by one, never as one string left to wrap.
+// A wrapped line is what breaks the Figma transfer: the exporter measures it
+// badly and prints both lines on top of each other.
+//
+// Review 2026-08-17 (Artem): the small spaced label above the headline and the
+// grey line under it do not read at thumbnail size, so both are gone from every
+// frame. The first frame lost its phone as well and lists the features instead.
 
 export type ShotHue = "blue" | "coral" | "mint" | "violet";
 
+/** The four glyphs drawn for the feature list, in the app's own hand. */
+export type FeatureGlyph = "alarm" | "breath" | "sounds" | "diary";
+
+export type StoreFeature = {
+  glyph: FeatureGlyph;
+  hue: ShotHue;
+  /** The name the app itself gives the feature. */
+  name: string;
+  /** Taken from the app's own copy, split into lines the same way headlines are. */
+  body: readonly string[];
+};
+
 export type StoreShot = {
   id: string;
-  /** Small label above the headline. */
-  eyebrow: string;
   /** One entry per visual line. One typeface, no accent word. */
   headline: readonly string[];
-  /** One entry per visual line. Omitted where the pills say it already. */
-  sub?: readonly string[];
   hue: ShotHue;
-  /** The app screen behind the phone glass. */
-  screen: string;
-  screenAlt: string;
-  /** Feature list, first frame only. */
-  pills?: readonly string[];
+  /** The app screen behind the phone glass. Absent on the feature frame. */
+  screen?: string;
+  screenAlt?: string;
+  /** The feature list, first frame only. */
+  features?: readonly StoreFeature[];
 };
 
 export const storeShots: readonly StoreShot[] = [
   {
     id: "01-all-in-one",
-    eyebrow: "All in one",
-    headline: ["Your whole night,", "in one app"],
+    headline: ["All in one app", "for sleep"],
     hue: "violet",
-    screen: "/store/screen-home.webp",
-    screenAlt: "The SLEEP home screen with tonight's tools",
-    pills: [
-      "Alarm",
-      "Sound mixer",
-      "4-7-8 breathing",
-      "Sleep tracking",
-      "Morning diary",
-      "Sleep course",
+    features: [
+      {
+        glyph: "alarm",
+        hue: "blue",
+        name: "Alarm",
+        body: ["Set the wake time and see", "the sleep it leaves you."],
+      },
+      {
+        glyph: "breath",
+        hue: "violet",
+        name: "Breathing practice",
+        body: ["Slow 4-7-8 sessions that settle", "your nervous system."],
+      },
+      {
+        glyph: "sounds",
+        hue: "coral",
+        name: "Sounds",
+        body: ["Layer rain, waves and fire", "into your own sleep mix."],
+      },
+      {
+        glyph: "diary",
+        hue: "mint",
+        name: "Sleep diary",
+        body: ["Track mood and nights", "to see what truly helps."],
+      },
     ],
   },
   {
     id: "02-alarm",
-    eyebrow: "Alarm",
     headline: ["Wake up to a sound", "you chose"],
-    sub: ["Set the alarm, see how much sleep it leaves you,", "and pick what plays you out."],
     hue: "blue",
     screen: "/app/wind-down.webp",
     screenAlt: "Tonight: alarm at 06:30, breathing and sounds",
   },
   {
     id: "03-breathing",
-    eyebrow: "Breathing practice",
     headline: ["Breathe out", "the day"],
-    sub: ["4-7-8, eight guided cycles.", "The circle counts, you just follow it."],
     hue: "blue",
-    screen: "/app/practice-session.webp",
-    screenAlt: "A 4-7-8 breathing session in progress",
+    // Shot again for the store: the landing page's copy of this screen caught
+    // the pre-roll countdown, where the circle holds a bare digit. This one is
+    // mid-inhale, with the phase, the count and the hint all on screen.
+    screen: "/store/screen-breathing.webp",
+    screenAlt: "A 4-7-8 breathing session mid-inhale",
   },
   {
     id: "04-sounds",
-    eyebrow: "Sounds",
     headline: ["Fall asleep to", "your own mix"],
-    sub: ["Layer rain, campfire, waves and chimes,", "then let a timer fade them out."],
     hue: "coral",
     screen: "/app/sounds-player.webp",
     screenAlt: "A mix of rain, campfire and flute with volume sliders",
