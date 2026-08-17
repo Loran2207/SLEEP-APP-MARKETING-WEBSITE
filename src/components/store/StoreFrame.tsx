@@ -27,6 +27,64 @@ const veil: Record<ShotHue, string> = {
 const PHONE_TOP = 600;
 const PHONE_SCREEN = 920;
 
+/** The moon on the feature frame - the app's own mark, half out of the frame. */
+const MOON = 300;
+
+/**
+ * The crescent is two circles, not one path: a single evenodd path renders as a
+ * ring cut flat by the canvas. Drawn in markup so it stays editable in Figma.
+ */
+function Moon() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute"
+      style={{ top: 74, right: -84, width: MOON, height: MOON }}
+    >
+      <span
+        className="absolute rounded-full"
+        style={{
+          left: -MOON * 1.05,
+          top: -MOON * 1.05,
+          width: MOON * 3.1,
+          height: MOON * 3.1,
+          backgroundImage:
+            "radial-gradient(circle, rgba(206, 224, 255, 0.2) 0%, rgba(157, 124, 255, 0.09) 34%, rgba(157, 124, 255, 0) 68%)",
+        }}
+      />
+      <span
+        className="absolute rounded-full"
+        style={{
+          left: -84,
+          top: -84,
+          width: MOON + 168,
+          height: MOON + 168,
+          border: "2px dashed rgba(206, 224, 255, 0.16)",
+        }}
+      />
+      <span
+        className="absolute overflow-hidden rounded-full"
+        style={{
+          inset: 0,
+          backgroundImage:
+            "radial-gradient(circle at 34% 28%, #f6f9ff 0%, #e2eafc 52%, #bfd2f4 100%)",
+          boxShadow: "0 0 120px rgba(206, 224, 255, 0.34)",
+        }}
+      >
+        <span
+          className="absolute rounded-full bg-void"
+          style={{
+            width: MOON * 0.8,
+            height: MOON * 0.8,
+            left: MOON * 0.23,
+            top: -MOON * 0.03,
+          }}
+        />
+      </span>
+    </div>
+  );
+}
+
 export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) {
   const rgb = hueRgb[shot.hue];
   const isList = Boolean(shot.features);
@@ -39,9 +97,8 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
       style={{ width: SHOT_WIDTH, height: SHOT_HEIGHT }}
     >
       {/* A cosmic veil, already dimmed and vignetted to true black at every
-          edge, so nothing can leave a visible rectangle on the canvas. The
-          feature frame keeps it deep in the background - there the light comes
-          from the sun off the corner, the way the app's welcome screen does. */}
+          edge, so nothing can leave a visible rectangle on the canvas. Every
+          frame in the set stands in the same sky. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={veil[shot.hue]}
@@ -49,101 +106,63 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
         width={SHOT_WIDTH}
         height={SHOT_HEIGHT}
         className="absolute inset-0"
-        style={{ display: "block", opacity: isList ? 0.4 : 1 }}
+        style={{ display: "block" }}
       />
 
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          left: -180,
+          top: -40,
+          width: 1650,
+          height: 840,
+          backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, 0.22) 0%, rgba(${rgb}, 0.09) 42%, rgba(${rgb}, 0) 72%)`,
+        }}
+      />
+
+      {isList ? <Moon /> : null}
+
+      {/* Two passes of stars on the feature frame: a dense field, then a
+          sparser brighter one over it, so the sky has depth instead of a
+          single even sprinkle. */}
+      <StarField
+        count={isList ? 260 : 150}
+        seed={2411 + index * 137}
+        className="opacity-80"
+      />
       {isList ? (
-        <>
-          {/* the sun just off the top-right corner */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute rounded-full"
-            style={{
-              top: -430,
-              right: -330,
-              width: 1180,
-              height: 1180,
-              backgroundImage:
-                "radial-gradient(circle, rgba(255, 252, 245, 0.26) 0%, rgba(255, 250, 240, 0.08) 42%, rgba(255, 250, 240, 0) 70%)",
-            }}
-          />
-          {/* two shafts raking down from it, angled in the gradient itself
-              because the exporter strips a rotate() in transit */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              backgroundImage:
-                "linear-gradient(197deg, rgba(255, 253, 247, 0.055) 12%, rgba(255, 253, 247, 0) 33%)",
-            }}
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              backgroundImage:
-                "linear-gradient(206deg, rgba(255, 253, 247, 0.035) 22%, rgba(255, 253, 247, 0) 44%)",
-            }}
-          />
-          {/* the pool of light the headline sits in */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute"
-            style={{
-              left: -220,
-              top: 60,
-              width: 1180,
-              height: 820,
-              backgroundImage:
-                "radial-gradient(ellipse at center, rgba(206, 214, 255, 0.11) 0%, rgba(206, 214, 255, 0) 62%)",
-            }}
-          />
-        </>
-      ) : (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute"
-          style={{
-            left: -180,
-            top: -40,
-            width: 1650,
-            height: 840,
-            backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, 0.22) 0%, rgba(${rgb}, 0.09) 42%, rgba(${rgb}, 0) 72%)`,
-          }}
-        />
-      )}
+        <StarField count={70} seed={9137} className="opacity-90" />
+      ) : null}
 
-      <StarField count={150} seed={2411 + index * 137} className="opacity-80" />
+      {/* the light the subject sits in */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          left: -110,
+          top: isList ? 620 : 440,
+          width: 1510,
+          height: 1620,
+          backgroundImage: isList
+            ? `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, 0.4) 0%, rgba(${rgb}, 0.22) 30%, rgba(${rgb}, 0.1) 50%, rgba(${rgb}, 0.04) 65%, rgba(${rgb}, 0) 80%)`
+            : `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, 0.58) 0%, rgba(${rgb}, 0.34) 30%, rgba(${rgb}, 0.15) 50%, rgba(${rgb}, 0.05) 65%, rgba(${rgb}, 0) 80%)`,
+        }}
+      />
 
-      {isList ? null : (
-        <>
-          {/* the light the phone sits in */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute"
-            style={{
-              left: -110,
-              top: 440,
-              width: 1510,
-              height: 1620,
-              backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, 0.58) 0%, rgba(${rgb}, 0.34) 30%, rgba(${rgb}, 0.15) 50%, rgba(${rgb}, 0.05) 65%, rgba(${rgb}, 0) 80%)`,
-            }}
-          />
-          {/* the app draws a dashed ring around every medallion; here it holds
-              the phone the same way */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute rounded-full"
-            style={{
-              left: 45,
-              top: 480,
-              width: 1200,
-              height: 1200,
-              border: `2px dashed rgba(${rgb}, 0.2)`,
-            }}
-          />
-        </>
-      )}
+      {/* the app draws a dashed ring around every medallion; here it holds the
+          subject of the frame the same way */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute rounded-full"
+        style={{
+          left: 45,
+          top: isList ? 760 : 480,
+          width: 1200,
+          height: 1200,
+          border: `2px dashed rgba(${rgb}, ${isList ? 0.16 : 0.2})`,
+        }}
+      />
 
       <div
         aria-hidden="true"
@@ -153,7 +172,7 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
           top: isList ? 2020 : 1800,
           width: 1180,
           height: 900,
-          backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, ${isList ? 0.16 : 0.46}) 0%, rgba(${rgb}, ${isList ? 0.07 : 0.19}) 40%, rgba(${rgb}, 0) 72%)`,
+          backgroundImage: `radial-gradient(ellipse 50% 50% at center, rgba(${rgb}, ${isList ? 0.3 : 0.46}) 0%, rgba(${rgb}, ${isList ? 0.13 : 0.19}) 40%, rgba(${rgb}, 0) 72%)`,
         }}
       />
 
@@ -178,8 +197,19 @@ export function StoreFrame({ shot, index }: { shot: StoreShot; index: number }) 
               : undefined
           }
         >
-          {shot.headline.map((line) => (
-            <span key={line} className="block whitespace-nowrap">
+          {shot.headline.map((line, lineIndex) => (
+            <span
+              key={line}
+              className="block whitespace-nowrap"
+              style={
+                lineIndex === shot.accentLine
+                  ? {
+                      color: "rgb(205, 189, 255)",
+                      textShadow: "0 0 80px rgba(157, 124, 255, 0.55)",
+                    }
+                  : undefined
+              }
+            >
               {line}
             </span>
           ))}

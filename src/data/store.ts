@@ -31,8 +31,10 @@ export type StoreFeature = {
 
 export type StoreShot = {
   id: string;
-  /** One entry per visual line. One typeface, no accent word. */
+  /** One entry per visual line. One typeface throughout, never italic. */
   headline: readonly string[];
+  /** Index of the headline line lit in the frame's accent, if any. */
+  accentLine?: number;
   hue: ShotHue;
   /** The app screen behind the phone glass. Absent on the feature frame. */
   screen?: string;
@@ -45,6 +47,7 @@ export const storeShots: readonly StoreShot[] = [
   {
     id: "01-all-in-one",
     headline: ["All in one app", "for sleep"],
+    accentLine: 1,
     hue: "violet",
     features: [
       {

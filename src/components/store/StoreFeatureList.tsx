@@ -87,13 +87,13 @@ function FeatureRow({ feature }: { feature: StoreFeature }) {
     <li
       className="flex items-center gap-[56px] px-[64px] py-[104px]"
       style={{
-        borderRadius: 56,
+        borderRadius: 64,
         border: `2px solid rgba(${rgb}, 0.34)`,
         // The card's own light, thrown in from its top-left corner over a body
         // that stays nearly black. Straight out of the app's tool cards.
-        backgroundColor: "rgb(17, 17, 22)",
-        backgroundImage: `radial-gradient(130% 125% at 0% 0%, rgba(${rgb}, 0.3) 0%, rgba(${rgb}, 0.05) 44%, rgba(${rgb}, 0) 62%)`,
-        boxShadow: `0 44px 96px rgba(0, 0, 0, 0.72), 0 0 80px rgba(${rgb}, 0.14)`,
+        backgroundColor: "rgba(11, 12, 17, 0.62)",
+        backgroundImage: `radial-gradient(130% 125% at 0% 0%, rgba(${rgb}, 0.34) 0%, rgba(${rgb}, 0.05) 44%, rgba(${rgb}, 0) 62%)`,
+        boxShadow: `0 44px 96px rgba(0, 0, 0, 0.6), 0 0 80px rgba(${rgb}, 0.16), inset 0 2px 0 rgba(255, 255, 255, 0.14)`,
       }}
     >
       <span
