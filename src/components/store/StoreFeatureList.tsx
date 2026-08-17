@@ -1,8 +1,9 @@
 import type { FeatureGlyph, ShotHue, StoreFeature } from "@/data/store";
 
 /**
- * The four features, drawn the way the app draws its own: a dashed ring around
- * a lit disc, one glyph inside it.
+ * The four features, drawn as the app draws the cards on its own welcome
+ * screen: an accent lit from the top-left corner of the card, a glowing disc
+ * inside a dashed ring, the name and one line under it.
  *
  * Everything here is written in plain rgba on purpose. The Figma exporter drops
  * modern colour functions, so a color-mix() fill arrives as nothing at all.
@@ -16,16 +17,16 @@ const hueRgb: Record<ShotHue, string> = {
   violet: "157, 124, 255",
 };
 
-const DISC = 140;
-const RING = 200;
+const DISC = 176;
+const RING = 220;
 
 function Glyph({ kind }: { kind: FeatureGlyph }) {
   const common = {
-    width: 70,
-    height: 70,
+    width: 88,
+    height: 88,
     viewBox: "0 0 48 48",
     fill: "none",
-    stroke: "rgba(245, 245, 247, 0.92)",
+    stroke: "#ffffff",
     strokeWidth: 2.2,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
@@ -84,13 +85,15 @@ function FeatureRow({ feature }: { feature: StoreFeature }) {
 
   return (
     <li
-      className="flex items-center gap-[52px] px-[62px] py-[104px]"
+      className="flex items-center gap-[56px] px-[64px] py-[104px]"
       style={{
         borderRadius: 56,
-        border: "1px solid rgba(245, 245, 247, 0.12)",
-        // Dark enough to hold the glow behind it back, the way the app's own
-        // cards sit on top of their backdrop instead of glowing through.
-        background: "rgba(18, 19, 26, 0.72)",
+        border: `2px solid rgba(${rgb}, 0.34)`,
+        // The card's own light, thrown in from its top-left corner over a body
+        // that stays nearly black. Straight out of the app's tool cards.
+        backgroundColor: "rgb(17, 17, 22)",
+        backgroundImage: `radial-gradient(130% 125% at 0% 0%, rgba(${rgb}, 0.3) 0%, rgba(${rgb}, 0.05) 44%, rgba(${rgb}, 0) 62%)`,
+        boxShadow: `0 44px 96px rgba(0, 0, 0, 0.72), 0 0 80px rgba(${rgb}, 0.14)`,
       }}
     >
       <span
@@ -101,18 +104,9 @@ function FeatureRow({ feature }: { feature: StoreFeature }) {
           aria-hidden="true"
           className="absolute rounded-full"
           style={{
-            width: RING * 1.7,
-            height: RING * 1.7,
-            backgroundImage: `radial-gradient(circle, rgba(${rgb}, 0.22) 0%, rgba(${rgb}, 0.08) 42%, rgba(${rgb}, 0) 70%)`,
-          }}
-        />
-        <span
-          aria-hidden="true"
-          className="absolute rounded-full"
-          style={{
             width: RING,
             height: RING,
-            border: `2px dashed rgba(${rgb}, 0.34)`,
+            border: `2px dashed rgba(${rgb}, 0.42)`,
           }}
         />
         <span
@@ -120,8 +114,9 @@ function FeatureRow({ feature }: { feature: StoreFeature }) {
           style={{
             width: DISC,
             height: DISC,
-            border: `2px solid rgba(${rgb}, 0.6)`,
-            backgroundImage: `radial-gradient(circle at 34% 28%, rgba(${rgb}, 0.52) 0%, rgba(${rgb}, 0.24) 46%, rgba(${rgb}, 0.09) 100%)`,
+            border: `2px solid rgba(${rgb}, 0.5)`,
+            backgroundImage: `radial-gradient(circle at 38% 32%, rgba(${rgb}, 0.68) 0%, rgba(${rgb}, 0.34) 52%, rgba(${rgb}, 0.16) 100%)`,
+            boxShadow: `0 0 68px rgba(${rgb}, 0.5)`,
           }}
         >
           <Glyph kind={feature.glyph} />
@@ -129,10 +124,13 @@ function FeatureRow({ feature }: { feature: StoreFeature }) {
       </span>
 
       <span className="min-w-0">
-        <span className="block text-[56px] leading-[1.15] font-medium tracking-[-0.02em] text-ink">
+        <span className="block text-[58px] leading-[1.12] font-semibold tracking-[-0.022em] text-ink">
           {feature.name}
         </span>
-        <span className="mt-[18px] block text-[36px] leading-[1.38] text-ink-2">
+        <span
+          className="mt-[16px] block text-[34px] leading-[1.36]"
+          style={{ color: "rgba(245, 245, 247, 0.6)" }}
+        >
           {feature.body.map((line) => (
             <span key={line} className="block whitespace-nowrap">
               {line}
@@ -150,7 +148,7 @@ export function StoreFeatureList({
   features: readonly StoreFeature[];
 }) {
   return (
-    <ul className="flex w-full flex-col gap-[56px] text-left">
+    <ul className="flex w-full flex-col gap-[68px] text-left">
       {features.map((feature) => (
         <FeatureRow key={feature.glyph} feature={feature} />
       ))}
